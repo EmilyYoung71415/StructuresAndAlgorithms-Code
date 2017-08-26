@@ -1,6 +1,6 @@
 /**
  * @param {number[]} nums
- * @return {number}
+ * @return {number} 数组去重
  */
 var removeDuplicates = function(nums) {
     var j = 0;
