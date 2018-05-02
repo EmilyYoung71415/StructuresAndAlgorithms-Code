@@ -13,6 +13,7 @@ function mergeSort(arr) {
         return;
     }
     mergeSortCal(arr, 0, arr.length);
+    arr.shift();// 删除第一个undefined
 }
 
 function mergeSortCal(arr, left, right) {
@@ -41,7 +42,7 @@ function merge(arr, left, mid, right) {
     while (p2 <= right) {
         temp[i++] = arr[p2++];
     }
-    for (i = 0; i < temp.length; i++) {
+    for (let i = 0; i < temp.length; i++) {
         arr[left + i] = temp[i];
     }
 }
