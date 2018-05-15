@@ -7,7 +7,7 @@
  *              相比冒泡，每次都是交换都是跳跃式。比较和交换的次数变少
  *              设定基准值，每次比较之后只需再次迭代比较以基准为划分的剩下的两半。即基于二分思想
  *      转换为程序语言；
- *              我们要不断划分一半一半。则很明显使用递归
+ *              我们要不断划分"一半一半"。则很明显使用递归
  *              刚开始是quickSort(第一个数，最后一个)
  *              划分之后,quickSort(左边的第一个数，中间值)
  */
@@ -94,6 +94,5 @@ function quickSort_js(arr) {
  */
 
 function quickSort_oneLine(a) {
-    return a.length <= 1 ? a :
-    quickSort_oneLine(a.slice(1).filter(item => item <= a[0])).concat(a[0], quickSort_oneLine(a.slice(1).filter(item => item > a[0])));
+    return a.length <= 1 ? a :quickSort_oneLine(a.slice(1).filter(item => item <= a[0])).concat(a[0], quickSort_oneLine(a.slice(1).filter(item => item > a[0])));
 }

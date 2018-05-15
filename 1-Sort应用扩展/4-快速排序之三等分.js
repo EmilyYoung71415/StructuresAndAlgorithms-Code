@@ -25,8 +25,12 @@
  *                  before： 0 3] 4 (4) [6 5 4
  *                  ===>   0 3] 4 (4) [4 5 6
  * 
+ * 补充：
+ *      随机快速排序--- 基准值是随机的
  *************************************************************************************/ 
-
+// let arr = [2, 5, 6, 1, 20]
+// quickSort(arr)
+// console.log(arr)
 function quickSort(arr){
     if(arr===null||arr.length<2){
         return;
@@ -37,6 +41,8 @@ function quickSort(arr){
 
 function quickSortCal(arr,left,right){
     if(left<right){
+        // 随机取 基准值 提高划分结果大影响范围
+        swap(arr, left + Math.floor(Math.random() * (right - left + 1)), right);
         let p  = partition(arr,left,right);
         quickSortCal(arr,left,p[0]-1);
         quickSortCal(arr,p[1]+1,right);

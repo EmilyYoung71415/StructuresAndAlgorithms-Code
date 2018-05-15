@@ -5,6 +5,7 @@
  *     如首次循环则找出最小的数据放在最前面，第二次循环以已排序的最小数据最为基准，后面的值依次比较
  * 总结：
  *      选择排序相当于在两个空间进行，每次从未排序的旧空间选择最新的值放到新的空间
+ * 时间复杂度   最优O(n^2)  最差O(n^2)  平均O(n^2) 
  */
 
  function selectSort(arr){
@@ -13,6 +14,7 @@
     }
     for(let i=0;i<arr.length;i++){
         let minIndex = i;
+        // 寻找i之后元素级的最小元素
         for(let j=i+1;j<arr.length;j++){
             minIndex =  arr[j]<arr[minIndex]?j:minIndex;
         }
