@@ -9,6 +9,8 @@
  *      希尔排序通过将比较的全部元素分为几个区域来提升插入排序的性能(加大步长
  *      希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；
  *      随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止
+ *      当刚开始元素很无序的时候，步长最大，所以插入排序的元素个数很少，速度很快；
+ *      当元素基本有序了，步长很小，插入排序对于有序的序列效率很高
  *   时间复杂度   最优O(n) 
  * @example
  *                        8 9 1 7 2 3 5 4 6 0
@@ -19,8 +21,8 @@
  * grap=2/2=1             0 1 2 3 4 5 6 7 8 9  
  */
 
- let arr = [8,9,1,7,2,3,5,4,6,0];
- shellSort(arr)
+//  let arr = [8,9,1,7,2,3,5,4,6,0];
+//  shellSort(arr)
  function shellSort(arr){
     if(arr===null||arr.length<2){
         return;
@@ -31,6 +33,7 @@
         //从第gap个元素开始，逐个跨组处理
         for(let i = grap;i<len;i++){
             let index = i;
+            // 对index连接的一群数为组进行插入排序
             while(index-grap>=0&&arr[index]<arr[index-grap]){
                 swap(arr,index,index-grap);
                 index -= grap;

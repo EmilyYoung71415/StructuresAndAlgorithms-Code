@@ -33,6 +33,8 @@
  *      master公式估约递归的复杂度
  */
 
+
+
 function smallSum(arr) {
     if (arr === null || arr.length < 2) {
         return 0;
@@ -47,7 +49,7 @@ function mergeSortCal(arr, left, right) {
     }
     let mid = left + ((right - left) >> 1); // 位运算效率大于符号运算
      
-    return mergeSortCal(arr, left, mid) + mergeSortCal(arr, mid + 1, right) + merge(arr, left, mid, right);
+    return mergeSortCal(arr, left, mid) + mergeSortCal(arr, mid + 1, right) +  merge(arr, left, mid, right);
 }
 
 function merge(arr, left, mid, right) {

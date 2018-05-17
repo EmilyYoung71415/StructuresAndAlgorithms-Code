@@ -21,7 +21,7 @@ function quickSort(arr){
 
 function quickSortCal(arr,left,right){
     if(left<right){
-        let p = partition(arr,left,right);// 第一次分割，并将基准值返回
+        let p = partition(arr,left,right);// 基准值
         quickSortCal(arr,left,p-1);
         quickSortCal(arr,p+1,right);
     }
@@ -33,7 +33,8 @@ function partition(arr, left, right) {
             p = arr[right],
             bounder = left - 1;// <= 区域的右边界
         for (let i = left; i <= right; i++) {
-            if (arr[i] <= p) {// 以基准值为划分 小于等于的在一边，大于的在另一边
+            // 以基准值为划分 小于等于的在一边，大于的在另一边            
+            if (arr[i] <= p) {
                 swap(arr, ++bounder, i)
             }
         }
