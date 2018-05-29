@@ -28,7 +28,7 @@ console.log(res)
     return radixCal(arr,0,arr.length-1,maxbits(arr));
  }
 
- function radixCal(arr,begin,endcls,d){
+ function radixCal(arr,begin,end,d){
     let radix  = 10;
     let count = new Array(radix);
     let bucket = new Array(end-begin+1);
