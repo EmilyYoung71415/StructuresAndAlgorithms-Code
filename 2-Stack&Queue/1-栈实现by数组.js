@@ -26,7 +26,7 @@
      }
 
      push(value){
-        if(this.size===this.arr.length){
+        if(this.size===this.arr.length&&this.size!==0){
             throw new Error('栈已经满了');
         }
         this.arr[this.size++] = value;
@@ -47,16 +47,19 @@
          return this.arr[this.size-1];// -1和-- 不一样
      }
      
+     isEmpty(){
+        return this.size===0;
+     }
  }
 
 
- let stack  = new Stack(4);
- stack.push(2);
- stack.push(4);
- stack.push(8);
+//  let stack  = new Stack(4);
+//  stack.push(2);
+//  stack.push(4);
+//  stack.push(8);
 
- stack.push(12);
- console.log(stack.peek()) ;// 12
+//  stack.push(12);
+//  console.log(stack.peek()) ;// 12
  
- stack.push(15);// 栈已经满了
+//  stack.push(15);// 栈已经满了
  

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="../2-Stack&Queue/1-栈实现by数组.js"></script>
+    <script>
+        /***
+         * 二叉树先序、中序，后序遍历的非递归实现
+         * 递归是使用函数栈来保存信息的
+         * 自己用自己申请的数据结构来代替函数栈即实现相应功能
+         * 
+         * 前序:
+         *      申请一个栈，将头结点压入栈
+         *      弹出栈顶指针，记作：root，
+         *          如果这个这个指针有右孩子，将右孩子入栈，如果有左孩子，将左孩子入栈；
+         *      不断重复过程2，直到栈为空，结束程序
+         *  中序
+         */
+        function Node(key) {
+            this.key = key;
+            this.left = null;
+            this.right = null;
+        }
+
+        function binarySearchTree() {
+            this.root = null;
+        }
+        binarySearchTree.prototype = {
+            insert: function (key) {
+                let newNode = new Node(key);
+                if (this.root === null) {
+                    this.root = newNode;
+                } else {
+                    insertNode(this.root, newNode)
+                }
+
+                function insertNode(node, newNode) {
+                    if (newNode.key < node.key) {
+                        if (node.left === null) {
+                            node.left = newNode;
+                        } else {
+                            insertNode(node.left, newNode);
+                        }
+                    } else {
+                        if (node.right === null) {
+                            node.right = newNode;
+                        } else {
+                            insertNode(node.right, newNode);
+                        }
+                    }
+                }
+            },
+            //先序非递归遍历
+            /****
+            *      申请一个栈，将头结点压入栈
+            *      弹出栈顶指针，记作：curNode，
+            *           如果这个这个指针有右孩子，将右孩子入栈，
+            *           如果有左孩子，将左孩子入栈；
+            *      不断重复过程2，直到栈为空，结束程序
+            **/
+            preOrderUnRecur:function(callback){
+                preOrderUnRecurNode(this.root,callback);
+                function preOrderUnRecurNode(curNode,callback){
+                    if(curNode!==null){
+                        let stack = new Stack(100);
+                        stack.push(curNode);// 初次push root
+                        while(!stack.isEmpty()){
+                            curNode = stack.pop();
+                            callback(curNode.key);
+                            if(curNode.right !== null){
+                                stack.push(curNode.right);
+                            }
+                            if(curNode.left !== null){
+                                stack.push(curNode.left);
+                            }
+                        }
+                    }
+                }
+            },
+            //中序非递归遍历
+            /****
+            *      申请一个栈，头结点为开始节点(当前节点)
+            *      如果当前节点不为空，那么将左节点压栈
+            *      如果当前节点为空 打印栈顶元素，并且出栈
+            *           将 当前节点变为栈顶元素的右节点
+            *      【中序遍历中，栈主要保存的是父节点元素】
+            *       不断重复步骤2直到栈空，结束程序！        
+            **/
+            inOrderUnRecur:function(callback){
+                inOrderUnRecurNode(this.root,callback);
+                function inOrderUnRecurNode(curNode,cb){
+                    if(curNode!==null){
+                        let stack  = new Stack(10000);
+                        while(!stack.isEmpty()||curNode!=null){
+                            if(curNode!==null){
+                                stack.push(curNode);
+                                curNode = curNode.left;
+                            }else{
+                                curNode = stack.pop();
+                                cb(curNode.key)
+                                curNode = curNode.right;
+                            }
+                        }
+                    }
+                }
+            },
+            // 后序 两个栈实现
+            /****
+            *      两个栈：一个保存的是根节点元素，一个是保存输出的元素
+            *      如果栈不为空，弹出第一个栈的栈顶元素记做curNode
+            *            将第一个栈顶元素出栈，然后将curNode压入第二个栈
+            *            如果curNode有左孩子将左孩子加入第一个栈
+            *            如果有右孩子将右孩子加入第一个栈
+            *      不断的重复步骤2，直到第一个栈为空，打印第二个栈，结束程序！
+            **/
+            posOrderUnRecur1:function(cb){
+                posOrderUnRecur1Node(this.root,cb);
+                function posOrderUnRecur1Node(curNode,cb){
+                    if(curNode!==null){
+                        let stack1 = new Stack(1000);
+                        let stack2 = new Stack(1000);
+                        stack1.push(curNode);
+                        while(!stack1.isEmpty()){
+                            curNode = stack1.pop();
+                            stack2.push(curNode);
+                            if(curNode.left!==null){
+                                stack1.push(curNode.left);
+                            }
+                            if(curNode.right!==null){
+                                stack1.push(curNode.right);
+                            }
+                        }
+                        while(!stack2.isEmpty()){
+                            cb(stack2.pop().key);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        // 测试
+        let tree = new binarySearchTree();
+        const arr = [9,4,8,10];
+        for(let item of arr){
+            tree.insert(item)
+        } 
+        function cb(value){
+            console.log(value);
+        }
+        console.log(tree)
+        //tree.preOrderUnRecur(cb);// 9 4 8 10
+        //tree.inOrderUnRecur(cb);
+        tree.posOrderUnRecur1(cb);// 8 4 10 9
+
+        // https://blog.csdn.net/woshinannan741/article/details/52825163
+    </script>
+</body>
+
+</html>
