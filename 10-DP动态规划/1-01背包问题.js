@@ -10,6 +10,10 @@
  *               max(m[i-1][j-w[i-1]] + v[i-1],m[i-1][j]) // 尝试拿    
  *              m[i-1][j-w[i-1]]即考虑了i-1件物品，背包容量为j-w[i-1]时的最大价值
  *              即为第i件物品腾出了w[i-1]的空间 
+ * 
+ * 扩展：
+ * 省空间
+ *      递归降级==== 二维变一维
  */
 
 /**
@@ -73,5 +77,25 @@ function knapSack(w,v,n){
             }
         }
     }
+    // 扩展：打印一下方案详情
+    printDetail(count,n,m,w,v);
+
     return m[count][n];
 }
+
+
+function printDetail(n, capacity, ks, weights, values){
+    let 
+        i = n,
+        j = capacity;
+    console.log(`解决方案包括：`)
+    while(i>0&&j>0){
+        if(ks[i-1][j]!=ks[i][j]){
+            console.log(`物品${i} 重量:${weights[i-1]} 价值：${values[i-1]}`); 
+            i--;
+            j = j - ks[i][j];
+        }else{
+            i--;
+        }
+    }
+}   
