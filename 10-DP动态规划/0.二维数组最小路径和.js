@@ -136,7 +136,8 @@ function minPath_cache(arr){
 1 3 2                
 0 3 4               
 5 7 0
-
+    复杂度：M*N
+    额外空间 M*N
  * @param {*} arr 
  */
 
@@ -172,3 +173,13 @@ function minPath_DP(arr){
     }
     return Dp[row-1][col-1];
 }
+
+/**
+ * DP的压缩空间实现
+ * 二维降一维
+ * 时间复杂度仍然是M*N 但空间变为min{M,n}
+ * 
+ * ===> 一维数组滚动更新
+ * 局限：
+ *     滚动更新，所以，求解轨迹无法回溯
+ */
