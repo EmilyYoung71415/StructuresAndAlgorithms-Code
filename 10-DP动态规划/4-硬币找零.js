@@ -35,7 +35,7 @@
  *  当j>arr[i]时即 用一张arr[i]都会超过钱数j，此时Dp[i][j] = Dp[i-1][j]
  */
 
- console.log(dpMoneyBack([4,3],6));
+ //console.log(dpMoneyBack([4,3],6));
  function dpMoneyBack(arr,aim){
     if(arr ===null||arr.length===0||aim<0){
         return -1;
@@ -75,3 +75,57 @@
     }
     return Dp[arr.length-1][aim] !== MAXVALUE?Dp[arr.length-1][aim]:-1;
  }
+
+
+/**
+ * @func 补充问题：
+ * arr= [4,2,2,1] 给定数组是代表一张面值为xx的钱币(即不再是 面值类型任意选张数)
+ * aim = 20; 求组成最少货币数
+ * 
+ * @example 
+ *     arr=[5,3,2] aim = 20; 
+ *     ===> -1; 
+ *     arr=[5,3,2,5] aim = 10; 
+ *     ===> 2 (5+5);
+ * 思路：   
+ *      Dp[i][j] 在使用arr[0...n]的货币中(每个值代表一个货币)，组成j所需的最小张数
+ * 
+ * Dp[i][j] = min{Dp[i-1][j],Dp[i-1][j-arr[i]]+1}
+ * Dp[i-1][j-arr[i]]+1: 核心
+ *      ===> 因为arr[i]不可重复，只考虑dp[i-1][j-arr[i]]
+ */
+console.log(dpMoneyBack2([3,2,1],6))
+function dpMoneyBack2(arr,aim){
+    if(arr ===null||arr.length===0||aim<0){
+        return -1;
+    }    
+
+    let Dp = [];
+    const MAXVALUE = Number.MAX_VALUE;
+    // 初始化二维数组： 确定行列标记
+    for(let i = 0;i<arr.length;i++){
+        Dp[i] = [];
+        Dp[i][0] = 0;// 特殊元素:第一列; D[0-n][0]都是0，因为所需最大面值为0
+    }
+
+    // 特殊元素：第一行
+    for(let j = 1;j<=aim;j++){// 将aim展开为列，因为面值均为整数
+        Dp[0][j] = MAXVALUE;
+    }
+    // 第一行修正 只修正一个即可 因为arr[0]并不能重复
+    if(aim>arr[0]){
+        Dp[0][arr[0]] = 1;
+    }
+
+    let left = 0;
+    for(let i = 1;i<arr.length;i++){
+        for(let j=1;j<=aim;j++){
+            left = MAXVALUE;
+            if(j-arr[i]>=0&&Dp[i][j-arr[i]]!==MAXVALUE){
+                left = Dp[i-1][j-arr[i]] + 1;
+            }
+            Dp[i][j] = Math.min(left,Dp[i-1][j]);
+        }
+    }
+    return Dp[arr.length-1][aim] !== MAXVALUE?Dp[arr.length-1][aim]:-1;
+}
