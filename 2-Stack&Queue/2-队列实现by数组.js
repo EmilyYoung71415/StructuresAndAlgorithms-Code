@@ -55,9 +55,12 @@
         }
         return this.arr[this.start];
      }
+     isEmpty(){
+        return this.size===0;
+     }
  }
 
-
+/*
  let queue = new Queue(3);
  queue.push(7);
  queue.push(5);
@@ -66,3 +69,5 @@
  console.log(queue.arr);// 7
  console.log(queue.push(13));// 7
  console.log(queue.arr);// 7
+
+ */
