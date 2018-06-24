@@ -11,9 +11,9 @@
  *      单次查询/合并：O(1)
  */
 
- function Node(value){
-     this.value = value;
- }
+//  function Node(value){
+//      this.value = value;
+//  }
 
 
  function unionFind(){
@@ -25,19 +25,23 @@
     makeSets:function(nodes){
         // 一个包含nodes的arr
         for(let item of nodes){
-            this.fatherMap[item] = item;
-            this.rankMap[item] = 1;
+            // 以value做键值 不以整个节点
+            this.fatherMap[item.value] = item;
+            this.rankMap[item.value] = 1;
         }
     },
     findFather:function(node){
-        let father = this.fatherMap[node];
-        if(father != node){
+        let father = this.fatherMap[node.value];
+        if(father.value != node.value){// 判断两个对象是否相等
             // 逐渐往上找
             father = this.findFather(father);
         }
         // 扁平化
-        this.fatherMap[node] = father;
+        this.fatherMap[node.value] = father;
         return father;
+    },
+    isSameSet:function(a,b){
+        return this.findFather(a) == this.findFather(b);
     },
     union:function(nodeA,nodeB){
         if(nodeA==null||nodeB==null){
@@ -46,16 +50,17 @@
 
         let aFather = this.findFather(nodeA);
         let bFather = this.findFather(nodeB); 
-        
+        let akey = aFather.value;
+        let bkey = bFather.value;
         // 可合并
         if(aFather!=bFather){
-            let aRank = this.rankMap.get(aFather);
-            let bRank = this.rankMap.get(bFather);
+            let aRank = this.rankMap[akey];
+            let bRank = this.rankMap[bkey];
             if(aRank <= bRank){
-                this.fatherMap[aFather] = bFather;
+                this.fatherMap[akey] = bFather;
                 this.rankMap[bRank] = aRank + bRank;
             }else{
-                this.fatherMap[bFather] = aFather;
+                this.fatherMap[bkey] = aFather;
                 this.rankMap[aRank] = aRank + bRank;
             }
         }
