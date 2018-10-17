@@ -9,14 +9,13 @@
  */
 
 
-// let arr = [2, 5, 160, 1, 20]
-// insertionSortDichotomy(arr)
-
+let arr = [1,2,3,4,5,7,8,9,6]
+insertionSortDichotomy(arr)
+//console.log(arr)
 function insertionSortDichotomy(arr) {
     if (arr === null || arr.length < 2) {
         return;
     }
-    console.timeStart()
     for (let i = 1; i < arr.length; i++) {
         // i 从1开始表示每次新的元素
 
@@ -40,5 +39,4 @@ function insertionSortDichotomy(arr) {
         }
         arr[left] = temp;
     }
-    console.timeEnd()
 }

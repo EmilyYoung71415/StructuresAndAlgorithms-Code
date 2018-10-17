@@ -39,8 +39,13 @@
         0   0   0   0   0   0   0
         1   0   0   3   3   3   3
         2   0   0   3   4   4   7
-        3   0
+        3   0   0   3   
     ...
+
+    100 380  每件设备x价格 等级y
+    20 320
+    40 360
+    50 310
  */
 
 
@@ -52,8 +57,9 @@
  *      背包物品满足容量的情况下，产生的最大价值
  *      打印方案详细情况
  */
-console.log(knapSack([2,3,4],[3,4,5],5))
-function knapSack(w,v,n){
+//console.log(knapSack([2,3,4],[3,4,5],5))
+console.log(knapSack([100,20,40,50],[300,320,360,310],130,3))
+function knapSack(w,v,n,sum){
     let 
         m = [],//状态矩阵
         count = v.length;
@@ -78,19 +84,21 @@ function knapSack(w,v,n){
         }
     }
     // 扩展：打印一下方案详情
-    printDetail(count,n,m,w,v);
+    printDetail(count,n,m,w,v,sum);
 
-    return m[count][n];
+    //return m[count][n];
 }
 
 
-function printDetail(n, capacity, ks, weights, values){
+function printDetail(n, capacity, ks, weights, values,Maxsum){
     let 
         i = n,
-        j = capacity;
+        j = capacity,
+        sum = 0;
     console.log(`解决方案包括：`)
     while(i>0&&j>0){
         if(ks[i-1][j]!=ks[i][j]){
+            sum ++;
             console.log(`物品${i} 重量:${weights[i-1]} 价值：${values[i-1]}`); 
             i--;
             j = j - ks[i][j];
