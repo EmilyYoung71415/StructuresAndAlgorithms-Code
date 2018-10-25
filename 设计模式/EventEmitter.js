@@ -55,7 +55,58 @@
   *     2.3、对于同一个事件，重复绑定不同的事件处理是无效的；
   */
 
+function _EventEmitter(){
+    this.events = {}
+    this.maxLiseners = 10;
+}
 
-  
+_EventEmitter.prototype = {
+    on:function(type,listeners,flag){// flag指定头部插入
+        if(!this.events) this.events = Object.create(null);// {}
+        if(this.events[type]){
+            flag?this.events[type].unshift(listeners):this.events[type].push(listeners)
+        }else{
+            this.events[type] = [listeners]
+        }
+    },
+    emit:function(type,...args){
+        if(this.events[type]){
+            // call 修正this指向 使其指向子类实例
+            this.events[type].forEach(func=>func.call(this,...args));
+        }
+    },
+    once:function(type,listeners){
+        let _this = this;
+        // 执行当前回调 并移除
+        function only(){
+            listeners();
+            _this.off(type,only);
+        }
+        // 保留原本回调的引用 off时判断
+        // only.origin = listeners;
+        this.on(type,only);
+    },
+    off:function(type,listeners){
+        if(this.events[type]){
+            // 过滤掉 符合当前回调的 并且 fn.origin 
+            this.events[type] = this.events[type].filter(fn=>{
+                return fn!=listeners
+                //&&fn.origin!=listeners
+            })
+        }
+    }
+}
 
 
+var myEmitter = new _EventEmitter();
+myEmitter.on("hehe",function(){
+    console.log("hehe")
+})
+myEmitter.once("hehe",function(){
+    console.log("haha")
+})
+myEmitter.once("hehe",function(){
+    console.log("haha2333333")
+})
+myEmitter.emit("hehe");
+myEmitter.emit("hehe");
