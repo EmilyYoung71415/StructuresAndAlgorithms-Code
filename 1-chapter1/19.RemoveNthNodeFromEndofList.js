@@ -9,7 +9,7 @@ exp：
 ******************************************/
 /*****
  * 思路:
- *      删除倒数某个节点
+ *      删除倒数某个节点 // 怎么倒着？从链表的最后一个节点开始? no 不知道链表长度 所以这就是两次遍历的由来
  *      倒着遍历链表，找到 n-1、n+1节点
  *      使 n-1的next =  n+1节点 
  *      特殊节点；
@@ -73,16 +73,17 @@ function removeNthFromEnd1(head, n) {
         return null;
     }
 
-    var dummyHead = new ListNode(-1);
+    let dummyHead = new ListNode(-1);
     dummyHead.next = head;
 
     // 先遍历一遍链表，获取总长度
-    var listLength = 0;
-    var h = dummyHead.next;
+    let 
+        listLength = 0,
+        curLenNode = dummyHead.next;
 
-    while (h != null) {
+    while (curLenNode != null) {
         listLength++;
-        h = h.next;
+        curLenNode = curLenNode.next;
     }
 
     // n大于链表长度，直接返回
@@ -91,12 +92,12 @@ function removeNthFromEnd1(head, n) {
     }
 
     // 删除倒数第n个节点，即删除正数第listLength - n个节点
-    var cur = dummyHead;
-    for (var i = 0; i < listLength - n; i++) {
+    let cur = dummyHead;
+    for (let i = 0; i < listLength - n; i++) {
         cur = cur.next;
     }
-    var delNode = cur.next;
-    cur.next = delNode.next;
+    // let delNode = cur.next;
+    cur.next = cur.next.next;
 
     return dummyHead.next;
  }

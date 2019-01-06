@@ -36,3 +36,22 @@ function addTwoNumbers(l1, l2) {
     if (rem===1) curr.next = new ListNode(rem); 
     return head.next;
 };
+
+/********
+ * 思路比较好理解：
+ *      因为是逆序排列，243 实际是数值342
+ *      所以正好顺序遍历的时候,是从低位相加,所以需要考虑的是进位的问题
+ * 
+ * 解法:
+ *      0、生成一个dummyHead作为开始 返回头结点则return dummyHead.next
+ *         而且生成一个cur变量来代替head进行节点交互
+ *         head.next 就一直是链表的头结点的下一个 cur是当前的指针
+ *      1、while循环控制的条件是l1!=null||l2!=null 是or的关系
+ *          循环里面判断当前节点是否为空，为空则置0
+ *      2、给新链表当前节点赋值：
+ *          curr.next = xxx;
+ *          curr = curr.next;
+ *          而不是 curr = xxx 节点得往下走吧
+ *      3、当两个链表都完结了，即while循环终止
+ *          考虑可能会进位的情况
+ */
