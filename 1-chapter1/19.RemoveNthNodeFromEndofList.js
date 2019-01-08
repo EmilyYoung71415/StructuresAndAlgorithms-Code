@@ -102,19 +102,42 @@ function removeNthFromEnd1(head, n) {
     return dummyHead.next;
  }
 
+/******
+ * 解法三:
+ *      遍历链表，每移动一步，n--
+ *  1->2->3 n=4 不存在
+ *  1->2->3 n=3 
+ *  (变化:2、1、0)结束时为0即是正数的第0个节点
+ *  1->2->3 n=2
+ *  (变化:1、0、-1) 正数第1个
+ * 
+ * 遍历后n分成三种情况:
+ *  >0： 不用调整链表、直接返回即可
+ *  =0:  删除头节点： 返回head.next
+ *  <0： 删除中间节点，需要找到删除节点的前一个节点
+ *       prev.next = node.next.next;
+ */
 
-
+ // Jing
  function removeNthFromEnd(head,n){
     return removeNthFromEndHelper(head, n, 0) === n ? head.next : head;
     
     
    function removeNthFromEndHelper(head, n, count) {
+       //一直遍历到链表末尾
         if (head.next !== null) {
             count = removeNthFromEndHelper(head.next, n, count);
         }
+        // 删除的节点是中间节点，即n是符合(0~linkList.length)的
+        // 执行删除步骤
         if (count === n) {
             head.next = head.next.next;
         }
+        // 在中间阶段: ++count继续遍历
         return ++count;
     };
  }
+ /****
+  * 后记：
+  *     双链表也是 逻辑一致 只是改变节点的两个指向
+  */
