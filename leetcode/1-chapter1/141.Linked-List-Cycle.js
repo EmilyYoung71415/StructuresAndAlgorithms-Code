@@ -28,8 +28,11 @@ exp:
 ******************************************/
 /*****
  * 思路：
- *  遍历链表时，如果没有环，我们可以遍历到最后一个元素指向空结束
- *  但是当存在环的时候，同样的方法则会进入死循环
+ *  (btw:pos与题解无关，只是说明国际惯例上习惯引入一个pos来表示该链表有环
+ *  (实际题目想求的是 给定一个链表head 通过怎样的遍历可以得出该链表是否含有环
+ *  常规做法:
+ *      遍历链表时，如果没有环，我们可以遍历到最后一个元素指向空结束
+ *      但是当存在环的时候，同样的方法则会进入死循环
  * 
  * 
  * 两种方法：
@@ -44,6 +47,7 @@ exp:
 function hasCycle1(head){
     let fast = head,
         slow = head;
+    // 只要fast指针在跑那么他们一定会相遇 一个一次走一步 一个一次走两步 有环的时候在围着圈子跑
     while(fast!=null&&fast.next!=null){
         slow = slow.next;
         fast = fast.next.next;
@@ -60,6 +64,7 @@ var hasCycle = function(head) {
         return false; 
     }
     var slow = head ,fast = head.next;
+    // 判断条件交换了下位置 
     while( slow != fast ){
         if( fast == null || fast.next == null ){ 
             return false; 
@@ -78,7 +83,7 @@ function hasCycle2(head){
 
     let node = head;
     while(node != null) {
-
+        // 如果有环 这个节点之前就被设置过指向
         if(node.next == head) {
             return true;
         }
