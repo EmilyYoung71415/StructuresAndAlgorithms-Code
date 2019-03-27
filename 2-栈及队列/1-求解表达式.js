@@ -1,7 +1,7 @@
 /****
+ * Leetcode:227基本计算器II
  * 求解表达式
  * 1+2+3*5-18(只有四则运算加减乘除、不含括号)
- *
  * 准备两个栈，操作符栈(左)与操作数栈(右)
  * 遍历表达式，如果遇到操作符，则进入左栈、操作数进入右栈
  * 当操作符进栈的时候需满足规则如下：
@@ -12,7 +12,7 @@
  * 直至左栈为空
  */
 
-let str = '1+2+3*5-18/2';
+let str = ' 3+5 / 2 ';
 let str1 = '12';
 console.log(calculate_mini(str));
 // 字符只有符号 + - * / 和 数字
@@ -37,7 +37,7 @@ function calculate_mini(str){
             res = Number(pSecond)*Number(pFisrt)
          }
          else if(operate =='/'){
-            res = Number(pSecond)/Number(pFisrt)
+            res = ~~(Number(pSecond)/Number(pFisrt))
          }
          stack_r.push(res);
         //  let res = pSecond + operate + pFisrt;
@@ -48,6 +48,7 @@ function calculate_mini(str){
     let map = {'+':1,'-':1,'*':2,'/':2}
     for(let i = 0;i<str.length;i++){
         let s = str[i];
+        if(s==' ') continue;// 空格pass
         // 如果遇上了操作数
         if(!isNaN(1*s)){
             // 如果是18这种要一直遍历下去..
@@ -84,3 +85,8 @@ function calculate_mini(str){
  *    怎么将字符 +*—/ 转为 操作符呢
  *  ==> 按运算符匹配
  */
+
+ /*****
+  * 但是不支持括号
+  * ===> 转为后缀表达式
+  */
