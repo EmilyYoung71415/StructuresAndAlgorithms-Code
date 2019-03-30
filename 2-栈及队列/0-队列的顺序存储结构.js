@@ -42,9 +42,10 @@ class Queue{
         return res;
     }
 }
-
+/*
 let queue = new Queue();
 queue.push(4)
 queue.push(3)
 console.log(queue.pop())  // 4
 console.log(queue.pop())
+*/

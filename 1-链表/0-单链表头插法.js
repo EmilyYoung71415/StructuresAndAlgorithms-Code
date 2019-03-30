@@ -70,7 +70,7 @@ class LinkedListF{
         console.log(str)
     }
 }
-
+/*
 let p = new LinkedListF()
 let arr = [3,4,1,2,6];
 arr.forEach(item=>{
@@ -86,5 +86,5 @@ p.printf()// 6—>999—>2—>1—>4—>3—>NULL
 
 p.removeAt(1)
 p.printf()// 999—>2—>1—>4—>3—>NULL
-
+*/
 module.exports = LinkedListF
