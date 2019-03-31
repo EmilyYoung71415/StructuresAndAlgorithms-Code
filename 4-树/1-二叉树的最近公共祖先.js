@@ -14,8 +14,8 @@ const {BinarySearchTree} = require('../index');
 const arr = [10,6,14,2,8,12];
 let tree = new BinarySearchTree();
 arr.forEach(item=>tree.insert(item));
-let node = lowestCommonAncestor(tree.root,new TreeNode(2),new TreeNode(8));
-console.log(node)
+let node = lowestCommonAncestor(tree.root,new TreeNode(6),new TreeNode(14));
+console.log(node.val)
 /***
  *      10
  *      / \
@@ -40,7 +40,7 @@ function lowestCommonAncestor1(root,q,p){
     return (left&&right)?root:(left||right);
 }
 
-//后序遍历 ❗ 有点问题
+//后序遍历
 /*******
  * 后序遍历最后访问根节点。根节点在栈底
  * 当非递归后序遍历时，当访问到某节点的时候，此时栈里全是该节点的祖先节点
@@ -48,6 +48,15 @@ function lowestCommonAncestor1(root,q,p){
  * 此时保存栈副本 栈1
  * 然后继续依靠原栈 访问得到q。此时的栈假设为 栈2
  * 然后对比 栈1、栈2. 从栈顶开始逐层向上匹配，匹配到相同的第一个元素就是最近公共祖先
+ */
+
+/*****
+ * 逻辑细节上有点小错误
+ * 每次的比较是弹栈之后，当前节点所有父祖先存放在一个栈里 然后比较俩节点的栈
+ * 但是！
+ *  有可能1. 两个节点是一个节点(虽然不太可能
+ *       2.  其中一个节点是另一个节点的祖先节点。
+ * 还有注意:stack1 = stack = [node1,node2....] 是一个浅赋值
  */
 function lowestCommonAncestor(root,k,q){
     let stack = [],
@@ -68,12 +77,13 @@ function lowestCommonAncestor(root,k,q){
                 p = p.left
             }
             else{
-                let node = stack.pop()
+                let node = topNode; // stack.pop()
                 // 不能保证k、q那个先被遇见。设定一个变量区分遇见了哪个
                 // 弹栈 判断
                 if(firstMeetNode==null&&(node==q||node==k)){
                     firstMeetNode = node;
-                    stack1 = stack;// stack1存放p or q的全部祖先节点
+                    stack1 = [...stack];// stack1存放p or q的全部祖先节点
+                    //❗ stack1 = stack 是浅赋值。
                 }
                 // 将两个栈一一比对  确定node遇见了第二个节点
                 if((node==q||node==k)&&node!=firstMeetNode){
@@ -88,6 +98,7 @@ function lowestCommonAncestor(root,k,q){
                 // 打印根节点
                 prev = node;
                 p = null;
+                stack.pop()
             }
         }
     }
