@@ -10,9 +10,27 @@
  *    递归。找p或q
  *    如果在左边找到了 就返回左边的，如果左右都有 则是root(当前层的root)
  */
-
+const {BinarySearchTree} = require('../index');
+const arr = [10,6,14,2,8,12];
+let tree = new BinarySearchTree();
+arr.forEach(item=>tree.insert(item));
+let node = lowestCommonAncestor(tree.root,new TreeNode(2),new TreeNode(8));
+console.log(node)
+/***
+ *      10
+ *      / \
+ *     6    14  
+ *    / \   / \
+ *   2   8 12
+ * 
+ * arr = 10,6,14,2,8,12
+ */
+function TreeNode(x){
+    this.val = x;
+    this.left = this.right = null;
+}
  // 递归
-function lowestCommonAncestor(root,q,p){
+function lowestCommonAncestor1(root,q,p){
     if(root==null || root==q || root==p) return root;
     // 现在左边找p、q 如果当前root的左右子树都分为返回了值，那么此root就是最近公共祖先
     // 如果左边没有p也没有q，那么就q、p就在右子树里，结果由右子树决定
@@ -53,14 +71,14 @@ function lowestCommonAncestor(root,k,q){
                 let node = stack.pop()
                 // 不能保证k、q那个先被遇见。设定一个变量区分遇见了哪个
                 // 弹栈 判断
-                if(node == q||node==k){
+                if(firstMeetNode==null&&(node==q||node==k)){
                     firstMeetNode = node;
-                    stack1 == stack;// stack1存放p or q的全部祖先节点
+                    stack1 = stack;// stack1存放p or q的全部祖先节点
                 }
                 // 将两个栈一一比对  确定node遇见了第二个节点
                 if((node==q||node==k)&&node!=firstMeetNode){
-                    for(let i=stack1.length;i>0;i--){
-                        for(let j=stack.length;j>0;j--){
+                    for(let i=stack1.length-1;i>0;i--){
+                        for(let j=stack.length-1;j>0;j--){
                             if(stack1[i]==stack[j]){
                                 return stack1[i];
                             }
