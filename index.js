@@ -7,6 +7,8 @@ const Queue = require('./2-栈及队列/0-队列的链式存储结构');
 const PriorityQueue = require('./2-栈及队列/0-优先队列');
 const Dequeue = require('./2-栈及队列/0-优先队列');
 const BinarySearchTree = require('./4-树/0-二叉搜索树BST');
+const MinHeap = require('./5-堆/0-小顶堆');
+const MaxHeap = require('./5-堆/0-大顶堆');
 // exports.Stack = Stack;
 module.exports = {
     LinkedListF,
@@ -17,5 +19,7 @@ module.exports = {
     Stack,
     PriorityQueue,
     Dequeue,
-    BinarySearchTree
+    BinarySearchTree,
+    MinHeap,
+    MaxHeap
 }
