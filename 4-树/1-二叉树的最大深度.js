@@ -13,6 +13,7 @@
  * 层序遍历，进入第二层的时候 level++ 直到队列为空
  */
 
+// BFS
 function maxDepth(root){
     if(!root) return 0;
     let queue = [root];
@@ -29,7 +30,7 @@ function maxDepth(root){
     return level;
 }
 
-// 递归解法
+// DFS 递归解法
 function maxDepth(root){
     if(root==null) return 0;
     let lDepth = maxDepth(root.left);// 左子树高度
