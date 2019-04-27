@@ -54,7 +54,7 @@ class Trie{
         }
         return curNode;
     }
-    search(word){
+    search(word){ 
         let node = this.searchHelper(word);
         return !!node&&!!node.isWord;
     }
@@ -70,8 +70,27 @@ console.log(trie.search("app"))
 console.log(trie.startsWith("app"))
 trie.insert("app")
 console.log(trie.search("app"))
-
+console.log(trie)
 // 返回 true
 // 返回 false
 // 返回 true
 // 返回 true
+/*
+    trie = {
+        root:{
+            a:{
+                p:{
+                    p:{
+                        isWord:true;// app
+                        l:{
+                            e:{
+                                isword:true// apple
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+*/
