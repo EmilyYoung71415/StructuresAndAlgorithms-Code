@@ -15,7 +15,7 @@
  *      720     329     457     720 
  *      355     839     657     839
  */
-let arr = [1,23,4];
+let arr = [329,457,657,839,436,720,355];
 radixsort(arr);
 console.log(arr)
 function radixsort(arr){
@@ -28,23 +28,26 @@ function radixsort(arr){
     // 数位较短的数前面补零 然后从最低位开始，依次进行一次排序
     function countSort(arr,exp){
         let output = [],len = arr.length;
-        let count = new Array(10).fill(0);// 生成10个桶 记录该趟0~9的出现次数
+        let count = new Array(10).fill(0);// 生成10个桶 
         
         for(let i=0;i<len;i++){
             // 取得当前比较位比如456在第2趟比较的是5
             // count[5]++
-            count[(arr[i]/exp)%10]++;
+            let j = ~~(arr[i]/exp)%10
+            count[j]++;
         }
-        for(let i=1;i<10;i++){
+        for(let i=1;i<10;i++){// count[i]表示第i个桶的右边界索引
             count[i] += count[i-1]
         }
 
+        // 将数据依次装入桶中 从右到左 保证排序稳定性
         for (let i = len-1; i >= 0; i--){ 
-            // 按照位指的数归位 
-            output[count[ (arr[i]/exp)%10 ] - 1] = arr[i]; 
-            count[ (arr[i]/exp)%10 ]--; 
+            // 放入对应的桶中，count[j]-1是第j个桶的右边界索引
+            let j = ~~(arr[i]/exp)%10;// 数值第exp位上的数字
+            output[count[j] - 1] = arr[i]; 
+            count[j]--; 
         } 
-
+        // 再把分配好的倒出来
         for(let i=0;i<len;i++){
             arr[i] = output[i];
         }
