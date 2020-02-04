@@ -13,15 +13,36 @@ function isPalindrome(head) {
     }
     
     let i=0;
-    let j=arr.length-1;
-    while (i<=j) {
-        if (arr[i] === arr[j]) {
-            i++;
-            j--;
-        }
-        else {
+    let len=arr.length;
+    while (i<=Math.floor(len/2)) {
+        if (arr[i] !== arr[len-1-i]) {
             return false;
         }
+        i++;
     }
     return true;
+}
+
+// 思路2: 回文链表反转后，与原链表一致
+// 实现2-1：生成新的链表-反转链表 ==> 但是有深拷贝的问题
+// 实现2-2：借助双向链表思路，prev属性记录一个反向遍历
+function isPalindrome(head) {
+    let tail = head
+    let prev = null
+    while(tail) {
+        tail.prev = prev
+        prev = tail
+        tail = tail.next
+    }
+    // prev指向链尾
+    let temp = prev
+    while(head) {
+        if (head.val === temp.val) {
+            head = head.next
+            temp = temp.prev
+        } else {
+            return false
+        }
+    }
+    return true
 }
