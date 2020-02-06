@@ -12,6 +12,22 @@
             删除第一节点
  */
 
+ // 此题关键在于找到倒数第n个结点
+ function getLastkNode(head, n) {
+    let fast = slow = head;
+
+    while(n--) {
+        fast = fast.next;
+    }
+
+    while(fast && fast.next) {
+        fast = fast.next;
+        slow = slow.next;
+    }
+
+    return slow;
+ }
+
  /**
  * Definition for singly-linked list.
  * function ListNode(val) {

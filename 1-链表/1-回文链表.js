@@ -24,7 +24,31 @@ function isPalindrome(head) {
 }
 
 // 思路2: 回文链表反转后，与原链表一致
-// 实现2-1：生成新的链表-反转链表 ==> 但是有深拷贝的问题
+// 实现2-1：生成新的链表-反转链表 ==> 但是有深拷贝的问题 => 使用头插法
+function isPalindrome(head) {
+    let reverseDummy = new ListNode();
+    let p = head;
+    while(p) {
+        let next_temp = p.next;
+        p.next = reverseDummy.next;
+        reverseDummy.next = p;
+        p = next_temp;
+    }
+    console.log(reverseDummy) // 新的反转的节点
+    console.log(head) // head节点被破坏了断链了 =》因为是引用修改 => 解决方式1.p= 深拷贝(head)
+    // 有没有其他方式：能在反转链表后 保持head节点指向原链表的头节点 
+    let reverseHead = reverseDummy.next;
+    while(reverseHead && head) {
+        if (reverseHead.val !== head.val) {
+            return false;
+        }
+        reverseHead = reverseHead.next;
+        head = head.next;
+    }
+    return true;
+}
+
+
 // 实现2-2：借助双向链表思路，prev属性记录一个反向遍历
 function isPalindrome(head) {
     let tail = head
