@@ -61,7 +61,8 @@ function traverse3(list){
     traversecall(list.head.next);
     function traversecall(head){
         if (head==null) return;
-        console.log(head.data);
+        console.log(head.data); // ；链表的前序
         traversecall(head.next);
+        console.log(head.data); // ；链表的后序
     }
 }
