@@ -63,3 +63,45 @@ function isPalindrome(head) {
         return prevIsSame && currIsSame;
     }
 }
+
+// 快慢指针法找到中间结点，然后反转链表右半边，再两个指针一起遍历
+function isPalindrome(head) {
+    if (head==null || head.next ==null) return true;
+
+    // 快慢指针找中间结点
+    let slow = head;
+    let fast = head;
+    while (fast.next && fast.next.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+
+    // 当链表为偶数是，slow指向中轴偏左，链表为奇数，slow指向中间结点
+    slow.next = reverse(slow.next); // 反转右半边链表
+    // 1->2->3->2->1
+    // 1->2->3->1->2
+    // slow指向右半边链表的第一个结点,head还是链表的第一个结点
+    slow = slow.next;
+
+    // 两指针一起遍历判断
+    while(slow) {
+        if (slow.val !== head.val) {
+            return false;
+        }
+        slow = slow.next;
+        head = head.next;
+    }
+    return true;
+
+    // 反转链表 返回新的头结点
+    function reverse(head) {
+        let prev = null;
+        while(head) {
+            let nex_temp = head.next;
+            head.next = prev;
+            prev = head;
+            head = nex_temp;
+        }
+        return prev;
+    }   
+}

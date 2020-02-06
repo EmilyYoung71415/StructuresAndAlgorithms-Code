@@ -102,4 +102,11 @@ function reverseList(head) {
     }
     head.next = prev;
     return head;
+
+    // 等价于
+    // let prev = null;
+    // while(head) {
+    //     //main code
+    // }
+    // return head;
 }
