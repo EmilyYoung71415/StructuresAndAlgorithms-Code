@@ -1,10 +1,14 @@
 /*****
+ * leetcode：148
  * 在 O(n log n) 时间复杂度和
  * 常数级空间复杂度下，对链表进行排序
  * 
  * 思路：
- *  遍历链表，把数全部放入数组，然后对数组进行快排
- *  再遍历数组 生成链表
+ *  way1：额外空间：
+ *      遍历链表，把数全部放入数组，然后对数组进行快排,再遍历数组 生成链表
+ *  way2：链表的归并排序
+ *      划分：求链表的中间节点
+ *      合并：两个有序链表的合并
  */
 /**
  * Definition for singly-linked list.
@@ -15,11 +19,11 @@
  * 输入: 4->2->1->3
     输出: 1->2->3->4
  */
+// way1：额外空间
 function sortList(head){
-    let arr = [],
-        index = 0;
+    let arr = [];
     while(head){
-        arr[index++] = head.val;
+        arr.push(head.val);
         head = head.next;
     }
     // 从大到小排 然后使用头插法
@@ -34,6 +38,7 @@ function sortList(head){
     return dummy.next;
 }   
 
+// way2：归并排序递归版
 function sortList(head){
     if(head==null||head.next==null){
         return head;
@@ -50,23 +55,24 @@ function sortList(head){
     }
     preSlow.next = null;
     return mergeList(sortList(head),sortList(slow));
-}
 
-function mergeList(list1,list2){
-    // 一个辅助节点
-    let 
-        dummyHead = new ListNode(0),
-        cur = dummyHead;
-    while(list1!=null&&list2!=null){
-        if(list1.val<list2.val){
-            cur.next = list1;
-            list1 = list1.next;
-        }else{
-            cur.next = list2;
-            list2 = list2.next;
+    function mergeList(list1,list2){
+        // 一个辅助节点
+        let 
+            dummyHead = new ListNode(0),
+            cur = dummyHead;
+        while (list1!=null && list2!=null) {
+            if (list1.val < list2.val) {
+                cur.next = list1;
+                list1 = list1.next;
+            }
+            else {
+                cur.next = list2;
+                list2 = list2.next;
+            }
+            cur = cur.next;
         }
-        cur = cur.next;
+        cur.next = list1 || list2;
+        return dummyHead.next;
     }
-    cur.next = list1||list2;
-    return dummyHead.next;
 }
