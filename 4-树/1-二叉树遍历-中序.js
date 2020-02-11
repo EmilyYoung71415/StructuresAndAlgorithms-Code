@@ -13,15 +13,16 @@ function inorderTraversal(root) {
         p = root;// 遍历指针
     
     while(p||stack.length!==0){
-        if(p){// 入栈
+        while (p) {
             stack.push(p);
             p = p.left;
         }
-        else{
-            // 此时的p是null。那么需要弹出他的父节点
-            let node = stack.pop();
-            result.push(node.val)
-            p = node.right;
+
+        if (stack.length) {
+            // p.left = null 所以弹栈找到最后一个push的节点
+            p = stack.pop();
+            result.push(p.val)
+            p = p.right;
         }
     }
     return result;

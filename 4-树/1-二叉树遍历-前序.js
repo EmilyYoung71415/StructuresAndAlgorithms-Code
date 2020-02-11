@@ -45,3 +45,18 @@ function preorderTraversal(root){
     }
     return result;
 }
+// 结合DFS 更通用的遍历解法（n叉树同样适用）
+function preorderTraversal(root) {
+    let result = [];
+    let stack = [root];
+
+    while (stack.length) {
+        let node = stack.pop();
+        if (node) {
+            result.push(node.val);
+            stack.push(node.right);
+            stack.push(node.left);
+        }
+    }
+    return result;
+}
