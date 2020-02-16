@@ -112,6 +112,7 @@ function postorderTraversal(root){
             }
             else{// 没有右子树 或者右子树已经打印完全了。该轮到打印他(根)啦
                 let node = stack.pop()// 弹出节点
+                /* process code */
                 result.push(node.val)
                 prev = node;
                 p = null;// 节点访问完之后重置p指针
