@@ -16,6 +16,10 @@
  * 中序:左根右 // 而中序根据前序确定的根划分左右树
  * 所以递归
  */
+function TreeNode(val) {
+  this.val = val;
+  this.left = this.right = null;
+}
 function buildTree(preorder,inorder){
     if(!preorder.length||!inorder.length){
         return null;//空节点
