@@ -10,7 +10,7 @@
  * 思路：
  *      way1、对每个数进行hash计数，得到每个数的出现次数，然后再次遍历，找出出现次数最多的元素 On 但是有额外空间
  *      way2、对排序后的数组进行数字出现次数统计 nlogn
- *      way3、不排序且只遍历一次对乱序数组找出出现次数最多的数字 On
+ *      way3、不排序且只遍历一次对乱序数组找出出现次数最多的数字 On [专业术语：摩尔投票法， 选出得票数最多的人]
  *              1、遍历到当前元素，默认为是出现次数最多的，如果下个元素仍是他 则出现次数count++
  *              2、当下个元素不是他时, count--，如果count为0，则替换当前元素为出现次数最多的，且count设为1
  *              (主要是有个转换，不是真正统计每个数字的各自出现次数，只要有出现次数更多的 替换之前target即可)
@@ -63,6 +63,7 @@ function majorityElement(nums) {
 }
 
 // way3: 不排序且只遍历一次对乱序数组找出出现次数最多的数字
+// 传说中的  摩尔投票法 
 function majorityElement(nums) {
     let maxcount = 1;
     let target = nums[0];
@@ -76,6 +77,19 @@ function majorityElement(nums) {
     }
     return target;
 }
+// 精简版
+function majorityElement(nums) {
+    let maxcount = 0;
+    let target = null;
+    
+    nums.forEach(item=>{
+        if (maxcount === 0) target = item;
+        maxcount += (target === item) ? 1 : -1;
+    });
+
+    return target;
+}
+// ❓ 疑问： 为什么不能过case：[1,1,1,1,2,2,2,2,4,4,2] return 4 但实际上是2 但是却能过题的全部case？
 
 // way4:partition
 function majorityElement(nums) {
