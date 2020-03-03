@@ -6,7 +6,7 @@
  * 1、递归
  *      当前树是否是二叉搜索树 由他的左子树 和  右子树 决定
  *      但是不能 && 哦 这里的逻辑是只有当左子树是 且右子树是 的时候是true 即 &关系
- * 2、中序遍历二叉搜索树，看输出的节点是否是有序的
+ * 2、中序遍历二叉搜索树，看输出的节点是否是有序的   
  */
 const {BinarySearchTree} =  require('../index');
 const arr = [1,1];
@@ -75,18 +75,10 @@ function isValidBST1(root){
         return isValidBST(root.left)&isValidBST(root.right);
     }
 
-    // if(root.left){
-    //     return isValidBST(root.left);
-    // }
-
-    // if(root.right){
-    //     return isValidBST(root.right);
-    // }
-    return true;//root有值但是没有 左右子节点
+    return true;
 }
 
 /****
- * 
  * 设计递归函数 传参： min、max 记录当前的树下界 和 上界
  */
 function isValidBST(root){
