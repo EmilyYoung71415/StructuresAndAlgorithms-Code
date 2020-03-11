@@ -28,17 +28,17 @@ class Heap {
     constructor(type) {
         // type === max or min 大顶堆 or 小顶堆
         this.type = type;
+        this.arr = [];
     }
     peek(){
         if(this.arr.length==0) return null;
         return this.arr[0];
     }
-    add() {
+    add(x) {
         this.arr.push(x);
         this.heapifyUp();
     }
-    heapifyUp(curIndex){
-        curIndex = curIndex || this.arr.length-1;
+    heapifyUp(curIndex=this.arr.length-1){
         let pIndex = this.getPIndex(curIndex);//父节点index
         while(pIndex>=0 && !this.compare(pIndex, curIndex)){//有父节点
             this.swap(this.arr, curIndex, pIndex);
@@ -46,31 +46,11 @@ class Heap {
             pIndex = this.getPIndex(curIndex);
         }
     }
-    // 向下跳转堆顶元素 堆顶出现新元素之后的调整堆
-    heapifyDown(curIndex=0){
-        // 该节点的两个子节点的下标
-        let len = this.arr.length,
-            nextIndex = null,
-            rIndex = curIndex*2 + 2,
-            lIndex = curIndex*2 + 1;
-
-        while(lIndex < len){
-            if(rIndex<len && this.compare(rIndex,lIndex)){
-                nextIndex = rIndex;
-            }
-            else{
-                nextIndex = lIndex;
-            }
-
-            // 出现三种情况:最合适的是 左子、右子、本身，只有本身不需要交换
-            if(this.compare(curIndex,nextIndex)) break;
-
-            // 其余情况都要交换
-            this.swap(this.arr,curIndex,nextIndex);
-            curIndex = nextIndex;
-            rIndex = curIndex*2 + 2,
-            lIndex = curIndex*2 + 1;
-        }
+    pop() {
+        if(!this.arr.length) return null;
+        let pop = this.arr.shift();
+        this.heapifyDown();
+        return pop;
     }
     remove(x){
         // 遍历数组找到 值等于x的所有元素，存放元素下标
@@ -84,23 +64,46 @@ class Heap {
                 this.arr.pop()
             }
             else{
-                // 将堆顶元素 移至预删除元素位置
+                // 将堆末尾的元素 移至预删除元素位置
+                // 转换为删除末尾元素
                 this.arr[itemIndex] = this.arr.pop();
 
                 // 找当前删除元素的父元素 
-                // 如果父元retr素是合适的or没有父元素 就向下调整 (并且左index未超界)
+                // 如果父元素是合适的 or 没有父元素 就向下调整 (并且孩子节点存在)
                 // 父元素不合适 向上调整
                 let pIndex = this.getPIndex(itemIndex),
                     lIndex = itemIndex*2 + 1;
-                if(lIndex<this.arr.length-1&&(!this.arr[pIndex] || this.compare(pIndex,itemIndex))){
+                if(lIndex < this.arr.length-1 && (!this.arr[pIndex] || this.compare(pIndex,itemIndex))) {
                     this.heapifyDown(itemIndex);
                 }
-                else{
+                else {
                     this.heapifyUp(itemIndex);
                 }
             }
         }
     }
+    // 向下跳转堆顶元素 堆顶出现新元素之后的调整堆
+    heapifyDown(curIndex=0){
+        // 该节点的两个子节点的下标
+        let len = this.arr.length,
+            nextIndex = null,
+            rIndex = curIndex*2 + 2,
+            lIndex = curIndex*2 + 1;
+
+        while(lIndex < len){
+            // 以大顶堆为例
+            // 左子、右子、自身 三个元素的大小比较，选择了最大的元素 和 自身比较，如果仍是自身大的话 就无需ajust
+            nextIndex = rIndex<len && this.compare(rIndex,lIndex) ? rIndex : lIndex;
+            if(this.compare(curIndex,nextIndex)) break;
+
+            // 其余情况都要交换
+            this.swap(this.arr,curIndex,nextIndex);
+            curIndex = nextIndex;
+            rIndex = curIndex*2 + 2;
+            lIndex = curIndex*2 + 1;
+        }
+    }
+    
     getPIndex(index){
         return (index/2>>0);
     }
@@ -120,8 +123,11 @@ class Heap {
         return this.arr[properIndex] <= this.arr[index];
     }
     swap(arr,index1,index2){
-        arr[index1] ^= arr[index2];
-        arr[index2] ^= arr[index1];
-        arr[index1] ^= arr[index2];
+        [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+    }
+    isEmpty(){
+        return !this.arr.length;
     }
 }
+
+module.exports = Heap;
