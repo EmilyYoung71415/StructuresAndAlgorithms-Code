@@ -2,7 +2,6 @@
  * leetcode:703
  * 设计一个找到数据流中第K大元素的类。注意是排序后的第K大元素，不是第K个不同的元素
  * 每次调用 KthLargest.add，返回当前数据流中第K大的元素
- * 
  *  int k = 3;
     int[] arr = [4,5,8,2];
     KthLargest kthLargest = new KthLargest(3, arr);
@@ -29,6 +28,7 @@
  */
 
 // way1:
+// 取第k大元素就是  维护一个容量为k的数组，升序，代表了最大的前k个元素，arr[0]是第k大，arr末尾元素是最大的元素
 class KthLargest1{
     constructor(k,nums){
         this.k = k;
@@ -46,18 +46,13 @@ class KthLargest1{
             this.nums.sort((a,b)=>a-b);
         }   
         else if(this.nums[0]<x){
-            this.nums.shift()
+            this.nums.shift();
             this.nums.push(x);
             this.nums.sort((a,b)=>a-b);
         }
-        console.log(this.nums[0])
         return this.nums[0];
-
     }
 }
-
-
-
 // 改进
 /***
  * 降序排序 每次返回arr[k-1]
@@ -97,34 +92,33 @@ class KthLargest{
 
 
 // way2
-const {MinHeap} = require('../index');
+const {Heap} = require('../index');
 class KthLargest2{
     constructor(k,nums){
         this.k = k;
-        this.heap = new MinHeap();
+        this.heap = new Heap('min');
     
         nums.forEach(item => {
             this.heap.add(item);
         });   
         
         // 如果堆大小超过k了  弹出堆顶元素 只保留最大的k个元素
-        while(this.heap.getLen()>k){
-            this.heap.poll()
+        while(this.heap.size()>k){
+            this.heap.poll();
         }
     }
 
     add(x){
-        if(this.heap.getLen()<this.k){
-            this.heap.add(x)
+        if(this.heap.size()<this.k){
+            this.heap.add(x);
         }
         // 如果当前堆顶元素第k大的 < 新来元素 剔除旧的新来元素是最大的
         else if(this.heap.peek()<x){ 
             this.heap.poll();
-            this.heap.add(x)
+            this.heap.add(x);
         }
         // 返回堆顶元素
-        console.log(this.heap.peek())
-        return this.heap.peek()
+        return this.heap.peek();
     }
 }
 
