@@ -103,22 +103,22 @@ class KthLargest2{
         });   
         
         // 如果堆大小超过k了  弹出堆顶元素 只保留最大的k个元素
-        while(this.heap.size()>k){
+        while(this.heap.size>k){
             this.heap.poll();
         }
     }
 
     add(x){
-        if(this.heap.size()<this.k){
+        if(this.heap.size<this.k){
             this.heap.add(x);
         }
         // 如果当前堆顶元素第k大的 < 新来元素 剔除旧的新来元素是最大的
-        else if(this.heap.peek()<x){ 
+        else if(this.heap.peek<x){ 
             this.heap.poll();
             this.heap.add(x);
         }
         // 返回堆顶元素
-        return this.heap.peek();
+        return this.heap.peek;
     }
 }
 

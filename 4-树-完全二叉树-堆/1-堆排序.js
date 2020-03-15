@@ -104,8 +104,8 @@ function heapSort(arr){
     arr.forEach(item => {
         heap.add(item)
     });
-    while (!heap.isEmpty()) {
-        result.push(heap.pop());
+    while (!heap.size) {
+        result.push(heap.poll());
     }
     return result;
 }
