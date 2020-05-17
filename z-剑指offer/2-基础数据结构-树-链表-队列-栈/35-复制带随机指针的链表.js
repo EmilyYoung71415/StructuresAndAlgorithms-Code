@@ -79,6 +79,51 @@ function copyRandomList2(head) {
 }
 
 /***
+ * 终极版
+ * 时间O(N) 空间O(1)
+ * 思路：
+ *     使用哈希表的额外空间来保存已经拷贝过的结点 => 链表原地扩展: 在每个链表结点的旁边拷贝
+ *     A->B->C => A->A'->B->B'->C->C'
+ *     然后分离链表 返回A'->B'->C'
+ */
+
+function copyRandomList(head) {
+    if (head==null) return head;
+
+    // 原地扩展链表: 在cur cur.next 中间插入cur的克隆节点
+    let cur = head;
+    while (cur) {
+        let newnode = new Node(cur.val);
+        newnode.next = cur.next;
+        cur.next = newnode;
+        cur = newnode.next;
+    }
+
+    cur = head;
+
+    // 链接random
+    while (cur) {
+        cur.next.random = cur.random ? cur.random.next : null; // cur.random的next结点即复制的结点
+        cur = cur.next.next;
+    }
+
+    // 将两个链表分开
+    let curOld = head;
+    let curNew = head.next;
+    let newHead = head.next;
+    while (curOld) {
+        // A -> A'-> B => A->B
+        curOld.next = curOld.next.next;
+        curNew.next = curNew.next ? curNew.next.next : null;
+        curOld = curOld.next;
+        curNew = curNew.next;
+    }
+
+    return newHead;
+}
+
+
+/***
  * DFS
  * 时间O(N) 空间O(N)
  */
