@@ -43,3 +43,5 @@ function binarySearch(arr, target) {
 }
 
 console.log(binarySearch([1, 2, 3, 4, 6, 10, 20], 10));
+
+// 二分查找扩展
