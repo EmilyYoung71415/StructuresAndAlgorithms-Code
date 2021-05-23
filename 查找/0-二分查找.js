@@ -7,6 +7,7 @@
  *  注意点：
  *      1、边界的判断  start = 0, end = arr.length -1 则  while (start <= end) [start, end]
  *      2、目标值重复：leetcode 34
+ *  有用的博客：https://blog.csdn.net/yefengzhichen/article/details/52372407
  */
 
 function binarySearch(arr, target) {
@@ -43,5 +44,3 @@ function binarySearch(arr, target) {
 }
 
 console.log(binarySearch([1, 2, 3, 4, 6, 10, 20], 10));
-
-// 二分查找扩展
