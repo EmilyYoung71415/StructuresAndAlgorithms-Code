@@ -19,8 +19,9 @@ function partition(arr: number[], start: number, end: number) {
     }
   }
 
+  // i <= end; 所以跳出后不需再swap
   // swap: bounder, end
-  swap(arr, bounder, end);
+  // swap(arr, bounder, end);
 
   return bounder;
 }
