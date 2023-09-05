@@ -7,10 +7,9 @@
 //       1
 //      / \
 //     2   3
-//    / \     
+//    / \
 //   4   5
-// 返回 3, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]。 
-
+// 返回 3, 它的长度是路径 [4,2,1,3] 或者 [5,2,1,3]。
 
 /**
  * 递归函数：
@@ -22,9 +21,9 @@
 
 // 不一定经过根节点的原因
 //       1
-//      / 
-//     2   
-//    / \     
+//      /
+//     2
+//    / \
 //   4   5
 //  /     \
 // 8       6
@@ -32,15 +31,15 @@
 //           7
 // 时间复杂度 O(N) 空间 O(N)
 function diameterOfBinaryTree(root) {
-    let result = 0;
-    diameterOfBinaryTreeCall(root);
-    return result;
+  let result = 0;
+  diameterOfBinaryTreeCall(root);
+  return result;
 
-    function diameterOfBinaryTreeCall(root) {
-        if (!root) return 0;
-        let lDepth = diameterOfBinaryTreeCall(root.left);
-        let rDepth = diameterOfBinaryTreeCall(root.right);
-        result = Math.max(result, lDepth + rDepth); // process code
-        return Math.max(lDepth, rDepth) + 1;
-    }
+  function diameterOfBinaryTreeCall(root) {
+    if (!root) return 0;
+    let lDepth = diameterOfBinaryTreeCall(root.left);
+    let rDepth = diameterOfBinaryTreeCall(root.right);
+    result = Math.max(result, lDepth + rDepth); // process code
+    return Math.max(lDepth, rDepth) + 1;
+  }
 }

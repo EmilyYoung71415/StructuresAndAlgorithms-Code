@@ -8,13 +8,13 @@
  */
 
 function TreeNode(val) {
-    this.val = val;
-    this.fistchild = this.nextsibling = null;
+  this.val = val;
+  this.fistchild = this.nextsibling = null;
 }
 
 function getHeight(root) {
-    if (!root) return 0;
-    let hchild = getHeight(root.fistchild);
-    let hSibling = getHeight(root.nextsibling);
-    return Math.max(hchild+1, hSibling);
+  if (!root) return 0;
+  let hchild = getHeight(root.fistchild);
+  let hSibling = getHeight(root.nextsibling);
+  return Math.max(hchild + 1, hSibling);
 }

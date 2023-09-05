@@ -5,11 +5,11 @@
 // 输入：s = "We are happy."
 // 输出："We%20are%20happy."
 function replaceSpace1(s) {
-    s = s.replace(/\s/g, "%20");
-    return s;
+  s = s.replace(/\s/g, '%20');
+  return s;
 }
 
 function replaceSpace(s) {
-    s = s.split(' ').join('%20');
-    return s;
+  s = s.split(' ').join('%20');
+  return s;
 }

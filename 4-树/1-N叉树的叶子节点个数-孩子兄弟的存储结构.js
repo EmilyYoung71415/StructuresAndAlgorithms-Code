@@ -9,12 +9,12 @@
  */
 
 function TreeNode(val) {
-    this.val = val;
-    this.fistchild = this.nextsibling = null;
+  this.val = val;
+  this.fistchild = this.nextsibling = null;
 }
 
 function getLeaves(root) {
-    if (root === null) return 0;
-    if (root.fistchild === null) return 1 + getLeaves(root.nextsibling);
-    return getLeaves(root.fistchild) + getLeaves(root.nextsibling);
+  if (root === null) return 0;
+  if (root.fistchild === null) return 1 + getLeaves(root.nextsibling);
+  return getLeaves(root.fistchild) + getLeaves(root.nextsibling);
 }

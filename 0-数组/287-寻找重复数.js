@@ -16,7 +16,7 @@
  * way3、？
  *      n长的数组，每个元素的范围是1-n
  *      不能数学算总和，因为不一定是只重复两次
- *      
+ *
  *      如何巧妙利用二分？
  *===> 这里可以开下 眼界， 二分在不是有序数组里的应用：通过二分法定位一个有范围的整数
  */
@@ -27,33 +27,32 @@
 // 如果<4的个数<4，那么重复数字在 > 中位数那边
 // 以此为思路展开
 
-
 // 二分精髓：把目标元素放在最后判断，在循环中间就是不断做排除
 function findDuplicate(arr) {
-    const len = arr.length;
-    let left = 0,
-        right = len - 1;
-    
-    while(left < right) {
-        const mid = (left + right) >> 1;// 既是索引mid，也是中位数mid
-        let count = 0;
-        // 遍历数组 进行 count统计
-        for(const val of arr) {
-            if (val <= mid) {
-                count++;
-            }
-        }
+  const len = arr.length;
+  let left = 0,
+    right = len - 1;
 
-        // 小于等于 4 的个数如果严格大于 4 个
-        // 重复元素一定出现在 [1, 4] 区间里
-        if (count > mid) {
-            right = mid;
-        }
-        // <= 个数注意=4时，重复数字是出现在<=4这边的
-        else {
-            left = mid + 1;
-        }
+  while (left < right) {
+    const mid = (left + right) >> 1; // 既是索引mid，也是中位数mid
+    let count = 0;
+    // 遍历数组 进行 count统计
+    for (const val of arr) {
+      if (val <= mid) {
+        count++;
+      }
     }
 
-    return left;
+    // 小于等于 4 的个数如果严格大于 4 个
+    // 重复元素一定出现在 [1, 4] 区间里
+    if (count > mid) {
+      right = mid;
+    }
+    // <= 个数注意=4时，重复数字是出现在<=4这边的
+    else {
+      left = mid + 1;
+    }
+  }
+
+  return left;
 }

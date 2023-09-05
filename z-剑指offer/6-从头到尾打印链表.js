@@ -6,23 +6,23 @@
 // 输出：[2,3,1]
 
 function reversePrint(head) {
-    if (!head) return [];
-    let arr = [];
-    reversePrintCall(head);
-    return arr;
+  if (!head) return [];
+  let arr = [];
+  reversePrintCall(head);
+  return arr;
 
-    function reversePrintCall(head) {
-        if (!head) return;
-        head.next && reversePrintCall(head.next);
-        arr.push(head.val);
-    }
+  function reversePrintCall(head) {
+    if (!head) return;
+    head.next && reversePrintCall(head.next);
+    arr.push(head.val);
+  }
 }
 
 // 优化
 
 function reversePrint(head) {
-    if (!head) return [];
-    let res = reversePrint(head.next);
-    res.push(head.val);
-    return res;
+  if (!head) return [];
+  let res = reversePrint(head.next);
+  res.push(head.val);
+  return res;
 }

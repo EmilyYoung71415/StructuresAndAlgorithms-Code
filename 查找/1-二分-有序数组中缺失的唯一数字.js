@@ -20,25 +20,24 @@
  *      左子数组：arr[index]  = index
  *      右子数组：arr[index] != index
  * 缺失的数字等于 “右子数组的首位元素” 对应的索引，即二分法找右子数组的首位元素
- * 疑问：   
+ * 疑问：
  *      [0,1,3,4,5] 按理会一直往右走吧
  *      ===》 和普通的二分不一样，这里的条件是 arr[mid] = mid
  */
-let arr = [0,1,3,4,5];
+let arr = [0, 1, 3, 4, 5];
 console.log(missingNumber(arr));
 function missingNumber(arr) {
-    let start = 0;
-    let end = arr.length - 1;
+  let start = 0;
+  let end = arr.length - 1;
 
-    while (start <= end) {
-        let mid  =  start + ((end - start) >> 1);
-        if (arr[mid] === mid) {
-            start = mid + 1;
-        }
-        else {
-            end = mid - 1;
-        }
+  while (start <= end) {
+    let mid = start + ((end - start) >> 1);
+    if (arr[mid] === mid) {
+      start = mid + 1;
+    } else {
+      end = mid - 1;
     }
-    // 返回缺失数字的值
-    return start;
+  }
+  // 返回缺失数字的值
+  return start;
 }

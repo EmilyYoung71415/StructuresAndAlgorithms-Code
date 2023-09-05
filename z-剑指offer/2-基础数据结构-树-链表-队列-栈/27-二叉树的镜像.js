@@ -10,13 +10,13 @@
  */
 
 function mirrorTree(root) {
-    if (!root) return null;
-    
-    let temp = root.left;
-    root.left = root.right;
-    root.right = temp;
+  if (!root) return null;
 
-    mirrorTree(root.left);
-    mirrorTree(root.right);
-    return root;
+  let temp = root.left;
+  root.left = root.right;
+  root.right = temp;
+
+  mirrorTree(root.left);
+  mirrorTree(root.right);
+  return root;
 }

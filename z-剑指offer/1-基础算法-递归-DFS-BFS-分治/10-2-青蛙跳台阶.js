@@ -17,18 +17,18 @@
  */
 
 function numWays(n) {
-    if(n==0) return 1;
-    if (n<=3) return n;
+  if (n == 0) return 1;
+  if (n <= 3) return n;
 
-    let pprev = 2n;
-    let prev = 3n;
-    let result = 0;
-    for(let i=4n;i<=n;i++) {
-        result = prev + pprev;
-        pprev = prev;
-        prev = result;
-    }
-    return result%1000000007n;
+  let pprev = 2n;
+  let prev = 3n;
+  let result = 0;
+  for (let i = 4n; i <= n; i++) {
+    result = prev + pprev;
+    pprev = prev;
+    prev = result;
+  }
+  return result % 1000000007n;
 }
 
 // 失败case：n=0 输出1

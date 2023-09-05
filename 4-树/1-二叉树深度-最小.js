@@ -16,31 +16,29 @@
  */
 
 /****
- *      1 
+ *      1
  *     /
- *    1  
+ *    1
  * 最小深度是2
- * 
- **/ 
+ *
+ **/
 
-
-
-function minDepth(root){
-  if(!root) return 0;
-  if(!root.left&&!root.right) return 1;
-  if(!root.left&&root.right) return 1+minDepth(root.right);
-  if(!root.right&&root.left) return 1+minDepth(root.left);
+function minDepth(root) {
+  if (!root) return 0;
+  if (!root.left && !root.right) return 1;
+  if (!root.left && root.right) return 1 + minDepth(root.right);
+  if (!root.right && root.left) return 1 + minDepth(root.left);
 
   // 左右子节点都有
-  return 1+ Math.min(minDepth(root.left),minDepth(root.right));
+  return 1 + Math.min(minDepth(root.left), minDepth(root.right));
 }
 
 // 优化
-function minDepth(root){
-    // 遇到叶子节点 返回
-    if(!root) return 0;
-    let lDepth = minDepth(root.left);
-    let rDepth = minDepth(root.right);
-    // 如果有一者为空 则不用取最小 直接将两个加起来即可:一个比较巧妙的合并处理
-    return (lDepth==0 || rDepth==0)?lDepth+rDepth+1:Math.min(lDepth,rDepth)+1;
+function minDepth(root) {
+  // 遇到叶子节点 返回
+  if (!root) return 0;
+  let lDepth = minDepth(root.left);
+  let rDepth = minDepth(root.right);
+  // 如果有一者为空 则不用取最小 直接将两个加起来即可:一个比较巧妙的合并处理
+  return lDepth == 0 || rDepth == 0 ? lDepth + rDepth + 1 : Math.min(lDepth, rDepth) + 1;
 }

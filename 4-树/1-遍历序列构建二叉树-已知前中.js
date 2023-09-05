@@ -20,16 +20,16 @@ function TreeNode(val) {
   this.val = val;
   this.left = this.right = null;
 }
-function buildTree(preorder,inorder){
-    if(!preorder.length||!inorder.length){
-        return null;//空节点
-    }
-    let root = preorder[0];
-    let node  =  new TreeNode(root);
-    // 在中序(左根右)找到根的索引，此时也等于左子节点的个数，以该个数为度量再在前序(根左右)里划分得到左的前序
-    let posi = inorder.indexOf(root);// 数组里的元素确定是不重复的
-    // posi 即使下标也是长度计量
-    node.left = buildTree(preorder.slice(1,posi+1),inorder.slice(0,posi))
-    node.right = buildTree(preorder.slice(posi+1),inorder.slice(posi+1));
-    return node;
+function buildTree(preorder, inorder) {
+  if (!preorder.length || !inorder.length) {
+    return null; //空节点
+  }
+  let root = preorder[0];
+  let node = new TreeNode(root);
+  // 在中序(左根右)找到根的索引，此时也等于左子节点的个数，以该个数为度量再在前序(根左右)里划分得到左的前序
+  let posi = inorder.indexOf(root); // 数组里的元素确定是不重复的
+  // posi 即使下标也是长度计量
+  node.left = buildTree(preorder.slice(1, posi + 1), inorder.slice(0, posi));
+  node.right = buildTree(preorder.slice(posi + 1), inorder.slice(posi + 1));
+  return node;
 }

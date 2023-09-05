@@ -14,31 +14,31 @@
 // return []
 // 递归版
 function preorder(root) {
-    if (!root) return [];
-    
-    let result = [root.val];
-    preorderCall(root);
-    return result;
+  if (!root) return [];
 
-    function preorderCall(root) {
-        root.children.forEach(node =>{
-            result.push(node.val);
-            preorderCall(node);
-        })
-    }
+  let result = [root.val];
+  preorderCall(root);
+  return result;
+
+  function preorderCall(root) {
+    root.children.forEach(node => {
+      result.push(node.val);
+      preorderCall(node);
+    });
+  }
 }
 // 深度优先遍历
-function preorder(root){
-    let result = [];
-    let stack = [root];
-    
-    while (stack.length) {
-        let node = stack.pop();
-        if (node) {
-            result.push(node.val);
-            // 反向push 弹出来的时候才会正向
-            stack.push(...node.children.reverse());
-        }
+function preorder(root) {
+  let result = [];
+  let stack = [root];
+
+  while (stack.length) {
+    let node = stack.pop();
+    if (node) {
+      result.push(node.val);
+      // 反向push 弹出来的时候才会正向
+      stack.push(...node.children.reverse());
     }
-    return result;
+  }
+  return result;
 }

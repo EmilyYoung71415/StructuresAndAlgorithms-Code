@@ -19,15 +19,16 @@
        B — C 假如花在A手上 顺时针传的话，计数1应该是从C开始
 */
 
-let arr = ['A','B','C','D','E'],count = 7;
-console.log(hotPotato(arr,count));
-function hotPotato(arr,count){
-    while(arr.length>1){
-        let n = count;
-        while(n--){
-            arr.push(arr.shift())
-        }
-        arr.shift()// 淘汰队首元素
+let arr = ['A', 'B', 'C', 'D', 'E'],
+  count = 7;
+console.log(hotPotato(arr, count));
+function hotPotato(arr, count) {
+  while (arr.length > 1) {
+    let n = count;
+    while (n--) {
+      arr.push(arr.shift());
     }
-    return arr.shift()
+    arr.shift(); // 淘汰队首元素
+  }
+  return arr.shift();
 }

@@ -1,7 +1,7 @@
 /****
  * https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/
  * 请定义一个队列并实现函数 max_value 得到队列里的最大值，要求函数max_value、push_back 和 pop_front 的时间复杂度都是O(1)。
- * 若队列为空，pop_front 和 max_value 需要返回 -1 
+ * 若队列为空，pop_front 和 max_value 需要返回 -1
  */
 
 // ["MaxQueue","push_back","push_back","max_value","pop_front","max_value"]
@@ -24,34 +24,34 @@
  *      3、如果queue出队时=最大值，需要刷新
  */
 function MaxQueue() {
-    this.queue = [];
-    this.maxqueue = [];
+  this.queue = [];
+  this.maxqueue = [];
 }
 
 MaxQueue.prototype = {
-    push_back(val) {
-        const {queue, maxqueue} = this;
-        // 最近最大元素
-        queue.push(val);
-        while (maxqueue.length && maxqueue[maxqueue.length-1] < val) {
-            maxqueue.pop();
-        }
-        maxqueue.push(val);
-    },
-    pop_front() {
-        const {queue, maxqueue} = this;
-        let popval = queue.shift();
-        popval === maxqueue[0] && maxqueue.shift();
-        return popval || -1;
-    },
-    max_value() {
-        return this.maxqueue[0] || -1;
+  push_back(val) {
+    const { queue, maxqueue } = this;
+    // 最近最大元素
+    queue.push(val);
+    while (maxqueue.length && maxqueue[maxqueue.length - 1] < val) {
+      maxqueue.pop();
     }
-}
+    maxqueue.push(val);
+  },
+  pop_front() {
+    const { queue, maxqueue } = this;
+    let popval = queue.shift();
+    popval === maxqueue[0] && maxqueue.shift();
+    return popval || -1;
+  },
+  max_value() {
+    return this.maxqueue[0] || -1;
+  },
+};
 
-let q =  new MaxQueue();
-q.push_back(15)
+let q = new MaxQueue();
+q.push_back(15);
 console.log(q.max_value());
-q.push_back(9)
+q.push_back(9);
 // console.log(q.pop_front());
 console.log(q.max_value());

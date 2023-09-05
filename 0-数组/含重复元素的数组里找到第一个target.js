@@ -7,25 +7,24 @@
  *     + 递归的二分：找到第一个
  */
 
-const arr = [2,2,2,2,2,3,3,4,5];
+const arr = [2, 2, 2, 2, 2, 3, 3, 4, 5];
 console.log(findTarget(arr, 2)); // 4
 
-
 function findTarget(arr, target) {
-    return findTargetCall(arr, target, 0, arr.length - 1);
+  return findTargetCall(arr, target, 0, arr.length - 1);
 
-    function findTargetCall(arr, target, left, right, isflag) {
-        if (left > right) return -1; // 未找到 
-        // if (isflag && arr[left] < arr[right]) return left + 1; 
-        if (isflag) {
-            if (left === 0 && arr[left] === target) return 0;
-            else if (arr[left] < arr[right]) return left + 1;
-        }
-        let mid = (left + right) >> 1;
-        if (arr[mid] > target) return findTargetCall(arr, target, left, mid - 1);
-        else if (arr[mid] < target) return findTargetCall(arr, target, mid + 1, right);
-        // else return mid;
-        // 这里找到了 继续递归
-        else return findTargetCall(arr, target, left, mid, true);
+  function findTargetCall(arr, target, left, right, isflag) {
+    if (left > right) return -1; // 未找到
+    // if (isflag && arr[left] < arr[right]) return left + 1;
+    if (isflag) {
+      if (left === 0 && arr[left] === target) return 0;
+      else if (arr[left] < arr[right]) return left + 1;
     }
+    let mid = (left + right) >> 1;
+    if (arr[mid] > target) return findTargetCall(arr, target, left, mid - 1);
+    else if (arr[mid] < target) return findTargetCall(arr, target, mid + 1, right);
+    // else return mid;
+    // 这里找到了 继续递归
+    else return findTargetCall(arr, target, left, mid, true);
+  }
 }

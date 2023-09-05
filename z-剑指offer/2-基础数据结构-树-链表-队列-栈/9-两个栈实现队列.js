@@ -6,43 +6,42 @@
 // ["CQueue","appendTail","deleteHead","deleteHead"]
 // [[],[3],[],[]]
 
-
 /********************************
  * 思路：
  *     resultqueue=[1,2,3,4]
  *     append: [4,3,2,1].append(5) ====> [5,4,3,2,1] ===>  [5,4,3,2,1].deleteHead() = [5,4,3,2,1].deleteHead() = [5,4,3,2,1].pop()
  *          instack [1]
- *          outstack []     
- *         
+ *          outstack []
+ *
  *          instack []        instack [2]         instack [2,1]
  *          outstack [1]  =>   outstack [1]  =>     outstack []
  *    deleteHead: instack.pop();
- *    appendTail: instack 的元素依次pop出来 然后push进outstack, instack.push(data), 
+ *    appendTail: instack 的元素依次pop出来 然后push进outstack, instack.push(data),
  *                instack 依次push outstack倒出来的元素
  */
 
 function CQueue() {
-    this.instack = [];
-    this.outstack = [];
+  this.instack = [];
+  this.outstack = [];
 }
 
 CQueue.prototype = {
-    appendTail: function(val) {
-        while (this.instack.length) {
-            this.outstack.push(this.instack.pop());
-        }
-
-        this.instack.push(val);
-
-        while (this.outstack.length) {
-            this.instack.push(this.outstack.pop());
-        }
-    },
-    deleteHead: function() {
-        if (!this.instack.length) return -1;
-        return this.instack.pop();
+  appendTail: function (val) {
+    while (this.instack.length) {
+      this.outstack.push(this.instack.pop());
     }
-}
+
+    this.instack.push(val);
+
+    while (this.outstack.length) {
+      this.instack.push(this.outstack.pop());
+    }
+  },
+  deleteHead: function () {
+    if (!this.instack.length) return -1;
+    return this.instack.pop();
+  },
+};
 
 // let queue = new CQueue();
 // [1,2,3,4].forEach(item => queue.appendTail(item));
@@ -55,20 +54,20 @@ CQueue.prototype = {
 
 // 思路2： push简化， delete复杂化
 function CQueue() {
-    this.instack = [];
-    this.outstack = [];
+  this.instack = [];
+  this.outstack = [];
 }
 
 CQueue.prototype = {
-    appendTail: function(val) {
-        this.instack.push(val);
-    },
-    deleteHead: function() {
-       const {instack, outstack} = this;
-       if (outstack.length) return outstack.pop();
-       while (instack.length) {
-           outstack.push(instack.pop());
-       }
-       return outstack.pop() || -1;
+  appendTail: function (val) {
+    this.instack.push(val);
+  },
+  deleteHead: function () {
+    const { instack, outstack } = this;
+    if (outstack.length) return outstack.pop();
+    while (instack.length) {
+      outstack.push(instack.pop());
     }
-}
+    return outstack.pop() || -1;
+  },
+};

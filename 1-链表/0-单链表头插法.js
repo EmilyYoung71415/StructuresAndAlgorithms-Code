@@ -15,60 +15,61 @@
  *      }
  */
 
-function Node(data){
-    this.data = data;
-    this.next = null;
+function Node(data) {
+  this.data = data;
+  this.next = null;
 }
 
-class LinkedListF{
-    constructor(){
-        this.head = new Node();// 一个空值的头结点
+class LinkedListF {
+  constructor() {
+    this.head = new Node(); // 一个空值的头结点
+  }
+  add(x) {
+    let p = new Node(x);
+    p.next = this.head.next;
+    this.head.next = p;
+  }
+  // 从1开始计数
+  getItemByNum(index) {
+    let j = 1;
+    let p = this.head.next; // 第一个节点
+    if (index == 0) return this.head; //返回头结点
+    if (index < 1 || index == null) throw new Error('没有这样的节点');
+    while (p && j < index) {
+      p = p.next;
+      j++;
     }
-    add(x){
-        let p = new Node(x);
-        p.next  = this.head.next;
-        this.head.next = p;
+    return p;
+  }
+  getItem(item) {
+    let p = this.head.next;
+    while (p && p.data != item) {
+      p = p.next;
     }
-    // 从1开始计数
-    getItemByNum(index){
-        let j = 1;
-        let p = this.head.next;// 第一个节点
-        if(index==0) return this.head;//返回头结点
-        if(index < 1||index==null) throw new Error('没有这样的节点');
-        while(p&&j<index){
-            p = p.next;
-            j++
-        }
-        return p;
+    return p;
+  }
+  insertAt(x, index) {
+    //将节点插入链表的第i位置
+    let p = this.getItemByNum(index - 1);
+    let newNode = new Node(x);
+    newNode.next = p.next;
+    p.next = newNode;
+  }
+  removeAt(index) {
+    // 找到index前面的那个节点
+    let p = this.getItemByNum(index - 1);
+    p.next = p.next.next;
+  }
+  printf() {
+    let p = this.head.next;
+    let str = '';
+    while (p) {
+      str += `${p.data}—>`;
+      p = p.next;
     }
-    getItem(item){
-        let p = this.head.next;
-        while(p&&p.data!=item){
-            p = p.next
-        }
-        return p;
-    }
-    insertAt(x,index){//将节点插入链表的第i位置
-        let  p = this.getItemByNum(index-1);
-        let newNode = new Node(x);
-        newNode.next = p.next;
-        p.next = newNode;
-    }
-    removeAt(index){
-        // 找到index前面的那个节点
-        let p = this.getItemByNum(index-1);
-        p.next = p.next.next
-    }
-    printf(){
-        let p = this.head.next;
-        let str = '';
-        while(p){
-            str += `${p.data}—>`;
-            p = p.next;
-        }
-        str += 'NULL'
-        console.log(str)
-    }
+    str += 'NULL';
+    console.log(str);
+  }
 }
 /*
 let p = new LinkedListF()
@@ -87,4 +88,4 @@ p.printf()// 6—>999—>2—>1—>4—>3—>NULL
 p.removeAt(1)
 p.printf()// 999—>2—>1—>4—>3—>NULL
 */
-module.exports = LinkedListF
+module.exports = LinkedListF;

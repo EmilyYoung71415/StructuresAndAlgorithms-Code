@@ -23,7 +23,7 @@
  * 
  **/
 
- /**
+/**
  * Definition for singly-linked list.
  * function ListNode(val) {
  *     this.val = val;
@@ -35,43 +35,43 @@
  * @param {ListNode} head
  * @return {boolean}
  */
-var hasCycle = function(head) {
-    let hash = new Map()
-    while(head){
-        if(hash.has(head)){
-            return true;
-        }
-        hash.set(head)
-        head = head.next
+var hasCycle = function (head) {
+  let hash = new Map();
+  while (head) {
+    if (hash.has(head)) {
+      return true;
     }
-    return false
+    hash.set(head);
+    head = head.next;
+  }
+  return false;
 };
 
-function hasCycle(head){
-    let curr = head;
-    while(curr){
-        if(curr.next == head){
-            return true;
-        }
-        let temp = curr.next;
-        curr.next = head;
-        curr = temp;
+function hasCycle(head) {
+  let curr = head;
+  while (curr) {
+    if (curr.next == head) {
+      return true;
     }
-    return false
+    let temp = curr.next;
+    curr.next = head;
+    curr = temp;
+  }
+  return false;
 }
 
-function hasCycle(head){
-    if(head == null || head.next == null) {
-        return false;
+function hasCycle(head) {
+  if (head == null || head.next == null) {
+    return false;
+  }
+  let slow = head,
+    fast = head;
+  while (fast && fast.next) {
+    fast = fast.next.next;
+    slow = slow.next;
+    if (fast == slow) {
+      return true;
     }
-    let slow = head,
-        fast = head;
-    while(fast&&fast.next){
-        fast = fast.next.next;
-        slow = slow.next
-        if(fast == slow){
-            return true
-        }
-    }
-    return false
+  }
+  return false;
 }

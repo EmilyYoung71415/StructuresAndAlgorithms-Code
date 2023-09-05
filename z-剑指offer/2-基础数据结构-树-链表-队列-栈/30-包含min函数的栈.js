@@ -12,48 +12,46 @@
 // minStack.top();      --> 返回 0.
 // minStack.min();   --> 返回 -2.
 
-
 /****
  * 思路：
  *      每次入栈2个元素，一个是入栈的元素本身，一个是当前栈元素的最小值 (这样每次取min的时)
  */
 
 function MinStack() {
-    this.stack = [];
+  this.stack = [];
 }
 
 MinStack.prototype = {
-    push(val) {
-        const {stack} = this;
-        if (!stack.length) {
-            stack.push(val);
-            stack.push(val);
-        }
-        else {
-            let curmin = this.min();
-            stack.push(val);
-            let min = Math.min(val, curmin);
-            stack.push(min);
-        }
-    },
-    pop() {
-        this.stack.pop();
-        return this.stack.pop();
-    },
-    top() {
-        return this.stack[this.stack.length - 2];
-    },
-    min() {
-        return this.stack[this.stack.length - 1];
+  push(val) {
+    const { stack } = this;
+    if (!stack.length) {
+      stack.push(val);
+      stack.push(val);
+    } else {
+      let curmin = this.min();
+      stack.push(val);
+      let min = Math.min(val, curmin);
+      stack.push(min);
     }
-}
+  },
+  pop() {
+    this.stack.pop();
+    return this.stack.pop();
+  },
+  top() {
+    return this.stack[this.stack.length - 2];
+  },
+  min() {
+    return this.stack[this.stack.length - 1];
+  },
+};
 
 let minStack = new MinStack();
 minStack.push(-2);
 minStack.push(0);
 minStack.push(-1);
 // console.log(minStack.stack)
-console.log(minStack.min())
-console.log(minStack.top())
-console.log(minStack.pop())
-console.log(minStack.min())
+console.log(minStack.min());
+console.log(minStack.top());
+console.log(minStack.pop());
+console.log(minStack.min());

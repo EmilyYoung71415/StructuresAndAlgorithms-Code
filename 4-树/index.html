@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      const input = ['A/B/C', 'A/B/D', 'D/E/F'];
+      const input = [
+        { path: 'a/b/c' },
+        { path: 'a/B/D' },
+        // {path: 'D/E/F'},
+      ];
+
+      const res = f(input);
+      console.log(res);
+
+      function f(input) {
+        let dict = {};
+        // 遍历一次，填入字典 O(N)
+        input.forEach(element => {
+          let key = element.path
+            .split('/')
+            .filter((v, i, arr) => i != arr.length - 1)
+            .join('/');
+          if (key === '') return;
+          dict[key] = dict[key] || [];
+          dict[key].push(element);
+        });
+
+        // 遍历一次，增加children项 O(N)
+        let output = input.map(element => {
+          element.children = element.children || [];
+          if (dict[element.path] != null) {
+            element.children = [...element.children, dict[element.path]];
+          }
+          return element;
+        });
+
+        // 仅筛选根节点 O(N)
+        return output.filter(item => item.path.split('/').length == 2);
+      }
+    </script>
+  </body>
+</html>
