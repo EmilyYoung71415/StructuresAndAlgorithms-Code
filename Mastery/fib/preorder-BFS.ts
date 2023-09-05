@@ -1,46 +1,58 @@
-// 确实有点绕
-// 除了用queue以外
-// 还用了dp, inDeg
-// queue记录已经求出结果的节点，但不是存储结果
-// dp是存储结果
-// inDeg统计入度辅助求出结果，控制该点是否符合入队条件
-export function fib(n: number) {
-  const dp = new Array(n + 1).fill(0); // 结果值
+// 先序BFS
+/****
+ * 状态1: 入度inDeg
+ *    - 状态: inDeg[x] 表示x点需要接受多少个前置状态点的值才能向后更新
+ *    - 递推: 每次访问到了前置状态点更新值后，当前x点的入度 -1
+ *    - 顺序: 先序*邻接（DAG的值依赖节点顺序
+ *
+ * 状态2: 斐波拉契的求和dp
+ *    - 状态: dp[n]表示fib(n)
+ *          边界：dp[0], dp[1]已知
+ *          目标: dp[n]
+ *    - 递推:
+ *        dp[n] = dp[n-1] + dp[n-2]
+ *    - 顺序:
+ *        先序*邻接 -> BFS
+ */
+export function fib_pre_bfs(n: number) {
+  // dp, inDeg, nexts 都是存index表示节点的唯一性
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+  const dp = new Array(n + 1).fill(0);
   dp[1] = 1;
 
-  // 入度：先序遍历要统计入度，入度的意义代表：该点依赖多少个点
+  // 构建入度统计
   const inDeg = new Array(n + 1).fill(2);
   inDeg[0] = 0;
   inDeg[1] = 0;
 
-  // 队列：已在队列中的值表示已求出来的
-  // queue里面就是放的 0,1,...n 一直到n的下标，用来标记节点
-  // const x = queue.shift();
-  // result = dp[x] // 下标为x的节点的结果是 dp[x] = fib(x);
-  // inDeg[x] = // 下标为x的节点的入度是xxx
-
-  const queue = [0, 1]; // [0, 1, ... , n] // 标记已求出来的节点的下标
+  // 什么时候入队确定已计算出的节点：当入度为0时
+  // queue[index] = index;
+  const queue = [0, 1]; // 已经求出来的点，即被依赖的数据已知，以此来做扩展，dp[next] += dp[cur]; 此时的dp[cur]是准确的
 
   while (queue.length) {
-    const x = queue.shift(); // x表示节点，已求出值的节点
+    const cur = queue.shift(); // 前值
 
-    // 目标
-    if (x === n) return dp[x];
+    // ⭐️ 在这里return, 可以少计算
+    if (cur === n) {
+      return dp[n];
+    }
 
-    // 扩展
-    // next表示_n的邻接节点
-    // 下标为next的节点
-    const next = x === 0 ? [2] : [x + 1, x + 2];
-    for (let y of next) {
-      dp[y] += dp[x]; // y已接收到_n传来的值了，这里的递推公式是求和
-      inDeg[y] -= 1; // y所依赖的点个数-1
-      if (inDeg[y] === 0) {
-        // y不依赖任何点，y的值求出来
-        queue.push(y);
+    const nexts = cur == 0 ? [2] : [cur + 1, cur + 2]; // 扩展值
+
+    for (let next of nexts) {
+      // ⭐️ 防止访问越界
+      if (next > n) {
+        continue;
+      }
+      // 扩展的点的值 依赖于cur的值
+      dp[next] += dp[cur];
+      inDeg[next]--;
+      if (inDeg[next] === 0) {
+        queue.push(next);
       }
     }
   }
-}
 
-// 出队
-// 出队-扩展：将该点的值传给下一个点，比如0出队传给2
+  // return dp[n];
+}
