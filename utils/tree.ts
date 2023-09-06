@@ -44,20 +44,30 @@ export class TreeUtil {
     return buildPerfectBT_helper(0, preOrder.length - 1, preOrder);
   }
 
-  static traversalPreOrder(root: TreeNode): TreeNodeVal[] {
+  static traversalOrder(root: TreeNode, order: 'pre' | 'in' | 'post' = 'pre'): TreeNodeVal[] {
     const output: TreeNodeVal[] = [];
 
     function helper(root: TreeNode) {
       if (!root) return;
 
-      output.push(root.val);
+      if (order === 'pre') {
+        output.push(root.val);
+      }
 
       if (root.left) {
         helper(root.left);
       }
 
+      if (order === 'in') {
+        output.push(root.val);
+      }
+
       if (root.right) {
         helper(root.right);
+      }
+
+      if (order === 'post') {
+        output.push(root.val);
       }
     }
 
@@ -66,5 +76,41 @@ export class TreeUtil {
     return output;
   }
 
-  // static buildByLevel(levelOrder: number[]): TreeNode {}
+  // 一定是满二叉
+  // 有问题
+  static buildByLevel(levelOrder: TreeNodeVal[]): TreeNode {
+    if (!levelOrder.length) {
+      return null;
+    }
+
+    const buildTree = (index: number): TreeNode | null => {
+      if (index >= levelOrder.length || levelOrder[index] === null) {
+        return null;
+      }
+
+      const node = new TreeNode(levelOrder[index] as number);
+      node.left = buildTree(2 * index + 1);
+      node.right = buildTree(2 * index + 2);
+      return node;
+    };
+
+    const root = buildTree(0);
+    return root;
+  }
+
+  // 可能有问题
+  static traversalLevelOrder(root: TreeNode): TreeNodeVal[] {
+    const dp: TreeNodeVal[] = [];
+    const queue: TreeNode[] = [root];
+
+    while (queue.length) {
+      const node = queue.shift();
+      dp.push(node.val);
+
+      node.left !== null && queue.push(node.left);
+      node.right !== null && queue.push(node.right);
+    }
+
+    return dp;
+  }
 }
