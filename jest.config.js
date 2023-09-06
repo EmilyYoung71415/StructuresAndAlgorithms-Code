@@ -5,4 +5,7 @@ module.exports = {
   coverageDirectory: 'coverage',
   preset: 'ts-jest',
   testEnvironment: 'node',
+  moduleNameMapper: {
+    '^@utils$': '<rootDir>/utils/index.ts',
+  },
 };
