@@ -79,6 +79,25 @@ function connect(root: Node | null): Node | null {
 }
 ```
 
+---
+
+树的最大最小深度:
+
+- [104](https://leetcode.cn/problems/maximum-depth-of-binary-tree/)
+- [111](https://leetcode.cn/problems/minimum-depth-of-binary-tree/)
+
+```
+树的最大深度
+  状态: maxDepth
+  递推: 每向下一层遍历，depth++
+    初始值: depth = root = 1
+    边界点: 当节点遍历完之后确定
+  顺序: BFS层序遍历
+树的最小深度
+  递推不一样:
+    边界点: 当遇到第一个叶子节点确定
+```
+
 # 图传值
 
 ## 拓扑排序DAG
