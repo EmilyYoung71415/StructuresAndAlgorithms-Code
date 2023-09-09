@@ -120,6 +120,22 @@ function connect(root: Node | null): Node | null {
     if ((node.left || node.right) === x || y) ==> xpNode
 ```
 
+- [x] [310.最小高度树](https://leetcode.cn/problems/minimum-height-trees/)
+
+  - way1:
+    - 最直接的解法是，枚举以每个节点为根构成的树，然后求出该树的高度，所有树的最小高度即为答案，需要的时间复杂度为 O(n^2)
+    - **复杂度是O(N^2)**
+  - way2: "反向"DFS，找到出度为1的节点，push队列，最后队列的最底层level的节点就是最小高度树节点，拓扑排序的思路.时空复杂度:O(N)
+
+<del>
+  
+ 节点与节点的关系方式，是通过无向边表示: edges[i] = [ai, bi]
+ 题意是从树上任意一个节点出发，能得到当前树的maxDepth，找到所有节点出发的树里的最小树节点 min([tree1.maxDepth, tree2.maxDepth])
+
+挨个从每个节点出发，遍历树出发的maxDepth, 求maxDepth 可以用DFS
+如果判断从当前节点向下的扩展逻辑? [1,0] 表示1->0, 0->1, 所以先构建入度inDeg
+</del>
+
 # 图传值
 
 ## 拓扑排序DAG
