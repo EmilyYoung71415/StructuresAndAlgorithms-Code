@@ -115,11 +115,27 @@ export class TreeUtil {
     const queue: TreeNode[] = [root];
 
     while (queue.length) {
-      const node = queue.shift();
-      dp.push(node.val);
+      const nextLevelQueue: TreeNode[] = [];
+      let levelSize = queue.length;
+      let nullNodeCount = 0;
 
-      node.left !== null && queue.push(node.left);
-      node.right !== null && queue.push(node.right);
+      while (levelSize--) {
+        const node = queue.shift();
+        const isEmpty = node === null;
+        dp.push(isEmpty ? null : node.val);
+
+        const leftSubNode = isEmpty ? null : node.left;
+        const rightSubNode = isEmpty ? null : node.right;
+        nextLevelQueue.push(leftSubNode);
+        nextLevelQueue.push(rightSubNode);
+
+        leftSubNode === null && (nullNodeCount += 1);
+        rightSubNode === null && (nullNodeCount += 1);
+      }
+
+      // const isAllNull = nextLevelQueue.every(node => node === null);
+      if (nullNodeCount === nextLevelQueue.length) return dp;
+      queue.push(...nextLevelQueue);
     }
 
     return dp;
