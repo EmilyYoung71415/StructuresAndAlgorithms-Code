@@ -134,12 +134,28 @@ function connect(root: Node | null): Node | null {
 
 挨个从每个节点出发，遍历树出发的maxDepth, 求maxDepth 可以用DFS
 如果判断从当前节点向下的扩展逻辑? [1,0] 表示1->0, 0->1, 所以先构建入度inDeg
+
 </del>
 
 # 图传值
 
+> 以下题目代码对BFS的核心代码完全无需修改，仅改动递推公式以及建图即可
+
 ## 拓扑排序DAG
+
+- [ ] [207.课程表](https://leetcode.cn/problems/course-schedule/)
+- numCourses = 2, prerequisites = [[1,0]] // prerequisites表示学习课程 1 之前，你需要完成课程 0，判断是否可能完成所有课程的学习
+- clarify: 这道题讲的是:
+
+- [ ] [210.课程表2](https://leetcode.cn/problems/course-schedule-ii/)
+- [ ] [851. 喧闹和富有](https://leetcode.cn/problems/loud-and-rich/)
+- [ ] [802. 找到最终的安全状态](https://leetcode.cn/problems/find-eventual-safe-states/)
+- [ ] [2192. 有向无环图中一个节点的所有祖先](https://leetcode.cn/problems/all-ancestors-of-a-node-in-a-directed-acyclic-graph/)
+- [ ] [1857. 有向图中最大颜色值](https://leetcode.cn/problems/largest-color-value-in-a-directed-graph/)
 
 ## 矩阵问题: 环图->DAG
 
 > 通过设置单调收敛的变量转换为非环图
+
+- [ ] [200. 岛屿数量](https://leetcode.cn/problems/number-of-islands/)
+- [ ] [695. 岛屿的最大面积](https://leetcode.cn/problems/max-area-of-island/)
