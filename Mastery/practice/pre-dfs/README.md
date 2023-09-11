@@ -135,6 +135,15 @@
 
     - 3 1430. 判断给定的序列是否是二叉树从根到叶的路径(vip)
     - 4 [1372. 二叉树中的最长交错路径](../1372.longest-zigzag-path-in-a-binary-tree/index.ts)
+      > 树到叶子的节点path中，取一段区间，该区间满足:右左右的变化规则。求整个树中最大的交错路径长度
+      - 状态值:
+        - path用于判断该条path是否符合交错。且不是从头就否定，而是更新head的方式从新开始的预估
+          - node.left && dfs(node.left, node + node.left); // 1-> 1.right->1-2 !zigZag, path: 2->
+          - pathCount的重置，初始化，都需要推理好确认。
+        - maxZigCount, path到叶节点时，判断path.len > maxZigCount
+      - 代码经验收获：
+        - 多层if嵌套的时候，优先将可以区分成互斥状态的条件判断提前，避免if里逻辑冗余
+        - dfs开始调用的时候，可以多调用入口。（将dfs参数的填充放在外面解决，dfs函数内部尽量不兼容参数为undefined的情况
     - 5 1457. 二叉树中的伪回文路径
     - 6 112. 路径总和
     - 7 113. 路径总和 II：
