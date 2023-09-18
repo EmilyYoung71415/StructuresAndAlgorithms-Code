@@ -105,7 +105,7 @@ function connect(root: Node | null): Node | null {
   prevNode.next = nextNode;
 ```
 
-- [x] [993.二叉树的堂兄弟节点](https://leetcode.cn/problems/cousins-in-binary-tree/)
+- [x] [993.二叉树的堂兄弟节点](../993.cousins-in-binary-tree/index.ts)
 
 ```
   // 如果二叉树的两个节点深度相同，但 父节点不同 ，则它们是一对堂兄弟节点
