@@ -9,26 +9,15 @@
 export function canFinish(n: number, edges: number[][]): boolean {
   // 1. 建有向图：二维邻接表 & 统计节点入度
   const graph: number[][] = new Array(n + 1).fill(null).map(row => new Array());
-  // ❎ graph[x][y] = 1 表示x->y存在
-  // graph[x] = []
-  // graph[x].push(y); x->y,z,a,b,c 表示x的前置依赖是
   const inDeg: number[] = new Array(n + 1).fill(0);
 
-  edges.forEach(edge => {
-    const [x, y] = edge; // y->x
-    // graph[x][y] = 1;
+  for (let [x, y] of edges) {
     graph[y].push(x); // y->x, graph[y]向x扩展
     inDeg[x]++;
-  });
+  }
 
+  // 2. 出发点：将入度为0的节点push进去 // queue初始化
   const queue: number[] = [];
-  // 2. queue初始化：将入度为0的节点push进去
-  // inDeg.forEach((indeg, i) => {
-  //   if (indeg === 0) {
-  //     queue.push(i);
-  //   }
-  // });
-  // <n 而不是 <=
   for (let i = 0; i < n; i++) {
     if (inDeg[i] === 0) {
       queue.push(i);
