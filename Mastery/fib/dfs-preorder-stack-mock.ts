@@ -20,11 +20,14 @@ export function fib(n: number) {
       const [x, visitedCount] = stack[stack.length - 1]; // vis用来标记访问过几个邻接节点
 
       //出栈条件：当邻接节点访问完毕的时候，可以出栈
-      const case1 = x === 0 && visitedCount === 1; //当x == 0时，需要访问的邻接节点的个数为1
-      const case2 = x !== 0 && visitedCount === 2; //当x != 0时，需要访问的邻接节点的个数为2
+      const case1 = x === 0 && visitedCount === 1; //当x == 0时，已访问的邻接节点的个数为1
+      const case2 = x !== 0 && visitedCount === 2; //当x != 0时，已访问的邻接节点的个数为2
 
       //case1：扩展入栈 → 先序传值
       if (!case1 && !case2) {
+        // const nexts = x === 0 ? [2] : [x + 1, x + 2];
+        // 因为在for( next of nexts) 循环里调用了dfs，用栈模拟的时候就是展开
+        // 所以nexts => 每次取一个next
         const next = x === 0 ? 2 : x + visitedCount + 1;
         stack[stack.length - 1][1]++; // 代表扩展节点 + 1
         if (next > n) continue; //next
