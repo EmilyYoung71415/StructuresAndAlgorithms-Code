@@ -23,7 +23,7 @@ function listOfDepth(root: TreeNode | null): Array<ListNode | null> {
       node.right && queue.push(node.right);
     }
 
-    p.next = null;
+    // p.next = null;
     dp.push(linkHead);
   }
 
