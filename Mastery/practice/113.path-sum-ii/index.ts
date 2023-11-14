@@ -1,6 +1,6 @@
 export function pathSum(root: TreeNode | null, targetSum: number): number[][] {
-  const targetPaths: number[][] = [];
   if (!root) return [];
+  const targetPaths: number[][] = [];
 
   let pathSum = 0;
   const prePath: number[] = [];
