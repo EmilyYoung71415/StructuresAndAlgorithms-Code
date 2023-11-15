@@ -45,7 +45,7 @@ export function lowestCommonAncestor(
   while (i && j) {
     const node1 = path1[i];
     const node2 = path2[j];
-    if (node1?.val === node2?.val) {
+    if (node1.val === node2.val) {
       return node1;
     }
     i--;
@@ -92,7 +92,7 @@ export function lowestCommonAncestor1(
   while (i && j) {
     const node1 = path1[i];
     const node2 = path2[j];
-    if (node1?.val === node2?.val) {
+    if (node1.val === node2.val) {
       return node1;
     }
     i--;
