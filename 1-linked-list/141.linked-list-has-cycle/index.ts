@@ -1,4 +1,4 @@
-import type { ListNode } from '../_util';
+import type { ListNode } from '@utils';
 
 export function hasCircle(head: ListNode) {
   if (head === null || head.next === null) return false;
