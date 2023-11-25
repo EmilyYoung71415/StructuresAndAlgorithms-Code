@@ -2,7 +2,7 @@
 // 输入：nums = [1,2,3]
 // 输出：[[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 
-function subsets(nums: number[]): number[][] {
+export function subsets(nums: number[]): number[][] {
   const n = nums.length;
   const result: number[][] = [];
   const path: number[] = [];
