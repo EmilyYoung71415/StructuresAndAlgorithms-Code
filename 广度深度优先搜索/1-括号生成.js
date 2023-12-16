@@ -25,25 +25,23 @@
  *  way2、str = '' 之后不断添加新的字符,左括号在前，右括号存在数量不能多于左括号
  */
 
+function generateParenthesis(n) {
+  let result = [];
+  genCall(0, 0, '');
+  return result;
 
-function generateParenthesis(n){
-    let result= [];
-    genCall(0,0,"");
-    return result;
-
-    function genCall(left,right,str){
-        if(left==n&&right==n){
-            result.push(str);
-        }
-
-        // 左括号加无限制
-        if(left<n){
-            genCall(left+1,right,str+'(');
-        }
-        // 右括号条件：当前有能匹配到他的足够数量的左括号
-        if(left>right&&right<n){
-            genCall(left,right+1,str+')');
-        }
+  function genCall(left, right, str) {
+    if (left == n && right == n) {
+      result.push(str);
     }
 
-}   
+    // 左括号加无限制
+    if (left < n) {
+      genCall(left + 1, right, str + '(');
+    }
+    // 右括号条件：当前有能匹配到他的足够数量的左括号
+    if (left > right && right < n) {
+      genCall(left, right + 1, str + ')');
+    }
+  }
+}

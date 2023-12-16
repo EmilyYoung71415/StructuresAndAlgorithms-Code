@@ -1,72 +1,72 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script src="../2-Stack&Queue扩展/1-优先队列.js"></script>
     <script src="../8-图/0-Graph.js"></script>
     <script>
-    /***
-     * 最小生成树:
-     * 在n个岛屿之间建造桥梁，想用最低的成本实现所有岛屿相互连通
-     * 
-     * 一种求解加权无向连通图的MST问题的贪心算法
-     * 
-     * 从点出发，每解锁一个点，考察点的nexts可供选择的边里，优先选择权重最小的边
-     * 选择评判的策略仍是： 是否构成环
-     * 
-     * 由于每次新加入的点都是遍历型得到的，因此绝对不会重复
-     *      (不像 边探索点，得到的点可能重复)
-     * 因此采用基础数据结构hashmap 存放点即可、（基于点判断是否构成环）
-     * 
-     * 
-     */
-    function Prim(graph){
-        let priorityQueue  = new PriorityQueue((edge1,edge2)=>edge1.weight-edge2.weight);
-        let set = {};//以点的value作为键值
+      /***
+       * 最小生成树:
+       * 在n个岛屿之间建造桥梁，想用最低的成本实现所有岛屿相互连通
+       *
+       * 一种求解加权无向连通图的MST问题的贪心算法
+       *
+       * 从点出发，每解锁一个点，考察点的nexts可供选择的边里，优先选择权重最小的边
+       * 选择评判的策略仍是： 是否构成环
+       *
+       * 由于每次新加入的点都是遍历型得到的，因此绝对不会重复
+       *      (不像 边探索点，得到的点可能重复)
+       * 因此采用基础数据结构hashmap 存放点即可、（基于点判断是否构成环）
+       *
+       *
+       */
+      function Prim(graph) {
+        let priorityQueue = new PriorityQueue((edge1, edge2) => edge1.weight - edge2.weight);
+        let set = {}; //以点的value作为键值
         let result = [];
         // 遍历图中的点
-         for(let item of  Object.values(graph.nodes)){
-            if(!set[item.value]){
-                set[item.value] = item;
+        for (let item of Object.values(graph.nodes)) {
+          if (!set[item.value]) {
+            set[item.value] = item;
 
-                // 将这个节点的相邻边集合 按照边权重（小）加入优先级队列
-                for(let edgeItem of item.edges){
-                    priorityQueue.add(edgeItem);
-                }
-
-                // 从这个节点开始 考察选择符合条件的最小的边
-                while(!priorityQueue.isEmpty()){
-                    let edge =  priorityQueue.poll();
-                    let toNode = edge.to;
-                    if(!set[toNode.value]){
-                        set[toNode.value] = toNode;
-                        result.push(edge);
-
-                        // 继续解锁此节点的下个节点
-                        for(let nextEdge of item.edges){
-                            priorityQueue.add(nextEdge);
-                        }
-                    }
-                }
+            // 将这个节点的相邻边集合 按照边权重（小）加入优先级队列
+            for (let edgeItem of item.edges) {
+              priorityQueue.add(edgeItem);
             }
-        }    
+
+            // 从这个节点开始 考察选择符合条件的最小的边
+            while (!priorityQueue.isEmpty()) {
+              let edge = priorityQueue.poll();
+              let toNode = edge.to;
+              if (!set[toNode.value]) {
+                set[toNode.value] = toNode;
+                result.push(edge);
+
+                // 继续解锁此节点的下个节点
+                for (let nextEdge of item.edges) {
+                  priorityQueue.add(nextEdge);
+                }
+              }
+            }
+          }
+        }
         console.log(result);
         return result;
-    }
-    let testarr = [
-        ['1','2',1],
-        ['1','4',2],
-        ['1','3',3],
-        ['2','4',4],
-        ['3','4',5]
-    ];
-    let graph = createGraph(testarr);
-    Prim(graph);
+      }
+      let testarr = [
+        ['1', '2', 1],
+        ['1', '4', 2],
+        ['1', '3', 3],
+        ['2', '4', 4],
+        ['3', '4', 5],
+      ];
+      let graph = createGraph(testarr);
+      Prim(graph);
     </script>
-</body>
+  </body>
 </html>

@@ -5,10 +5,10 @@
 
 // dfs
 function maxDepth(root) {
-    if (!root) return 0;
-    let res = 0;
-    root.children.forEach(node => {
-        res = Math.max(res,maxDepth(node));
-    })
-    return res + 1;
+  if (!root) return 0;
+  let res = 0;
+  root.children.forEach(node => {
+    res = Math.max(res, maxDepth(node));
+  });
+  return res + 1;
 }

@@ -1,7 +1,7 @@
 /**
  * @desc 求小和问题
  *       每个数的小和为左边比它小的数的数值累加总和
- *      4 1 3 5 0 6 
+ *      4 1 3 5 0 6
  *   4: 0; 1:0; 3:1; 5:4+1+3=8; 0:0; 6:4+1+3+5=13;
  *   总和：13+8+1=22
  * 思考：
@@ -14,13 +14,13 @@
  *              1 3 4 内部产生的子最小和为 4 1 3 ===》  1 3 4 最小和 1
  *              5 0 6 ===》 0 5 6 最小和为5
  *              现在考虑左右合并时的最小和：
- *              1： 右边5、6 ==》 1*2 =2 
+ *              1： 右边5、6 ==》 1*2 =2
  *              3： 右边5 、6 ==》 3*2=6
  *              4： 右边 5、6 ===》 4*2 = 8
  *              即合并最小和 = 2+ 6 +8 = 16
  *              全部最小和 = 16 + 1 +5 = 22
  *          复杂度：基于归并排序改进，只需在合并merge里求值
- */ 
+ */
 
 /**
  * @desc 归并排序
@@ -32,45 +32,42 @@
  *      master公式估约递归的复杂度
  */
 
-
-
 function smallSum(arr) {
-    if (arr === null || arr.length < 2) {
-        return 0;
-    }
-    let result =  mergeSortCal(arr, 0, arr.length);
-    return result;
+  if (arr === null || arr.length < 2) {
+    return 0;
+  }
+  let result = mergeSortCal(arr, 0, arr.length);
+  return result;
 }
 
 function mergeSortCal(arr, left, right) {
-    if (left === right) {
-        return 0;
-    }
-    let mid = left + ((right - left) >> 1); // 位运算效率大于符号运算
-     
-    return mergeSortCal(arr, left, mid) + mergeSortCal(arr, mid + 1, right) +  merge(arr, left, mid, right);
+  if (left === right) {
+    return 0;
+  }
+  let mid = left + ((right - left) >> 1); // 位运算效率大于符号运算
+
+  return mergeSortCal(arr, left, mid) + mergeSortCal(arr, mid + 1, right) + merge(arr, left, mid, right);
 }
 
 function merge(arr, left, mid, right) {
-    let
-        temp = [],
-        i = 0,
-        p1 = left,
-        p2 = mid + 1,
-        res = 0;// 最小和
-    while (p1 <= mid && p2 <= right) {
-        //  right - p2 + 1 即右边比左边大的数的个数
-        res += arr[p1]<arr[p2]?(right-p2+1)*arr[p1]:0;
-        temp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
-    }
-    while (p1 <= mid) {
-        temp[i++] = arr[p1++];
-    }
-    while (p2 <= right) {
-        temp[i++] = arr[p2++];
-    }
-    for (let i = 0; i < temp.length; i++) {
-        arr[left + i] = temp[i];
-    }
-    return res;
+  let temp = [],
+    i = 0,
+    p1 = left,
+    p2 = mid + 1,
+    res = 0; // 最小和
+  while (p1 <= mid && p2 <= right) {
+    //  right - p2 + 1 即右边比左边大的数的个数
+    res += arr[p1] < arr[p2] ? (right - p2 + 1) * arr[p1] : 0;
+    temp[i++] = arr[p1] < arr[p2] ? arr[p1++] : arr[p2++];
+  }
+  while (p1 <= mid) {
+    temp[i++] = arr[p1++];
+  }
+  while (p2 <= right) {
+    temp[i++] = arr[p2++];
+  }
+  for (let i = 0; i < temp.length; i++) {
+    arr[left + i] = temp[i];
+  }
+  return res;
 }

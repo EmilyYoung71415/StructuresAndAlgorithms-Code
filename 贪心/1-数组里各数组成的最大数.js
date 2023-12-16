@@ -8,5 +8,5 @@ let arr = [50, 2, 5, 9];
  *      3、使用字符串拼接的形式简化代码
  */
 function getMaxNumber(arr) {
-    return arr.sort().reduce((acc = '', cur) => Math.max(+`${acc}${cur}`, +`${cur}${acc}`));
+  return arr.sort().reduce((acc = '', cur) => Math.max(+`${acc}${cur}`, +`${cur}${acc}`));
 }

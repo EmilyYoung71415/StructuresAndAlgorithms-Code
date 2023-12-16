@@ -4,7 +4,6 @@
  *  一旦删除值为 target 的叶子节点，它的父节点就可能变成叶子节点；如果新叶子节点的值恰好也是 target ，那么这个节点也应该被删除。
  */
 
-
 /**
  * 思路：
  *      当前叶节点 = target root = null
@@ -14,16 +13,16 @@
  */
 
 function removeLeafNodes(root, target) {
-    if (!root) return null;
-    if (!root.left&& !root.right && root.val == target) {
-        return null;
-    }
-    // 删除后的节点 更新赋予给 回溯层的根节点 (不要指望靠引用传递)
-    root.left = removeLeafNodes(root.left, target);
-    root.right = removeLeafNodes(root.right, target);
-    // 回溯处理根节点
-    if (!root.left&& !root.right && root.val == target) {
-        root = null;
-    }
-    return root;
+  if (!root) return null;
+  if (!root.left && !root.right && root.val == target) {
+    return null;
+  }
+  // 删除后的节点 更新赋予给 回溯层的根节点 (不要指望靠引用传递)
+  root.left = removeLeafNodes(root.left, target);
+  root.right = removeLeafNodes(root.right, target);
+  // 回溯处理根节点
+  if (!root.left && !root.right && root.val == target) {
+    root = null;
+  }
+  return root;
 }

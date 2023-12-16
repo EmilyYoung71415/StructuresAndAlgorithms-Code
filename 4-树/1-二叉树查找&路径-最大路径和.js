@@ -27,18 +27,18 @@
  */
 
 function maxPathSum(root) {
-    let max = Number.MIN_SAFE_INTEGER;
-    maxPathSumCall(root);
-    return max;
+  let max = Number.MIN_SAFE_INTEGER;
+  maxPathSumCall(root);
+  return max;
 
-    function maxPathSumCall(node) {
-        if (!node) return 0;
-        // 加 Math.max：如果选了子树的和 反而小了 还不如不选（子树为负数的情况
-        let left = Math.max(maxPathSumCall(node.left), 0);
-        let right = Math.max(maxPathSumCall(node.right), 0);
-        // 上面解决了 选不选子树的问题
-        // 这里解决 选了双子树之后 与原max相比的问题
-        max = Math.max(max, left + right + node.val);
-        return Math.max(left, right) + node.val;
-    }
+  function maxPathSumCall(node) {
+    if (!node) return 0;
+    // 加 Math.max：如果选了子树的和 反而小了 还不如不选（子树为负数的情况
+    let left = Math.max(maxPathSumCall(node.left), 0);
+    let right = Math.max(maxPathSumCall(node.right), 0);
+    // 上面解决了 选不选子树的问题
+    // 这里解决 选了双子树之后 与原max相比的问题
+    max = Math.max(max, left + right + node.val);
+    return Math.max(left, right) + node.val;
+  }
 }

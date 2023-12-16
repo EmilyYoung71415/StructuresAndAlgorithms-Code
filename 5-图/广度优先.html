@@ -1,61 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script src="./0-Graph.js"></script>
     <script src="../2-Stack&Queue/2-队列实现by数组.js"></script>
     <script>
-
-
-        function BFS(node){
-            if(node===null){
-                return;
-            }
-            let set = {};
-            let queue = new Queue(100);
-
-            queue.push(node);
-            set[node.value] = node;
-
-            while(!queue.isEmpty()){
-                let curNode =  queue.poll();//弹出当前元素
-                // 开始遍历当前元素的nexts邻接节点 add进去
-                console.log(curNode.value);
-                for(let nextItem of curNode.nexts){
-                    if(!set[nextItem.value]){
-                        set[nextItem] = nextItem;
-                        queue.push(nextItem);
-                    }
-                }
-            }
+      function BFS(node) {
+        if (node === null) {
+          return;
         }
+        let set = {};
+        let queue = new Queue(100);
 
-        /***
-         *  期望输出： 
-         *        1
-         *      /   \
-         *     2     4
-         *     |   /  \ 
-         *     7  5 —— 9  
-         * 
-         * ==> 124759
-         */
+        queue.push(node);
+        set[node.value] = node;
 
-         let testarr = [
-            ['1','2',null],
-            ['2','7',null],
-            ['1','4',null],
-            ['4','5',null],
-            ['4','9',null],
-            ['5','9',null],
-        ];
-        let graph = createGraph(testarr);
-        BFS(graph.nodes['1']);// 以1开头
+        while (!queue.isEmpty()) {
+          let curNode = queue.poll(); //弹出当前元素
+          // 开始遍历当前元素的nexts邻接节点 add进去
+          console.log(curNode.value);
+          for (let nextItem of curNode.nexts) {
+            if (!set[nextItem.value]) {
+              set[nextItem] = nextItem;
+              queue.push(nextItem);
+            }
+          }
+        }
+      }
+
+      /***
+       *  期望输出：
+       *        1
+       *      /   \
+       *     2     4
+       *     |   /  \
+       *     7  5 —— 9
+       *
+       * ==> 124759
+       */
+
+      let testarr = [
+        ['1', '2', null],
+        ['2', '7', null],
+        ['1', '4', null],
+        ['4', '5', null],
+        ['4', '9', null],
+        ['5', '9', null],
+      ];
+      let graph = createGraph(testarr);
+      BFS(graph.nodes['1']); // 以1开头
     </script>
-</body>
+  </body>
 </html>

@@ -14,23 +14,23 @@
 /***
  * 思路：
  * way1： 前序遍历记录结点个数
- * 
+ *
  */
 function countNodes(root) {
-    let count = 0;
-    countNodesCall(root);
-    return count;
-    
-    function countNodesCall(root) {
-        if (!root) return;
-        count++;
-        root.left && countNodesCall(root.left);
-        root.right && countNodesCall(root.right);
-    }
+  let count = 0;
+  countNodesCall(root);
+  return count;
+
+  function countNodesCall(root) {
+    if (!root) return;
+    count++;
+    root.left && countNodesCall(root.left);
+    root.right && countNodesCall(root.right);
+  }
 }
 
 // 优化
 function countNodes(root) {
-    if (!root) return 0;
-    return 1 + countNodes(root.left) + countNodes(root.right);
+  if (!root) return 0;
+  return 1 + countNodes(root.left) + countNodes(root.right);
 }

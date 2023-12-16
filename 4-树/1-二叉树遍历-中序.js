@@ -8,37 +8,37 @@
  */
 
 function inorderTraversal(root) {
-    let result = [],
-        stack = [],
-        p = root;// 遍历指针
-    
-    while(p||stack.length!==0){
-        while (p) {
-            stack.push(p);
-            p = p.left;
-        }
+  let result = [],
+    stack = [],
+    p = root; // 遍历指针
 
-        if (stack.length) {
-            // p.left = null 所以弹栈找到最后一个push的节点
-            p = stack.pop();
-            result.push(p.val)
-            p = p.right;
-        }
+  while (p || stack.length !== 0) {
+    while (p) {
+      stack.push(p);
+      p = p.left;
     }
-    return result;
+
+    if (stack.length) {
+      // p.left = null 所以弹栈找到最后一个push的节点
+      p = stack.pop();
+      result.push(p.val);
+      p = p.right;
+    }
+  }
+  return result;
 }
 
 // 递归方法
-function inorderTraversal1(root){
-    let result = [];
-    inorderTraversalCall(root);
-    return result;
-    function inorderTraversalCall(root){
-        if(root==null){
-            return ;
-        }
-        inorderTraversalCall(root.left);
-        result.push(root.val);
-        inorderTraversalCall(root.right);
+function inorderTraversal1(root) {
+  let result = [];
+  inorderTraversalCall(root);
+  return result;
+  function inorderTraversalCall(root) {
+    if (root == null) {
+      return;
     }
+    inorderTraversalCall(root.left);
+    result.push(root.val);
+    inorderTraversalCall(root.right);
+  }
 }

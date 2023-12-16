@@ -1,61 +1,61 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <script src="./0-Graph.js"></script>
     <script>
-        // 深度优先遍历
-        function DFS(node){
-            if(node ===null){
-                return ;
-            }
-            let stack = [];
-            let set  = {};
-            stack.push(node);
-            set[node.value] = node;
-            console.log(node.value);
-            while(stack.length){
-                let cur = stack.pop();
-                // 遍历cur 的nexts
-                for(let item of cur.nexts){
-                    // set没包含的都是为探索的，所以不能急着遍历下一个(break)
-                    if(!set[item.value]){
-                        stack.push(cur);
-                        stack.push(item);
-                        set[item.value] = item;    
-                        console.log(item.value);                    
-                        break;
-                    }
-                }
-            }
+      // 深度优先遍历
+      function DFS(node) {
+        if (node === null) {
+          return;
         }
-    
-        /***
-         *  期望输出： 
-         *        1
-         *      /  |  \
-         *     2   3   4
-         *    /   /     \
-         *   7—— 5       6
-         * ==> 1275346
-         */
+        let stack = [];
+        let set = {};
+        stack.push(node);
+        set[node.value] = node;
+        console.log(node.value);
+        while (stack.length) {
+          let cur = stack.pop();
+          // 遍历cur 的nexts
+          for (let item of cur.nexts) {
+            // set没包含的都是为探索的，所以不能急着遍历下一个(break)
+            if (!set[item.value]) {
+              stack.push(cur);
+              stack.push(item);
+              set[item.value] = item;
+              console.log(item.value);
+              break;
+            }
+          }
+        }
+      }
 
-         let testarr = [
-            ['1','2',null],
-            ['1','3',null],
-            ['1','4',null],
-            ['2','7',null],
-            ['7','5',null],
-            ['5','3',null],
-            ['4','6',null],
-        ];
-        let graph = createGraph(testarr);
-        DFS(graph.nodes['1']);// 以1开头
+      /***
+       *  期望输出：
+       *        1
+       *      /  |  \
+       *     2   3   4
+       *    /   /     \
+       *   7—— 5       6
+       * ==> 1275346
+       */
+
+      let testarr = [
+        ['1', '2', null],
+        ['1', '3', null],
+        ['1', '4', null],
+        ['2', '7', null],
+        ['7', '5', null],
+        ['5', '3', null],
+        ['4', '6', null],
+      ];
+      let graph = createGraph(testarr);
+      DFS(graph.nodes['1']); // 以1开头
     </script>
-</body>
+  </body>
 </html>

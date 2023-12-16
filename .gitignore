@@ -1,1 +1,5 @@
 /studyNotes
+node_modules
+.idea
+.error
+coverage

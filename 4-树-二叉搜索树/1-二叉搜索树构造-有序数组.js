@@ -11,13 +11,13 @@
  *      ==> 中序遍历反解: 寻找到数的中间节点，从中间节点触发,切分出左右子树列表，递归构造新的的左右子树
  */
 function sortedArrayToBST(nums) {
-    if (!nums.length) return null;
+  if (!nums.length) return null;
 
-    let mid = nums.length>>1;
-    let root = new TreeNode(nums[mid]);
+  let mid = nums.length >> 1;
+  let root = new TreeNode(nums[mid]);
 
-    root.left = sortedArrayToBST(nums.slice(0, mid));
-    root.right = sortedArrayToBST(nums.slice(mid + 1));
+  root.left = sortedArrayToBST(nums.slice(0, mid));
+  root.right = sortedArrayToBST(nums.slice(mid + 1));
 
-    return root;
+  return root;
 }

@@ -11,20 +11,20 @@
  */
 
 function levelOrder(root) {
-    if (!root) return [];
-    let result = [];
-    let queue = [root];
-    
-    while (queue.length) {
-        let prevLevelLen = queue.length;
-        let curRes = [];
-        while (prevLevelLen--) {
-            let node = queue.shift();
-            curRes.push(node.val);
-            node.left && queue.push(node.left);
-            node.right && queue.push(node.right);
-        }
-        result.push(curRes);
+  if (!root) return [];
+  let result = [];
+  let queue = [root];
+
+  while (queue.length) {
+    let prevLevelLen = queue.length;
+    let curRes = [];
+    while (prevLevelLen--) {
+      let node = queue.shift();
+      curRes.push(node.val);
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
     }
-    return result;
+    result.push(curRes);
+  }
+  return result;
 }

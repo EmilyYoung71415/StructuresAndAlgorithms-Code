@@ -15,23 +15,23 @@
  *后序是: 左右根
  *和已知前中差不多的
  */
-let inorder = [9,3,15,20,7],// 左根右
-    postorder = [9,15,7,20,3];// 左右根
-console.log(buildTree(inorder,postorder));
-function TreeNode(val){
-    this.val = val;
-    this.left = this.right = null;
+let inorder = [9, 3, 15, 20, 7], // 左根右
+  postorder = [9, 15, 7, 20, 3]; // 左右根
+console.log(buildTree(inorder, postorder));
+function TreeNode(val) {
+  this.val = val;
+  this.left = this.right = null;
 }
 
-function buildTree(inorder,postorder){
-    if(inorder.length<1||postorder.length<1){
-        return null;
-    }
-    let postLen = postorder.length;
-    let root = postorder[postLen-1];
-    let node = new TreeNode(root);
-    let pos = inorder.indexOf(root);
-    node.left =  buildTree(inorder.slice(0,pos),postorder.slice(0,pos));
-    node.right = buildTree(inorder.slice(pos+1),postorder.slice(pos,postLen-1));
-    return node;
+function buildTree(inorder, postorder) {
+  if (inorder.length < 1 || postorder.length < 1) {
+    return null;
+  }
+  let postLen = postorder.length;
+  let root = postorder[postLen - 1];
+  let node = new TreeNode(root);
+  let pos = inorder.indexOf(root);
+  node.left = buildTree(inorder.slice(0, pos), postorder.slice(0, pos));
+  node.right = buildTree(inorder.slice(pos + 1), postorder.slice(pos, postLen - 1));
+  return node;
 }

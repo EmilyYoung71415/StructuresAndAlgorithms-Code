@@ -10,14 +10,14 @@ const BinarySearchTree = require('./4-树-二叉搜索树/0-二叉搜索树BST')
 const Heap = require('./4-树-完全二叉树-堆/0-堆的实现.js');
 // exports.Stack = Stack;
 module.exports = {
-    LinkedListF,
-    LinkedListR,
-    DoublyLinkedListF,
-    DoublyLinkedListR,
-    Queue,
-    Stack,
-    PriorityQueue,
-    Dequeue,
-    BinarySearchTree,
-    Heap
-}
+  LinkedListF,
+  LinkedListR,
+  DoublyLinkedListF,
+  DoublyLinkedListR,
+  Queue,
+  Stack,
+  PriorityQueue,
+  Dequeue,
+  BinarySearchTree,
+  Heap,
+};
