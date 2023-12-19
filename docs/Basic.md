@@ -6,6 +6,8 @@
 - Design Double Linked List
 - Design Double-ended Queue
 - Design LRU
+  - way1: 利用Map结构
+  - way2: 散列表+双向链表
 - Design Binary Search Tree(Medium)
 - Design Hash Table(Medium)
 - Design Heap(Medium)
