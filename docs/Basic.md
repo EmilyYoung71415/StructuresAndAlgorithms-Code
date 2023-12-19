@@ -8,8 +8,8 @@
 - Design LRU ✅
   - way1: 利用Map结构
   - way2: hash表+双向链表
-- Design Binary Search Tree(Medium)
 - Design Hash Table(Medium)
+- Design Binary Search Tree(Medium)
 - Design Heap(Medium)
 - Design Graph(Medium)
 - Design Disjoint Set (Union-Find)(Medium)
@@ -20,6 +20,10 @@
 - Insertion Sort
 - Merge Sort
 - Quick Sort
+
+## 队列
+
+- 优先队列 new PQueue(comparisonFunc)
 
 ## Graphs
 
