@@ -1,8 +1,9 @@
-刷题笔记详见：https://www.yuque.com/u2728/code-basis
+Multiple outlines used together:
 
-TS 迁移中 & 时隔 N 年第 N 遍重刷中
-新版本：
+## Study RoadMap
 
-- 使用 TS 作为主要刷题语言
-- 引入单测
-- 英文 support：file name, 注释， explain
+- [basic](./docs/Basic.md) 基础
+
+## Problem List
+
+- [blind75](./docs/Blind75.md) That cover the most common questions and question patterns asked within coding interviews
