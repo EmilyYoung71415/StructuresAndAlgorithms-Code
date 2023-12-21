@@ -1,42 +1,41 @@
-export function quickSort(arr: number[], left = 0, right = arr.length) {
+export function quickSort(arr: number[], left = 0, right = arr.length - 1) {
   if (left >= right) return arr;
-
   const p = partition(arr, left, right);
   quickSort(arr, left, p - 1);
   quickSort(arr, p + 1, right);
+  return arr;
 }
 
-export function quickSort2(arr: number[], left = 0, right = arr.length) {
+export function quickSort2(arr: number[], left = 0, right = arr.length - 1) {
   if (left >= right) return arr;
   const stack: [number, number][] = [];
   stack.push([left, right]);
-
   while (stack.length) {
     const [_left, _right] = stack.pop();
     if (_left >= _right) continue;
     const p = partition(arr, _left, _right);
-    stack.push([_left, p + 1]);
-    stack.push([p - 1, _right]);
+    stack.push([_left, p - 1]);
+    stack.push([p + 1, _right]);
   }
-
   return arr;
 }
 
 // [data<p, p, arr>p]
-// Lomuto分割
-function partition(arr: number[], left = 0, right = arr.length): number {
-  const p = arr[right];
-  // data<p的那个最小接近p的元素
-  let boundary = left - 1;
+function partition(arr: number[], left = 0, right = arr.length - 1): number {
+  const pivot = arr[right];
 
-  // 这里结束为i=right, 就不需要for循环外再交换了
-  for (let i = left; i <= right; i++) {
-    if (arr[i] <= p) {
-      boundary++;
-      // swap(arr, boundary, i);
-      [arr[boundary], arr[i]] = [arr[i], arr[boundary]];
+  let i = left - 1;
+
+  for (let j = left; j <= right - 1; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      // swap: i,j
+      [arr[i], arr[j]] = [arr[j], arr[i]];
     }
   }
 
-  return boundary;
+  // swap: i+1, pivot
+  [arr[i + 1], arr[right]] = [arr[right], arr[i + 1]];
+
+  return i + 1;
 }
