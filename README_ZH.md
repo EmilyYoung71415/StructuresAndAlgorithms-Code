@@ -1,3 +1,5 @@
+[English](./README.md) | [简体中文](.)
+
 多个outline搭配使用:
 
 ## Study RoadMap
