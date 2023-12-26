@@ -1,7 +1,7 @@
 import { bubbleSort } from '../bubble-sort';
 import { mergeSort } from '../merge-sort';
 import { quickSort, quickSort2 } from '../quick-sort';
-
+import { insertionSort } from '../insertion-sort';
 const sortFuncs = [bubbleSort, mergeSort, quickSort, quickSort2];
 
 const testCases = [
@@ -46,6 +46,15 @@ describe('Sorting Algorithms with quickSort', () => {
         const result = quickSort2([...input]);
         expect(result).toEqual(expected);
       });
+    });
+  });
+});
+
+describe('insertionSort should work', () => {
+  testCases.forEach(({ input, expected }) => {
+    it(`should sort ${input} correctly`, () => {
+      const result = insertionSort([...input]);
+      expect(result).toEqual(expected);
     });
   });
 });
