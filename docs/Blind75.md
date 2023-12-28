@@ -21,7 +21,7 @@ ref: [neecode.blind75](https://neetcode.io/practice)
 
 ## Two Pointers
 
-- [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/)
+- [125. Valid Palindrome](https://leetcode.com/problems/valid-palindrome/) ✅
 - [3Sum](https://leetcode.com/problems/3sum/)
 - [Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 
