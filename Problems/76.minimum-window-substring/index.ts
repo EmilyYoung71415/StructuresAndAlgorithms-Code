@@ -1,3 +1,43 @@
+export function minWindow_perf(s: string, t: string): string {
+  const n = s.length;
+  const m = t.length;
+  let [l, r, minLen, minL] = [0, 0, Infinity, 0];
+  const needMap = new Map<string, number>();
+  let missingCount = m;
+
+  // 统计t字符，表示要满足t子串的要求各个字符需要的数量
+  for (let i = 0; i < m; i++) {
+    const c = t[i];
+    needMap.set(c, (needMap.get(c) || 0) + 1);
+  }
+
+  while (r < n) {
+    const c = s[r];
+    // 如果当前字符是t中的字符，那么需要的数量减一
+    missingCount -= needMap.get(c) > 0 ? 1 : 0;
+    needMap.set(c, (needMap.get(c) || 0) - 1);
+
+    if (missingCount === 0) {
+      // 如果当前窗口满足要求，那么尝试缩小窗口
+      while (l <= r && needMap.get(s[l]) < 0) {
+        const lc = s[l];
+        // 让needMap中的负数变为正数，表示当前窗口不满足要求，开始寻找下一个满足的窗口
+        needMap.set(lc, (needMap.get(lc) || 0) + 1);
+        l++;
+      }
+
+      const curLen = r - l + 1;
+      if (curLen < minLen) {
+        minLen = curLen;
+        minL = l;
+      }
+    }
+    r++;
+  }
+
+  return minLen === Infinity ? '' : s.slice(minL, minL + minLen);
+}
+
 // FIXME:超时了需要优化
 export function minWindow(s: string, t: string): string {
   const n = s.length;
