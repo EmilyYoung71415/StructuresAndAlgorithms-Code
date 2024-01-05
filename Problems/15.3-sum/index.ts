@@ -2,28 +2,21 @@ export function threeSum(nums: number[]): number[][] {
   nums.sort((a, b) => a - b);
   const n = nums.length;
   const result: number[][] = [];
-  const hash = new Set<string>();
+  // const hash = new Set<string>();
 
   for (let i = 0; i < n; i++) {
     const picked = nums[i];
-    // 不能直接跳过
-    // 连续4个一样的跳过
-    // [0, 0, 0, 0];
-    // if (i >= 3 && nums[i] === nums[i - 1] && nums[i - 1] === nums[i - 2]) continue;
+    if (picked > 0) break; // 最小的都大于0，证明无解
+    if (i > 0 && picked === nums[i - 1]) continue; // 去重
     const targetNums = twoSum(nums, i + 1, -picked);
     if (targetNums.length) {
       targetNums.forEach(targetRes => {
-        const hashId = JSON.stringify(targetRes);
-        if (!hash.has(hashId)) {
-          result.push(targetRes);
-          hash.add(hashId);
-        }
+        result.push(targetRes);
       });
     }
   }
 
   return result;
-  // return [...new Set(result)]; 矩阵去重
 
   // 从start里开始找，找到相加和等于target的两个数
   // 有可能是多个解
