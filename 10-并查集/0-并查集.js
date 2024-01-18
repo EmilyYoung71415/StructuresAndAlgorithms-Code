@@ -67,11 +67,12 @@ class UnionFind{
     }
     find(node){
         let father = this.fatherMap[node.value];
-        if(father.value != node.value){// 判断两个对象是否相等
+        if(father.value != node.value){// 是否是集合的root顶点
             // 逐渐往上找
             father = this.find(father);
         }
-        // 扁平化
+        // find的时候 路径压缩 扁平化
+        // 将当前节点的parent 直接指向了 集合的root
         this.fatherMap[node.value] = father;
         return father;
     }
@@ -101,3 +102,24 @@ class UnionFind{
         }
     }
 }
+
+/**     a       c     
+ *     / 
+ *    b 
+ *   /
+ *  c 
+    let fatherMap = {// 保存着每个元素的夫元素
+        a:{
+            value:a
+        },
+        b:{
+            value:a
+        }
+        c:{
+            value:b
+        }
+        d:{
+            value:c
+        }
+    }
+ */
