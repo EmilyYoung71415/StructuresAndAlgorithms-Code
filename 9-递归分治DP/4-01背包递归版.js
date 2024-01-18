@@ -2,7 +2,7 @@
  * @param weights表示物品重量集 [2,3,4]
  * @param values表示物品价值集 [3,4,5]
  * @param capacity表示背包的容量  5
- * @param n表示物品 
+ * @param n表示当前物品索引 
  * @return  7
  *      背包物品满足容量的情况下，产生的最大价值
  *      打印方案详细情况
