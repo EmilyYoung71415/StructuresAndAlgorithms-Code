@@ -43,6 +43,7 @@ function reverseList2(head){
         return head;
     }
     // 返回新链表的头节点 即原链尾
+    // 输入一个节点head，将「以head为起点」的链表反转，并返回反转之后的头结点。
     let newhead = reverseList(head.next);
     // 此时的head是倒数第二个节点 (当第一次回溯的时候)
     head.next.next = head;
