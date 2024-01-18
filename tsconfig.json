@@ -8,7 +8,11 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@utils": ["./utils/index.ts"]
+    }
   },
   "exclude": ["node_modules"]
 }
