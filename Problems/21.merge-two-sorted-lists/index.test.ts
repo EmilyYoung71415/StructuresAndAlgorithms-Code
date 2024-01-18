@@ -1,6 +1,6 @@
 import { buildLinkedList, expectListAs } from '@utils';
 import { mergeTwoLists as mergeTwoLists_dfs } from './dfs';
-import { mergeTwoLists as mergeTwoLists_iterator } from './iterator';
+import { mergeTwoLists as mergeTwoLists_iterator } from './iterate';
 
 test('mergeTwoLists dfs should work', () => {
   const input1 = [1, 2, 4];
