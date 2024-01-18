@@ -10,6 +10,8 @@ export function largestPathValue(colors: string, edges: number[][]) {
   const nodeCount = colors.length;
   const graph = new Array(nodeCount).fill(0).map(() => new Array());
   for (let [x, y] of edges) {
+    // 一个神奇的地方，这两种写法都可以过用例，97算法里写的y.push(x); bfs里是x.push(y)
+    // ===> 算的是路径上的max，与依赖路径的方向没关系
     graph[x].push(y);
     // graph[y].push(x);
   }
