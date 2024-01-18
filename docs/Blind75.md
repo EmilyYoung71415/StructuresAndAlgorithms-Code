@@ -56,10 +56,10 @@ ref: [neecode.blind75](https://neetcode.io/practice)
 
 ## Trees
 
-- [Invert/Flip Binary Tree](https://leetcode.com/problems/invert-binary-tree/)🟢
-- [Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)🟢
-- [Same Tree](https://leetcode.com/problems/same-tree/)🟢
-- [Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)🟢
+- [226.Invert/Flip Binary Tree](https://leetcode.com/problems/invert-binary-tree/)🟢✅
+- [104.Maximum Depth of Binary Tree](https://leetcode.com/problems/maximum-depth-of-binary-tree/)🟢
+- [100.Same Tree](https://leetcode.com/problems/same-tree/)🟢
+- [572.Subtree of Another Tree](https://leetcode.com/problems/subtree-of-another-tree/)🟢
 - [Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)🟡
 - [Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)🟡
 - [Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)🟡

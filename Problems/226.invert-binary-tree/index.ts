@@ -1,4 +1,4 @@
-function invertTree(root: TreeNode | null): TreeNode | null {
+export function invertTree(root: TreeNode | null): TreeNode | null {
   if (!root) return null;
 
   invertTree(root.left);
