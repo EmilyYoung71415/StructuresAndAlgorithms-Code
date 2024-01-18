@@ -7,11 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="./2-冒泡排序.js"></script>
-    <script src="./4-选择排序.js"></script>
-    <script src="./5-插入排序.js"></script>
-    <script src="./7-归并排序.js"></script>
-    <script src="./3-快速排序.js"></script>
+    <script src="./7-桶排序.js"></script>
     <script>
         // 比较器
         // 随机发射器 输入len 数组长度，size数字的大小范围 --帮助我们产生随机数据
@@ -19,7 +15,8 @@
             let arr = [];
             let len = ~~(Math.random()*(maxLen + 1)+1);
             for(let i=0;i<len;i++){
-                arr[i] = ~~((maxSize + 1) * Math.random() - maxSize * Math.random())
+                //arr[i] = ~~((maxSize + 1) * Math.random() - maxSize * Math.random())
+                arr[i] = ~~((maxSize + 1) * Math.random());            
             }
             return arr;
         }
@@ -62,22 +59,26 @@
         window.onload = function(){
             let 
                 testTime = 5,
-                maxLen = 5,
+                maxLen = 15,
                 maxSize  = 100,
                 success = true;
             for(let i=0;i<testTime;i++){
                 let arr1 = generateRandomArray(maxLen,maxSize);
-                console.dir('测试前'+arr1)
+                console.log(arr1)
+                //console.dir('测试前'+arr1)
                 let arr2 = copyArr(arr1);
                 /************排序算法**********************/
                 // bubbleSort(arr1);
                 // selectSort(arr1);
                 // insertSort(arr1)
                 // mergeSort(arr1)
-                quickSort(arr1);
+                // quickSort(arr1);
+                // heapSort(arr1)
+                bucketSort(arr1)
                 // 调用原生sort方法 通过和原生sort比较判断结果是否正确
                 compareWithRight(arr2);
-                console.log('测试后'+ arr1)
+                 console.log('arr2'+arr2)
+                 console.log('测试后'+ arr1)
                 if(!checkIsEqual(arr1,arr2)){
                     success = false;
                     break;

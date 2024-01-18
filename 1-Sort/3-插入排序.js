@@ -9,6 +9,8 @@
  *      若小于则排序数列依次往右移动一格以便移出位置(下标)给新成员
  *      移出的位置赋值于新成员
  */
+let arr = [2,5,6,1,20]
+insertSort(arr)
 function insertSort(arr){
     if(arr===null||arr.length<2){
         return;

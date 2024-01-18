@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let arr = [2, 5, 160, 1, 20]
+        insertionSortDichotomy(arr)
+
+        function insertionSortDichotomy(arr) {
+            if (arr === null || arr.length < 2) {
+                return;
+            }
+            for (let i = 1; i < arr.length; i++) {
+                // i 从1开始表示每次新的元素
+
+                // 二分法查找左边的已排好序的数 与新元素比较
+                let
+                    temp = arr[i],
+                    left = 0,
+                    right = i - 1;
+                while (left <= right) {
+                    let mid = ~~((left + right) / 2);
+                    if (arr[mid] > temp) {
+                        right = mid - 1;
+                    } else {
+                        left = mid + 1;
+                    }
+                }
+
+                //将欲插入新牌位置右边的牌整体向右移动一个单位
+                for (let j = i - 1; j >= right; j--) {
+                    arr[j + 1] = arr[j];
+                }
+                arr[left] = temp;
+            }
+        }
+    </script>
+</body>
+
+</html>
