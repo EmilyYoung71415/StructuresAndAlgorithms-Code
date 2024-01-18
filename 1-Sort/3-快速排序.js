@@ -22,18 +22,18 @@
 
 
 function quickSort(array, left, right) {　　
-    if (left > right) return ;　　
+    if (left > right) return;　　
     var i = left,
         j = right,
-        pivot = array[left];//基准值
-    while(i!=j){
-        while(array[j]>=pivot&&i<j){
+        pivot = array[left]; //基准值
+    while (i != j) {
+        while (array[j] >= pivot && i < j) {
             j--;
         }
-        while(array[i]<=pivot&&i<j){
+        while (array[i] <= pivot && i < j) {
             i++;
         }
-        if(i<j){
+        if (i < j) {
             var temp = array[i];
             array[i] = array[j];
             array[j] = temp;
@@ -47,4 +47,53 @@ function quickSort(array, left, right) {　　
     return array;
 }
 var arr = [6, 2, 1, 8, 4, 5, 1, 7]
-console.log(quickSort(arr, 0, arr.length - 1)); 
+console.log(quickSort(arr, 0, arr.length - 1));
+
+
+/**
+ * @desc  JS实现快排
+ * 基本思路：两个数组right、left;一个基准值mid
+ *          每次遍历时比mid大的数仍在right里，比mid小的仍在left里。
+ *          连接left、mid、right完成第一轮比较。
+ *          剩下的，递归调用快排，输入left、right。递归出口是当前数组长度<=1,分无可分。
+ */
+
+
+function quickSort(arr) {
+    if (arr.length <= 1) return arr;
+
+    var
+        mid = ~~(arr.length / 2),
+        midItem = arr.splice(mid, 1)[0], //中间值作为基准值并将其从原数组中删除
+        left = [],
+        right = [];
+
+    arr.forEach(element => {
+        if (element < midItem) {
+            left.push(element);
+        } else {
+            right.push(element);
+        }
+    });
+
+    //递归调用
+    var
+        _left = quickSort(left),
+        _right = quickSort(right);
+
+    //合并
+    return _left.concat(midItem, _right);
+}
+
+
+/**
+ * @desc  一行代码实现快排
+ * 知识点:   强大的api。
+ *          filter
+ *          arr.slice(1) //未定义start即从下标1到数组结尾的所有数
+ */
+
+function quickSort(a) {
+    return a.length <= 1 ? a :
+        quickSort(a.slice(1).filter(item => item <= a[0])).concat(a[0], quickSort(a.slice(1).filter(item => item > a[0])));
+}
