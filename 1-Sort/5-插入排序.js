@@ -10,21 +10,18 @@
  *      移出的位置赋值于新成员
  */
 function insertSort(arr){
-    var len = arr.length,
-        preIndex,//已排序数列的最后一项
-        curItem;//当前扫描对象
-    for(var i = 1;i<len;i++){
-        preIndex = i-1;
-        curItem = arr[i];
-        while(preIndex >= 0 && arr[preIndex]>curItem){
-            //依次移动一位腾出位置
-            arr[preIndex+1] = arr[preIndex];
-            preIndex --;
-        }
-        //当扫描的值等于或小于当前值时，当前值归位
-        arr[preIndex+1] = curItem;
+    if(arr===null||arr.length<2){
+        return;
     }
-    return arr;
-}
-var testData = [3,44,38,5,47,15,36,26,27,2,46,4,19,50,48];
-insertSort(testData)
+    for(let i =1;i<arr.length;i++){
+        for(let j=i-1;j>=0&&arr[j]>arr[j+1];j--){
+            swap(arr,j,j+1)
+        }
+    }
+ }
+
+ function swap(arr,i,j){
+     let temp = arr[i];
+     arr[i] = arr[j];
+     arr[j] = temp;
+ }
