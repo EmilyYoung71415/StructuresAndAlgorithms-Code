@@ -5,51 +5,61 @@
 // 3. 要点1：path的true和false是在做回溯，之间不允许break， continue，return！ ！
 // 4. 要点2：path的无效判断一定要在memo重叠之前，否则memo重叠判断没有任何意义，因为自己返回了自己初始的赋值，不被允许！！！
 
-function largestPathValue(colors, edges) {
+export function largestPathValue(colors: string, edges: number[][]) {
   //1、建图
-  const n = colors.length;
-  const graph = new Array(n).fill(0).map(() => new Array());
+  const nodeCount = colors.length;
+  const graph = new Array(nodeCount).fill(0).map(() => new Array());
   for (let [x, y] of edges) {
-    graph[y].push(x);
+    graph[x].push(y);
+    // graph[y].push(x);
   }
 
   //2、遍历
-  let res = 0;
-
+  let maxColorCount = 0;
   const colorsUnique = [...new Set(colors)]; // 对每个color进行查找
 
-  for (let i = 0; i < colorsUnique.length; i++) {
-    const ans = doDFS(colorsUnique[i], graph, colors);
-    if (ans === -1) return -1;
-    res = Math.max(res, ans);
-  }
+  const getMaxPathCountByColor = (color: string): number => {
+    let hasCycle = false;
+    const path = new Array(nodeCount).fill(false); // 回溯
+    const memo: (number | null)[] = new Array(nodeCount).fill(null); // dp结果值的缓存
 
-  return res;
-}
+    const dfs = (cur: number): void => {
+      if (path[cur]) {
+        hasCycle = true;
+        return;
+      }
 
-function doDFS(color, graph, colors) {
-  const n = colors.length;
-  const memo = new Array(n);
-  const path = new Array(n).fill(false);
+      if (memo[cur] !== null) return;
 
-  let cycle = false;
+      path[cur] = true;
+      memo[cur] = colors[cur] === color ? 1 : 0;
 
-  const dfs = y => {
-    if (path[y]) return (cycle = true);
-    if (memo[y] !== undefined) return memo[y];
-    path[y] = true;
-    memo[y] = colors[y] === color ? 1 : 0;
-    for (let x of graph[y]) {
-      dfs(x);
-      memo[y] = Math.max(memo[y], memo[x] + (colors[y] === color));
+      for (let next of graph[cur]) {
+        dfs(next);
+        // 后序*邻接
+        // 递推公式
+        // memo[next] = Math.max(memo[next], memo[cur] + (colors[next] === color ? 1 : 0));这是错的，当先序处理了
+        // 当dfs归的时候，DAG是反向访问的
+        memo[cur] = Math.max(memo[cur], memo[next] + (colors[cur] === color ? 1 : 0));
+      }
+
+      path[cur] = false;
+    };
+
+    // 出发点：每个节点
+    for (let i = 0; i < nodeCount; i++) {
+      dfs(i);
+      if (hasCycle) return -1;
     }
-    path[y] = false;
+
+    return Math.max(...memo);
   };
 
-  for (let i = 0; i < n; i++) {
-    dfs(i);
-    if (cycle) return -1; //有环路
+  for (let color of colorsUnique) {
+    const pathColorCount = getMaxPathCountByColor(color);
+    if (pathColorCount === -1) return -1;
+    maxColorCount = Math.max(maxColorCount, pathColorCount);
   }
 
-  return Math.max(...memo);
+  return maxColorCount;
 }
