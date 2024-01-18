@@ -1,10 +1,12 @@
 declare interface ListNode {
-  value: number; // 可以换为T
+  val: number; // 可以换为T
   next: ListNode | null;
 }
 
 declare interface TreeNode {
-  value: number;
+  val: number;
   left: TreeNode | null;
   right: TreeNode | null;
 }
+
+declare type TreeNodeVal = number | null;
