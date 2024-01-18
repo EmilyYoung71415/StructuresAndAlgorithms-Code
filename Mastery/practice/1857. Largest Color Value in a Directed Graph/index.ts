@@ -24,7 +24,6 @@ export function largestPathValue(colors: string, edges: number[][]): number {
   // for (let i = 0; i < 26; i++) {
   for (let i = 0; i < colorsUnique.length; i++) {
     const _color = colorsUnique[i]; //String.fromCharCode(97 + i); // 对每个字母进行拓扑排序？
-    // const _color = String.fromCharCode(97 + i); // 对每个字母进行拓扑排序？
     const ans = topo_bfs(_color, graph, inDeg.slice(), queue.slice(), colors);
 
     if (ans === -1) return -1;
@@ -43,7 +42,7 @@ function topo_bfs(
   colors: string,
 ): number {
   const n = colors.length;
-  // const dp = new Array(n + 1).fill(0); // 到节点x的全部路径中，”最大颜色值“路径 里该节点对应的最大颜色值？
+  // const dp = new Array(n + 1).fill(0);
   const dp = new Array(n).fill(0); // 到节点x的全部路径中，”最大颜色值“路径 里该节点对应的最大颜色值？
 
   for (let x of queue) {
