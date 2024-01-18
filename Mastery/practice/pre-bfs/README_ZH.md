@@ -39,6 +39,46 @@ level3: [3,6)
 
 queue.push(curLevelQ) -> stack.unshift(curLevelQ) 头插
 
+---
+
+- [x] [117.填充每个节点的下一个右侧节点指针 II](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/description/)
+
+- 难点还是在遍历过程中，需要区分出当前node是当前行末尾的节点，还是下一行的第一个节点
+- 如果是`nextNode = queue[i+1]. curNode.next = nextNode`的思路就区分不出来
+- 需要用的思路: `prevNode.next = curNode`。当i>0的时候开始连接
+
+[my-solution-explanation](https://leetcode.com/problems/populating-next-right-pointers-in-each-node-ii/solutions/4017401/simple-answer-to-easy-understand/)
+
+```ts
+function connect(root: Node | null): Node | null {
+  if (!root) return null;
+  const queue: Node[] = [root];
+
+  while (queue.length) {
+    let levelSize = queue.length;
+    let prevNode = queue[0]; // 引入prev节点
+
+    for (let i = 0; i < levelSize; i++) {
+      const node = queue.shift();
+
+      if (i > 0) {
+        // 当i>0时候开始连接
+        prevNode.next = node;
+        prevNode = node;
+      }
+
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
+    }
+
+    // 行遍历完毕
+    prevNode.next = null;
+  }
+
+  return root;
+}
+```
+
 # 图传值
 
 ## 拓扑排序DAG
