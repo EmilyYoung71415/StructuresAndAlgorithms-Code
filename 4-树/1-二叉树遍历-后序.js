@@ -10,7 +10,7 @@
 
 
 // 递归写法
-function postorderTraversal(root){
+function postorderTraversal1(root){
     let result = [];
     postorderTraversalCall(root);
     return result;
@@ -37,7 +37,7 @@ function postorderTraversal(root){
  *      在push的时候改为 unshift就可以了
  */
 
-function postorderTraversal(root){
+function postorderTraversal1(root){
     let result = [],
         stack = [],
         p = root;
@@ -55,4 +55,51 @@ function postorderTraversal(root){
         }
     }
     return result;
+}
+
+
+/*****
+ * 后序： 左右根
+ * 辅助指针prev的作用：指向最近访问过的节点，
+ * 因为栈存储了经过的节点，当返回根节点的时候，要区分是从左子树返回的还是右子树
+ */
+function postorderTraversal(root){
+    let result = [],
+        stack = [],
+        prev = null,// 最近访问(打印)过的节点
+        p = root;
+    while(p||stack.length>0){
+        if(p){// 一直走到最左边
+            stack.push(p);
+            p = p.left
+        }
+        else{//向右
+            // 取栈顶节点(不是弹出)
+            let topNode = stack[stack.length-1]// 刚才那个p.left = null的最左下节点
+            // 右子树存在 且没有被访问过
+            /****
+             *      6
+             *     / \
+             *    4   8  
+             *     \
+             *      5
+             * 当刚遇到4的时候 ，先存右节点，如果右边还有就继续存栈
+             * 什么时候决定的右节点被访问了？从5为根的子节点往上打印了5之后，5被访问
+             * 这是确定4的右节点打印完全了，该轮到4了
+             */
+            // 如果右节点访问过，那就弹出
+            if(topNode.right&&topNode.right!=prev){
+                p = topNode.right;//遍历节点走到右边
+                stack.push(p)
+                p = p.left;// 再走到左边
+            }
+            else{// 没有右子树 或者右子树已经打印完全了。该轮到打印他(根)啦
+                let node = stack.pop()// 弹出节点
+                result.push(node.val)
+                prev = node;
+                p = null;// 节点访问完之后重置p指针
+            }
+        }
+    }
+    return result
 }

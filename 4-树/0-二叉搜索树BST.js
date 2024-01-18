@@ -18,7 +18,7 @@
  *                  让当前删除点的值==继承者的值,然后删除继承者点
  *  
  *  二叉搜索树性质：
- *  左 < 根 < 右 且是左子树的所有数 < 根
+ *  根>=左 && 根<右 且是左子树的所有数 < 根
  *  二叉搜索树的中序遍历 就是将其节点有序输出
  * 
  */
@@ -59,7 +59,8 @@ class BinarySearchTree{
             }
         }
     }
-    search(key){
+    // 递归查找
+    search_R(key){
         return searchNode(this.root,key);
         function searchNode(node,key){
             if(node===null){
@@ -73,6 +74,19 @@ class BinarySearchTree{
                 return node;
             }
         }
+    }
+    // 非递归查找
+    search(key){
+        let node = this.root;
+        while(node&&node.val!=key){
+            if(key<node.val){
+                node = node.left;
+            } 
+            else{
+                node = node.right;
+            }
+        }
+        return node;
     }
     remove(x){
         this.root = removeCall(this.root,x);
