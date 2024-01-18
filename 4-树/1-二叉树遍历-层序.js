@@ -33,7 +33,7 @@ function levelOrder1(root){
     return result;
 }
 
-
+// BFS搜索
 function levelOrder(root){
     if(!root) return [];
     let result = []
@@ -52,4 +52,43 @@ function levelOrder(root){
         result.push(curRes);
     }
     return result;
+}
+
+/****
+ * 用DFS是否可以实现呢
+ *  3
+   / \
+  9  20
+    /  \
+   15   7
+ * 
+ * 深度优先是 一条路顺着下来，那么数组的变化情况是
+ * [            [               [               [
+ *   [],          [3],            [3],            [3],
+ *   [],  ===>    [9],   ===>     [9,20],   ==>   [9,20],
+ *   []           [],             [15]            [15,7]
+ * ]            ]               ]               ]
+ * 
+ * 需要跟随变量level
+ * 
+ */
+
+function levelOrder(root){
+    if(!root) return [];
+    let result = [];
+    DFS(root,0);
+    return result;
+    
+    function DFS(root,level){
+        if(!root) return ;
+        // 每次进入新的层但是 并没有新的层的[] ,新建新层arr
+        if(result.length < level+1){
+            result.push([])
+        }
+
+        result[level].push(root.val);
+
+        DFS(root.left,level+1);
+        DFS(root.right,level+1);
+    }
 }
