@@ -57,7 +57,8 @@ function maxSubArray(nums){
         let sum = 0,
             left_sum = -Infinity,
             right_sum = -Infinity;
-        // 倒着来
+        // 倒着来:确保只要要了左边的任意一值
+        // 都是先要了mid值的，保证了连通性，所以有一起要左右可能性
         for(let i=mid;i>=l;i--){
             sum += arr[i];
             // left_sum = Math.max(left_sum,sum);
@@ -65,7 +66,8 @@ function maxSubArray(nums){
                 left_sum = sum;
             }
         }
-
+        // left < 0则同样没有必要合并
+        left_sum = left_sum<0?0:left_sum;
         sum = 0;
 
         for(let i=mid+1;i<=r;i++){

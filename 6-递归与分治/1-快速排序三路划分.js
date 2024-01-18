@@ -28,7 +28,7 @@
  *           遍历完一遍自然就划分好了
  *  解决近乎有序的数组和有大量重复数组的元素排序问题
  */
-let nums = [2,0,2,1,1,0]
+let nums = [0,4 ,5 ,4 ,3 ,6, 4]
 sortColors(nums)
 console.log(nums); 
 
