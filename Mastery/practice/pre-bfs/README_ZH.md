@@ -35,6 +35,10 @@ level3: [3,6)
 
 尝试2：在while(que.len) 内部再加了一层循环, while(queLen--) 控制当前层的push
 
+- [x] 树的层序遍历 自下而上(107.binary-tree-level-order-traversal2)
+
+queue.push(curLevelQ) -> stack.unshift(curLevelQ) 头插
+
 # 图传值
 
 ## 拓扑排序DAG
