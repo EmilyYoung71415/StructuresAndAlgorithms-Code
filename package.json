@@ -5,7 +5,7 @@
   "main": "jest.config.js",
   "scripts": {
     "test": "jest",
-    "test:coverage": "jest --coverage",
+    "test:coverage": "jest --coverage .ts",
     "prettier:ts": "prettier --ignore-unknown --cache --write ."
   },
   "repository": {
