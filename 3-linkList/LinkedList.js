@@ -74,6 +74,7 @@ LinkedList.prototype = {
             throw new Error('posi超出链表范围');
         }
     },
+    // 按照值删除
     remove:function(item){
         // 与append类似 找到最后一个节点 
         // ==》 更简单的写法： indexOf() ,removeAt
@@ -96,11 +97,48 @@ LinkedList.prototype = {
         // 没找到
         return -1;
     },
+    findbyIndex:function(posi){
+        if(posi<this.length&&posi>=0){
+            // 如果是删除第一个节点： 让下个节点继承，不会影响到前一个节点
+            let 
+                current = this.head,
+                previous = null,
+                index = 0;
+            if(posi ===0){
+                return this.head;
+            }else{
+                while(index++ < posi){
+                    previous = current;
+                    current = current.next;
+                }
+                return current.value;
+            }
+        }else{
+            throw new Error('超出范围！')
+        }
+    },
+    find:function({value=undefined,callback=undefined}){
+        if(!this.head){
+            return null;
+        }
+
+        let currentNode = this.head;
+        while (currentNode) {
+            if(callback&&callback(currentNode.value)){
+                return currentNode;
+            }
+            if(value!=undefined&&currentNode.value===value){
+                return currentNode;
+            }
+            currentNode = currentNode.next;
+        }
+        return null;
+    },
     removeAt:function(posi){
         // 删除某个节点
         // 1->2->5 removeAt(1)
         // 1->5    previous current
-        if(posi<this.length&&posi>0){
+        if(posi<this.length&&posi>=0){
             // 如果是删除第一个节点： 让下个节点继承，不会影响到前一个节点
             let 
                 current = this.head,
@@ -144,6 +182,8 @@ arr.append(1)
 arr.append(2)
 arr.append(56)
 arr.insert(233,3)// 1  2 56 233
+//arr.removeTail()//
+//arr.removeTail()
 // 删除
-arr.remove(233)
-console.log(arr.toString())
+//arr.remove(233)
+//console.log(arr.toString())
