@@ -10,6 +10,17 @@ export class TreeNode {
   }
 }
 
+export class MTreeNode<K> {
+  val: K | null;
+  children: MTreeNode<K>[] | null;
+
+  constructor(val?: K, children?: MTreeNode<K>[] | null) {
+    this.val = val === undefined ? null : val;
+    this.children = children === undefined ? null : [];
+  }
+}
+
+// 二叉树工具集
 export class TreeUtil {
   // 从先序遍历还原二叉树: leetcode:1028
   // ref: https://www.geeksforgeeks.org/construct-a-perfect-binary-tree-from-preorder-traversal/
@@ -112,5 +123,26 @@ export class TreeUtil {
     }
 
     return dp;
+  }
+}
+
+export class MTreeUtil {
+  static findNode<K>(root: MTreeNode<K>, val: K): MTreeNode<K> | null {
+    if (!root) return null;
+    if (root.val === val) return root;
+
+    if (root.children) {
+      for (let subNode of root.children) {
+        const node = this.findNode(subNode, val);
+        if (node) {
+          // 找到了才返回结束递归，没找到继续for循环
+          return node;
+        }
+        // 这样不对: 不然child右边的节点永远返回null
+        // return _findNode(subNode, name);
+      }
+    }
+
+    return null;
   }
 }
