@@ -27,3 +27,18 @@ function preorder(root) {
         })
     }
 }
+// 深度优先遍历
+function preorder(root){
+    let result = [];
+    let stack = [root];
+    
+    while (stack.length) {
+        let node = stack.pop();
+        if (node) {
+            result.push(node.val);
+            // 反向push 弹出来的时候才会正向
+            stack.push(...node.children.reverse());
+        }
+    }
+    return result;
+}
