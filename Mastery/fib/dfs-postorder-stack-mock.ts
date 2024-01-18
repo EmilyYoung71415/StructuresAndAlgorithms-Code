@@ -10,7 +10,7 @@
 //   return dfs(n);
 // }
 
-var fib = function (n) {
+export function fib(n: number) {
   const dp = [0, 1];
   const dfs = i => {
     const stack = [[i, 0]]; //代表代码扩展了几次，可以用来推断目前执行到哪一行
@@ -44,4 +44,4 @@ var fib = function (n) {
   };
   dfs(n);
   return dp[n];
-};
+}
