@@ -22,9 +22,9 @@ var removeElements = function(head, val) {
     // } 不合理 替换的逻辑
     // 所以生成一个 dummyHead?
     // return head;    
-    let dummyHead = new ListNode(0);
-    dummyHead.next = head;
-    let node = dummyHead;
+    // let dummyHead = new ListNode(0);
+    // dummyHead.next = head;
+    // let node = dummyHead;
     while(node){
         while(node.next&&node.next.val==val){
             // 跳过node.next 即删去它
@@ -32,5 +32,37 @@ var removeElements = function(head, val) {
         }
         node = node.next;
     }
-    return dummyHead.next;
+   return node;
 };
+
+/****
+ * 方法：
+ *  1、利用容器
+ *  2、与上个方法类似
+ */
+
+ function removeElements2(head,val){
+    // 从头节点开始 找到第一个不是val的节点
+    while(head){
+        if(head.val!=val){
+            break;
+        }
+        head = head.next;
+    }
+
+    // 继续往后遍历
+    // 删除方式：将最近的一个值不等于val的节点pre链接到cur的下个节点
+    // 如果不等于 则更新pre
+    let 
+        pre = head,
+        cur = head;
+    while(cur!=null){
+        if(cur.val==val){
+            pre.next = cur.next;
+        }else{
+            pre = cur;
+        }
+        cur = cur.next;
+    }
+    return head;
+ }
