@@ -57,6 +57,23 @@ function postorderTraversal1(root){
     return result;
 }
 
+// 结合DFS更通用的解法 左右根 <= 根右左
+function postorderTraversal(root) {
+    let result = [];
+    let stack = [root];
+
+    while (stack.length) {
+        let node = stack.pop();
+        if (node) {
+            // 反序
+            result.unshift(node.val);
+            // 右左
+            stack.push(node.left);
+            stack.push(node.right);
+        }
+    }
+    return result;
+}
 
 /*****
  * 后序： 左右根
