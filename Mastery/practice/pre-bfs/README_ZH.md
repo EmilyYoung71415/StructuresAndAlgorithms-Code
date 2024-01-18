@@ -105,6 +105,21 @@ function connect(root: Node | null): Node | null {
   prevNode.next = nextNode;
 ```
 
+- [x] [993.二叉树的堂兄弟节点](https://leetcode.cn/problems/cousins-in-binary-tree/)
+
+```
+  // 如果二叉树的两个节点深度相同，但 父节点不同 ，则它们是一对堂兄弟节点
+  // 树中两个不同节点的值 x 和 y
+  isCousins(root: TreeNode | null, x: number, y: number)
+
+  思路: 层序往下遍历，当遇到节点x or y时，记录遇到当时节点的父节点， 节点的深度
+  优化：遇到节点x时, 遍历当前level，是否能遇到y，如果遇到了则继续判断x.pNode !== y.pNode; ==> true
+  其余情况都为false
+
+  问题: 怎么记录节点的pNode
+    if ((node.left || node.right) === x || y) ==> xpNode
+```
+
 # 图传值
 
 ## 拓扑排序DAG
