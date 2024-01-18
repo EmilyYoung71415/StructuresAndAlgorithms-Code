@@ -22,7 +22,6 @@ export function canFinish(n: number, edges: number[][]): boolean {
     if (x === n) return;
     outCount++;
     const nexts = graph[x];
-
     for (let next of nexts) {
       if (--inDeg[next] === 0) {
         dfs(next);
