@@ -2,7 +2,7 @@ export function swap(arr: number[], i: number, j: number) {
   [arr[i], arr[j]] = [arr[j], arr[i]];
 }
 
-export function serializeArr(arr: number[][]) {
+export function serializeMatrix(arr: number[][]) {
   const _arr = arr.slice();
   _arr.sort((arr1: number[], arr2: number[]) => {
     const _arr1 = arr1.sort();
