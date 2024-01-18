@@ -28,20 +28,34 @@
  * 
  */
 
-let nums = [2, 3, 5, 4, 3, 2, 6, 7]
+let nums = [52, 35, 51, 77, 19, 10, 27, 37, 54, 26, 75, 9, 71, 81, 76, 75, 21, 100, 54, 50, 87, 40, 21, 87, 18, 23, 58, 12, 17, 84, 11, 6, 91, 73, 57, 19, 85, 65, 36, 44, 40, 77, 33, 56, 27, 48, 77, 59, 8, 65, 77, 13, 9, 52, 53, 9, 77, 73, 85, 33, 31, 10, 84, 94, 4, 13, 82, 12, 91, 89, 93, 40, 42, -100, 85, 36, 20, 33, 13, 48, 38, 93, 30, 87, 47, 44, 29, 47, 33, 52, 36, 55, 20, 29, 68, 58, 64, 5, 15, 26]
 console.log(find(nums))
-function find1(nums){
+function find(nums){
+    if(nums==null||nums.length<1){
+        return -1;
+    }
+    // 首先进行检查
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]<0||nums[i]>nums.length-1) return -1;
+    }
+
     let hash = {};
     for(let i=0;i<nums.length;i++){
         hash[nums[i]] = ( hash[nums[i]] || 0 ) + 1;
         if(hash[nums[i]]>1) return nums[i];
-        if(nums[i]<0||nums[i]>nums.length-1) return -1;
     }
     return -1;
 }
 
 
 function find2(nums){
+    if(nums==null||nums.length<1){
+        return -1;
+    }
+
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]<0||nums[i]>nums.length-1) return -1;
+    }
     nums.sort((a,b)=>a-b);
     for(let i=0;i<nums.length;i++){
         if(nums[i]<0||nums[i]>nums.length-1) return -1;
@@ -97,6 +111,7 @@ function find2(nums){
  /*******
   * 修改题目: 不修改数组找出重复数字
   * way1：复制一个数组，在备份数组里使用上文way3的方法
+  *     思路:抽屉原理(如果..至少..)+分治思想
   * ===> 找中间大小的数字，然后遍历全数组统计前半段和后半段数字出现的个数
   *       长度为n的数组，那么中间数字 n/2
   *       比如[2, 3, 5, 4, 3, 2, 6, 7] 统计1~4,5~7两段的数字(遍历全数组)
@@ -104,24 +119,26 @@ function find2(nums){
   * 时间复杂度 logn*n
   */
 
-function find(nums){
+function find4(nums){
     if(nums==null||nums.length<=0) return -1;
+    for(let i=0;i<nums.length;i++){
+        if(nums[i]<0||nums[i]>nums.length-1){
+            return -1;
+        }
+    }
+    
     let start = 1,end = nums.length-1;
 
-    while(start<=end){
-        let mid = ((end-start)>>1)+start;
-        let count = getRangeCount(nums,start,end);//获得[start,end]范围内的数字个数
-        if(start==end){
-            if(count>1) return start;
-            else break;
-        }
-        if(count>(end-start+1)){
+    while(start<end){
+        let mid = ((end-start)>>1)+start;// 划分区间[start,mid],[mid+1,end]
+        let count = getRangeCount(nums,start,mid);//获得[start,end]范围内的数字个数
+        if(count>(mid-start+1)){
             end = mid;
         }else{
             start = mid+1;
         }
     }
-    return -1;
+    return end;
 
     function getRangeCount(nums,start,end){
         if(nums==null) return 0;
