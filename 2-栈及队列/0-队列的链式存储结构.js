@@ -56,6 +56,7 @@ class Queue{
       return p.data;
    }
 }
+/*
 let queue = new Queue();
 queue.push(4)
 queue.push(3)
@@ -63,3 +64,4 @@ console.log(queue.pop())  // 4
 console.log(queue.pop())
 
 module.exports = Queue;
+*/

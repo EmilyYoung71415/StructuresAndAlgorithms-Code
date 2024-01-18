@@ -35,9 +35,10 @@ class Stack{
         return this.data[this.top];
     }
 }
-
+/*
 let stack = new Stack();
 stack.push(4)
 stack.push(3)
 console.log(stack.pop())  // 3
 console.log(stack.peek()) // 4 
+*/

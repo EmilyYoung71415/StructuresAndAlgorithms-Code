@@ -66,7 +66,7 @@
         this.head.next = null
     }
  }
-
+/*
 let stack = new Stack();
 stack.push(4)
 stack.push(3)
@@ -74,4 +74,5 @@ stack.printf()// 3 4
 console.log(stack.pop())  // 3
 // stack.printf()
 // console.log(stack.peek()) // 4 
+*/
 module.exports = Stack

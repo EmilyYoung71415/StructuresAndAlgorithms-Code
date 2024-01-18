@@ -90,7 +90,7 @@ class LinkedListR{
     }
 }
 
-
+/*
 let p = new LinkedListR()
 let arr = [3,4,1,2,6];
 arr.forEach(item=>{
@@ -109,5 +109,5 @@ p.printf()// 999—>4—>1—>2—>6—>NULL
 
 p.removeAt(5)
 p.printf()// 999—>4—>1—>2—>NULL
-
+*/
 module.exports = LinkedListR

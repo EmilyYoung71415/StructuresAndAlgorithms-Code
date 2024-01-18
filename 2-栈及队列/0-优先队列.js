@@ -50,7 +50,7 @@ class PriorityQueue{
         console.log(this.arr)
     }
 }
-
+/*
 let pQueue = new PriorityQueue((node1,node2)=>{
     if(node1.age>node2.age){
         return -1
@@ -66,4 +66,5 @@ data.forEach(item=>{
     pQueue.add(item)
 })
 pQueue.print()
+*/
 module.exports = PriorityQueue

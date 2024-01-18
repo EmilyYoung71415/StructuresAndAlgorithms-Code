@@ -116,10 +116,10 @@ class BinarySearchTree{
     }
 }
 
-let arr = [-10,-3,0,5,9];
-let tree  =  new BinarySearchTree()
-arr.forEach(item=>tree.insert(item));
-console.log(tree.root)
+// let arr = [-10,-3,0,5,9];
+// let tree  =  new BinarySearchTree()
+// arr.forEach(item=>tree.insert(item));
+// console.log(tree.root)
 // tree.remove(9)
 // console.log(tree.search(-3))
 
