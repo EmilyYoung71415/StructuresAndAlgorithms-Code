@@ -9,12 +9,16 @@
  *          重复直至排序
  *  基数排序的效率和初始序列是否有序没有关联
  *  稳定
- * 
+    // 最差时间复杂度 ---- O(n * dn)
+    // 最优时间复杂度 ---- O(n * dn)
+    // 平均时间复杂度 ---- O(n * dn)
+    // 所需辅助空间 ------ O(n * dn)
+    // 稳定性 ----------- 稳定
  */
 
 let arr = [10,201,1322,4025,45];
-radixSort(arr);
-console.log(arr)
+//radixSort(arr);
+//console.log(arr)
 function radixSort(arr){
     if(arr===null||arr.length<2){
         return ;
@@ -22,7 +26,6 @@ function radixSort(arr){
     radixCal(arr,0,arr.length-1,maxbits(arr));
 
 }
-
 
 // 数组
 function radixCal(arr,begin,end,digit){
@@ -64,8 +67,11 @@ function radixCal(arr,begin,end,digit){
 
 // 数值value上的第x位上的数
 function getDigit(value,x){
-    return ~~(value / ~~(Math.pow(10, x - 1))) % 10;
+    // 18293,2
+    // 18293/10 = 1829 ; 1829%10 =9
+    return ~~(value / Math.pow(10, x - 1)) % 10;
 }
+
 
 // 数组中的最大位数[确定循环多少次
 function maxbits(arr){
