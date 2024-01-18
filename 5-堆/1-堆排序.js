@@ -29,24 +29,31 @@
  * 
  */
 
-const {MinHeap} =  require('../index');
+const {Heap} =  require('../index');
 
 let res = heapSort([1,3,4,5,2,6,9,7,8,0])
 console.log(res)
 
+/********************************
+ * 1、建立堆：遍历数组元素 使得 数组元素 符合 堆的结构
+ *      从第一个非叶子节点开始依次对数组中的元素进行下沉操作
+ * 
+ * 
+ */
 function heapSort1(arr){
     if(arr==null) return;
     
-    // 建立堆
+    // 建立堆（升序 则需要建立 大顶堆）：使得每个树都是父节点大于子节点
+    // 堆调整：不断将堆顶元素放到数组末尾 后期adjust缩小范围的过程
     for(let i=0;i<arr.length;i++){
         heapInsert(arr,i);
     }
 
     // 最大的元素在arr[0] 将堆顶元素交换到数组末
-    let len = arr.length;
-    swap(arr,0,--len);
+    swap(arr,0,arr.length-1);
 
     // 调整堆节点
+    let len = arr.length-1;
     while(len>0){
         // 将堆顶元素向下调整，交换当前数组最后一个与元素第0个
         happify(arr,0,len);
@@ -59,15 +66,10 @@ function heapSort1(arr){
         
         while(lIndex<size){
             // 在左右节点、本身找到更大的一个
-            
-            // ❗ let largestIndex = lIndex+1<size&&arr[lIndex]>arr[lIndex+1]?lIndex:lIndex+1;
-            // 体会两句差别:下面这句才是正确的 当右子节点存在且右子节点 > 左子节点
-            let largestIndex = lIndex+1<size&&arr[lIndex+1]>arr[lIndex]?lIndex+1:lIndex;
-            largestIndex = arr[largestIndex]>arr[index]?largestIndex:index;
+            let largestIndex = lIndex+1<size && arr[lIndex+1]>arr[lIndex] ? lIndex+1 : lIndex;
+            largestIndex = arr[largestIndex]>arr[index] ? largestIndex : index;
             // 如果是本身则不需要swap
-            if(largestIndex == index){
-                break;
-            }
+            if(largestIndex == index) break;
             
             swap(arr,index,largestIndex);
             index = largestIndex;
@@ -79,7 +81,7 @@ function heapSort1(arr){
     function heapInsert(arr,index){
         let pIndex = (index/2)>>0;
         // 大顶堆 如果当前元素 > 父亲 则需要swap
-        while(pIndex>=0&&arr[index]>arr[pIndex]){
+        while(pIndex>=0 && arr[index]>arr[pIndex]){
             swap(arr,index,pIndex);
             index = pIndex;
             pIndex = (index/2)>>0;
@@ -94,21 +96,16 @@ function heapSort1(arr){
 
 
 // 直接调heap
-
 function heapSort(arr){
-    if(arr.length<1 || arr.length<1){
-        return;
-    }
+    if (!arr.length < 1) return;
     let result = []
-    let heap = new MinHeap();
-
+    let heap = new Heap('min');
     // 建立堆
     arr.forEach(item => {
         heap.add(item)
     });
-
-    while(!heap.isEmpty()){
-        result.push(heap.poll())
+    while (!heap.isEmpty()) {
+        result.push(heap.pop());
     }
     return result;
 }
