@@ -78,7 +78,7 @@ console.log(solveNQueens(4))
  */
 
 // 代码优化
-function solveNQueens(n){
+function solveNQueens1(n){
     let result = [];
     solveNQueensCall([]);
     return result;
@@ -115,5 +115,51 @@ function solveNQueens(n){
             }
         }
         return false;
+    }
+}
+
+/****
+ * 使用位运算加速,递归思路还是一样的,优化的是:
+ * 新一行寻找放棋子的可用位置
+ *      快速从一行里找到可以用的位置 而不是一个个空格遍历 再检查 hasAttack
+ * 
+ * 所以：
+ * 改变需要的伴随变量 :0表示不可以放置/未放置，1表示可以放置/已放置
+ * n: n皇后的n，不过初始化不是n，而是000000111111 (用32位整型表示)
+ *    表示当前行有哪些列可以放置皇后，0表示不可以，1表示可以放置，即后n位可以放置
+ * col:表示递归到上一行为止，已经有哪些列放了棋子
+ * pie:表示递归到上一行为止，因为受已放置的所有皇后的左下方斜线(/ 撇)影响，
+ *      导致当前行不能放置皇后.1表示不能放置，0表示可以放置
+ * na:受已放置所有皇后的 右下方 (\ 捺) 的影响导致不能放皇后
+ * 
+ * 递归结构:
+ * 返回的值:解决的方法数在递归的return里，触底之后不断累加
+ */
+/**
+ * @param {*} n n皇后的n
+ * @returns {*} num n皇后的摆法种数
+ */
+function solveNQueens(n){
+    if(n<1||n>32) return 0;// 不支持n超过32
+    n = 1*((1<<n)-1).toString(2);
+    let count = 0;
+    solveNQueensCall(n,0,0,0,0);
+    return count;
+
+    function solveNQueensCall(n,row,col,pie,na){
+        if(row>=n){
+            count++;
+            return;
+        }
+        // 当前行在 列、撇、捺三个状态的影响下 哪些位置可以选择 
+        // 1表示可以选择 0表示不可选择
+        let pos =  n & (~( col | pie | na));//得到当前所有空位 比如1101
+        let lowest1 = pos & (-pos);// 取得最低位1
+        while(pos){
+            // [❌] 同样会存在js里反码是带负号的问题
+            let lowest1 = pos & (-pos);// 取得最低位1
+            solveNQueensCall(n,row+1,col|lowest1,(pie|lowest1)<<1,(na|lowest1)>>1)
+            pos = pos & (pos-1);// 去掉最后一位            
+        }
     }
 }
