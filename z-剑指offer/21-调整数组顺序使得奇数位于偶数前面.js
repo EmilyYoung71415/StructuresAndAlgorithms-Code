@@ -10,20 +10,20 @@
  */
 // 如果要保持相对顺序，则两个指针需要同时从左侧开始
 function exchange(array) {
-    if (array==null || array.length==0) return [];
+  if (array == null || array.length == 0) return [];
 
-    let start = 0;
-    let end = array.length - 1;
-    while (start < end) {
-        while (array[start] % 2 === 1) {
-            start++;
-        }
-        while (array[end] % 2 === 0) {
-            end--;
-        }
-        if (start < end) {
-            [array[start], array[end]] = [array[end], array[start]]
-        }
+  let start = 0;
+  let end = array.length - 1;
+  while (start < end) {
+    while (array[start] % 2 === 1) {
+      start++;
     }
-    return array;
+    while (array[end] % 2 === 0) {
+      end--;
+    }
+    if (start < end) {
+      [array[start], array[end]] = [array[end], array[start]];
+    }
+  }
+  return array;
 }

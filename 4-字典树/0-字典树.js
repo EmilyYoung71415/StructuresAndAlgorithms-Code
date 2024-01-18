@@ -34,43 +34,42 @@
  * 
  */
 
-
-class Trie{
-    constructor(){
-        this.root = {}
+class Trie {
+  constructor() {
+    this.root = {};
+  }
+  insert(word) {
+    let curNode = this.root;
+    // curNode[c]=curNode[c] || {} 如果不存在则新建一个
+    // 将当前的curNode更新 每个节点以字符作为键值
+    [...word].forEach(c => (curNode = curNode[c] = curNode[c] || {}));
+    curNode.isWord = true; // 叶子节点 指向的是一个单词的结束
+  }
+  searchHelper(word) {
+    let curNode = this.root;
+    for (let i = 0; i < word.length; i++) {
+      if (!curNode) return null;
+      curNode = curNode[word[i]];
     }
-    insert(word){
-        let curNode = this.root;
-        // curNode[c]=curNode[c] || {} 如果不存在则新建一个
-        // 将当前的curNode更新 每个节点以字符作为键值
-        [...word].forEach(c=>curNode=curNode[c]=curNode[c]||{});
-        curNode.isWord = true;// 叶子节点 指向的是一个单词的结束
-    }
-    searchHelper(word){
-        let curNode = this.root;
-        for(let i=0;i<word.length;i++){
-            if(!curNode) return null;
-            curNode = curNode[word[i]];
-        }
-        return curNode;
-    }
-    search(word){ 
-        let node = this.searchHelper(word);
-        return !!node&&!!node.isWord;
-    }
-    startsWith(word){
-        return !!this.searchHelper(word);//节点转为真值
-    }
+    return curNode;
+  }
+  search(word) {
+    let node = this.searchHelper(word);
+    return !!node && !!node.isWord;
+  }
+  startsWith(word) {
+    return !!this.searchHelper(word); //节点转为真值
+  }
 }
 
 let trie = new Trie();
-trie.insert("apple");
-console.log(trie.search("apple"))
-console.log(trie.search("app"))
-console.log(trie.startsWith("app"))
-trie.insert("app")
-console.log(trie.search("app"))
-console.log(trie)
+trie.insert('apple');
+console.log(trie.search('apple'));
+console.log(trie.search('app'));
+console.log(trie.startsWith('app'));
+trie.insert('app');
+console.log(trie.search('app'));
+console.log(trie);
 // 返回 true
 // 返回 false
 // 返回 true

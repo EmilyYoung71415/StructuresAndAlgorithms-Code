@@ -16,14 +16,14 @@ const Heap = require('./4-树-完全二叉树-堆/0-堆的实现.js');
 >>>>>>> 88c138c (day115-堆的实现fix & 堆排序)
 // exports.Stack = Stack;
 module.exports = {
-    LinkedListF,
-    LinkedListR,
-    DoublyLinkedListF,
-    DoublyLinkedListR,
-    Queue,
-    Stack,
-    PriorityQueue,
-    Dequeue,
-    BinarySearchTree,
-    Heap
-}
+  LinkedListF,
+  LinkedListR,
+  DoublyLinkedListF,
+  DoublyLinkedListR,
+  Queue,
+  Stack,
+  PriorityQueue,
+  Dequeue,
+  BinarySearchTree,
+  Heap,
+};

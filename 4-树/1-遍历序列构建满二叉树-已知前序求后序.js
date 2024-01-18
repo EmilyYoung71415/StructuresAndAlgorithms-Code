@@ -31,14 +31,14 @@
 // 前序：[1,2,4,5,3,6,7];
 // 后序: [4,5,2,6,7,3,1];
 function preToPost(pre, s1, e1, post, s2, e2) {
-    if (e1<s1) return;
-    post[e2] = pre[s1];
-    let mid = Math.floor((e1 - s1) / 2);
-    preToPost(pre, s1+1, s1+mid, post, s2, s2+mid-1);// 转换左子树
-    preToPost(pre, s1+mid+1, e1, post, s2+mid, e2-1);// 转换右子树
+  if (e1 < s1) return;
+  post[e2] = pre[s1];
+  let mid = Math.floor((e1 - s1) / 2);
+  preToPost(pre, s1 + 1, s1 + mid, post, s2, s2 + mid - 1); // 转换左子树
+  preToPost(pre, s1 + mid + 1, e1, post, s2 + mid, e2 - 1); // 转换右子树
 }
 
 let pre = '1,2,4,5,3,6,7'.split(',');
 let post = [];
-preToPost(pre,0,pre.length-1,post,0,pre.length-1);
+preToPost(pre, 0, pre.length - 1, post, 0, pre.length - 1);
 console.log(post);

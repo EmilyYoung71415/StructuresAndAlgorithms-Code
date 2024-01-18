@@ -20,13 +20,13 @@
  * preorder 第二个元素（如果存在的话）一定是左子树
  */
 function constructFromPrePost(preorder, postorder) {
-    if(!preorder.length||!postorder.length){
-        return null;//空节点
-    }
-    let root = preorder[0];
-    let node  =  new TreeNode(root);
-    let posi = postorder.indexOf(preorder[1]);// 数组里的元素确定是不重复的
-    node.left = constructFromPrePost(preorder.slice(1,posi+2),postorder.slice(0,posi+1))
-    node.right = constructFromPrePost(preorder.slice(posi+2),postorder.slice(posi+1, postorder.length-1));
-    return node;
+  if (!preorder.length || !postorder.length) {
+    return null; //空节点
+  }
+  let root = preorder[0];
+  let node = new TreeNode(root);
+  let posi = postorder.indexOf(preorder[1]); // 数组里的元素确定是不重复的
+  node.left = constructFromPrePost(preorder.slice(1, posi + 2), postorder.slice(0, posi + 1));
+  node.right = constructFromPrePost(preorder.slice(posi + 2), postorder.slice(posi + 1, postorder.length - 1));
+  return node;
 }

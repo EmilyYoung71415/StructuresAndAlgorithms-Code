@@ -2,7 +2,7 @@
  * 队列：先进先出
  * 一般表示：
  *  let queue = []
- *  入队-向数组尾部追加元素：queue.push(); 
+ *  入队-向数组尾部追加元素：queue.push();
  *  出队-弹出数组第一个元素：queue.shift();
  *  返回队首元素head：queue[0]
  * 这里基于数组实现队列这样的功能，即实现push、shift、head这俩api
@@ -15,46 +15,44 @@
  *      弹出元素后很有可能会是[undefined,undefined,1,1,2]这样的情况，
  *      此时逻辑上的队首其实是1
  *      和arr=[1,2,3,4] 然后delete arr[2]==>arr=[1,2,empty,4];arr[2]=undefined是一样的道理
- * 
+ *
  * 队列的链式存储 就是尾插法建立链表
  */
 
- function Node(data){
-    this.data = data;
-    this.next = null;
- }
- 
-class Queue{
-   constructor(){
-      this.front = null;
-      this.rear = null;
-   }
-   push(x){
-      let p = new Node(x);
-      // 如果链队为空 则即使队首又是队尾
-      if(this.rear==null){
-         this.rear = this.front = p;
-      }
-      else{
-         this.rear.next = p;
-         this.rear = p;// 更新链尾
-      }
-   }
-   pop(){
-      //如果链队为空
-      if(this.rear==null){
-         throw new Error('队列为空')
-      }
-      let p  = this.front;
-      // 如果只有一个节点
-      if(this.rear==this.front){
-         this.rear = this.front = null;
-      }
-      else{
-         this.front = this.front.next;
-      }
-      return p.data;
-   }
+function Node(data) {
+  this.data = data;
+  this.next = null;
+}
+
+class Queue {
+  constructor() {
+    this.front = null;
+    this.rear = null;
+  }
+  push(x) {
+    let p = new Node(x);
+    // 如果链队为空 则即使队首又是队尾
+    if (this.rear == null) {
+      this.rear = this.front = p;
+    } else {
+      this.rear.next = p;
+      this.rear = p; // 更新链尾
+    }
+  }
+  pop() {
+    //如果链队为空
+    if (this.rear == null) {
+      throw new Error('队列为空');
+    }
+    let p = this.front;
+    // 如果只有一个节点
+    if (this.rear == this.front) {
+      this.rear = this.front = null;
+    } else {
+      this.front = this.front.next;
+    }
+    return p.data;
+  }
 }
 /*
 let queue = new Queue();

@@ -20,43 +20,46 @@
  */
 
 function isSymmetric(root) {
-    if(root==null) return true;
-    let queue = [root];
-    while (queue.length) {
-        let curArr = [],
-            len  = queue.length;
-        while(len--){
-            let node = queue.shift();
-            // node.left.val||null
-            curArr.push(node.left ? node.left.val : null);
-            curArr.push(node.right ? node.right.val : null);
-            node.left && queue.push(node.left);
-            node.right && queue.push(node.right);
-        }
-        if(!isPalindrome(curArr)){
-            return false;
-        };
+  if (root == null) return true;
+  let queue = [root];
+  while (queue.length) {
+    let curArr = [],
+      len = queue.length;
+    while (len--) {
+      let node = queue.shift();
+      // node.left.val||null
+      curArr.push(node.left ? node.left.val : null);
+      curArr.push(node.right ? node.right.val : null);
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
+    }
+    if (!isPalindrome(curArr)) {
+      return false;
+    }
+  }
+  return true;
+  function isPalindrome(arr) {
+    let i = 0,
+      j = arr.length - 1;
+    while (i <= j) {
+      if (arr[i] != arr[j]) return false;
+      i++;
+      j--;
     }
     return true;
-    function isPalindrome(arr){
-        let i = 0,j = arr.length-1;
-        while(i<=j){
-            if(arr[i]!=arr[j]) return false
-            i++;
-            j--;
-        }
-        return true;
-    }
+  }
 }
 
 // 递归
 // 当前树是否对称由当前左右节点是否相等 和 子树决定
-function isSymmetric(root){
-    if(!root) return true;
-    return isSymmetricCall(root.left,root.right)
-    function isSymmetricCall(lRoot,rRoot){
-        if(!lRoot&&!rRoot) return true;
-        if(!lRoot||!rRoot) return false;
-        return lRoot.val==rRoot.val&&isSymmetricCall(lRoot.left,rRoot.right)&&isSymmetricCall(lRoot.right,rRoot.left);
-    }
+function isSymmetric(root) {
+  if (!root) return true;
+  return isSymmetricCall(root.left, root.right);
+  function isSymmetricCall(lRoot, rRoot) {
+    if (!lRoot && !rRoot) return true;
+    if (!lRoot || !rRoot) return false;
+    return (
+      lRoot.val == rRoot.val && isSymmetricCall(lRoot.left, rRoot.right) && isSymmetricCall(lRoot.right, rRoot.left)
+    );
+  }
 }

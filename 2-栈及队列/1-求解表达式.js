@@ -18,59 +18,55 @@ console.log(calculate_mini(str));
 // 字符只有符号 + - * / 和 数字
 // console.log(isNaN(1*'1'));false
 // console.log(isNaN(1*'+'));true
-function calculate_mini(str){
-    function getRes(){
-        if(!stack_l.length||!stack_r.length){
-            return 
-        }
-         // 先弹出左栈栈顶元素 
-         let pFisrt = stack_r.pop();
-         let pSecond = stack_r.pop();
-         let operate = stack_l.pop();
-         if(operate=='+'){
-            res = Number(pSecond)+Number(pFisrt)
-         }
-         else if(operate =='-'){
-            res = Number(pSecond)-Number(pFisrt)
-         }
-         else if(operate =='*'){
-            res = Number(pSecond)*Number(pFisrt)
-         }
-         else if(operate =='/'){
-            res = ~~(Number(pSecond)/Number(pFisrt))
-         }
-         stack_r.push(res);
-        //  let res = pSecond + operate + pFisrt;
-        //  stack_r.push(eval(res));//eval 将字符串转为数字计算
+function calculate_mini(str) {
+  function getRes() {
+    if (!stack_l.length || !stack_r.length) {
+      return;
     }
-    let stack_l = [],// 存放操作符的左栈
-        stack_r = [];// 存放操作数的右栈
-    let map = {'+':1,'-':1,'*':2,'/':2}
-    for(let i = 0;i<str.length;i++){
-        let s = str[i];
-        if(s==' ') continue;// 空格pass
-        // 如果遇上了操作数
-        if(!isNaN(1*s)){
-            // 如果是18这种要一直遍历下去..
-            let ss = s;
-            for(let j=i+1;j<str.length&&!isNaN(1*str[j]);j++,i++){
-                ss += str[j]
-            }
-            stack_r.push(ss)
-        }
-        else{
-            // 当前s优先级高
-            while(stack_l.length&&map[s]<=map[stack_l[stack_l.length-1]]){
-                getRes()
-            }
-            stack_l.push(s)
-        }
+    // 先弹出左栈栈顶元素
+    let pFisrt = stack_r.pop();
+    let pSecond = stack_r.pop();
+    let operate = stack_l.pop();
+    if (operate == '+') {
+      res = Number(pSecond) + Number(pFisrt);
+    } else if (operate == '-') {
+      res = Number(pSecond) - Number(pFisrt);
+    } else if (operate == '*') {
+      res = Number(pSecond) * Number(pFisrt);
+    } else if (operate == '/') {
+      res = ~~(Number(pSecond) / Number(pFisrt));
     }
-    // 遍历完开始腾空左栈进行计算
-    while(stack_l.length){
-        getRes()
+    stack_r.push(res);
+    //  let res = pSecond + operate + pFisrt;
+    //  stack_r.push(eval(res));//eval 将字符串转为数字计算
+  }
+  let stack_l = [], // 存放操作符的左栈
+    stack_r = []; // 存放操作数的右栈
+  let map = { '+': 1, '-': 1, '*': 2, '/': 2 };
+  for (let i = 0; i < str.length; i++) {
+    let s = str[i];
+    if (s == ' ') continue; // 空格pass
+    // 如果遇上了操作数
+    if (!isNaN(1 * s)) {
+      // 如果是18这种要一直遍历下去..
+      let ss = s;
+      for (let j = i + 1; j < str.length && !isNaN(1 * str[j]); j++, i++) {
+        ss += str[j];
+      }
+      stack_r.push(ss);
+    } else {
+      // 当前s优先级高
+      while (stack_l.length && map[s] <= map[stack_l[stack_l.length - 1]]) {
+        getRes();
+      }
+      stack_l.push(s);
     }
-    return 1*stack_r.pop();// 字符转为数字
+  }
+  // 遍历完开始腾空左栈进行计算
+  while (stack_l.length) {
+    getRes();
+  }
+  return 1 * stack_r.pop(); // 字符转为数字
 }
 /*****
  * 注意的点：
@@ -81,12 +77,12 @@ function calculate_mini(str){
  * 3、输入的字符串，进行数字与操作符判断可以 isNaN
  *      但是！有可能出现18等两位数的情况，却被当做了 1、8两个字符哦
  * 4、可能只输入字符，返回也要是数字
- * 5、计算字符串 '1' '+' '2'的时候 使用了eval 函数 
+ * 5、计算字符串 '1' '+' '2'的时候 使用了eval 函数
  *    怎么将字符 +*—/ 转为 操作符呢
  *  ==> 按运算符匹配
  */
 
- /*****
-  * 但是不支持括号
-  * ===> 转为后缀表达式
-  */
+/*****
+ * 但是不支持括号
+ * ===> 转为后缀表达式
+ */

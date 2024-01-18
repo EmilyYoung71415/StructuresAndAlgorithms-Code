@@ -14,56 +14,56 @@
  */
 // map
 function majorityElement1(nums) {
-    let map = new Map();
-    for(let i=0,len=nums.length;i<len;i++){
-        let item = nums[i];
-        // let count = (map.get(item)||0) + 1;
-        // map.set(item,count);
-        map.set(item,(map.get(item)||0) + 1);
-        if(map.get(item)>~~(len/2)){
-            return item;
-        }
+  let map = new Map();
+  for (let i = 0, len = nums.length; i < len; i++) {
+    let item = nums[i];
+    // let count = (map.get(item)||0) + 1;
+    // map.set(item,count);
+    map.set(item, (map.get(item) || 0) + 1);
+    if (map.get(item) > ~~(len / 2)) {
+      return item;
     }
-};
-
-// sort
-function majorityElement2(nums){
-    if(nums.length==1) return nums[0];
-    nums.sort();
-    let maxCount = 1;
-    for(let i=1,len=nums.length;i<len;i++){
-        if(nums[i]==nums[i-1]){
-            maxCount++;
-        }else{
-            maxCount=1;
-        }
-        if(maxCount>~~(len/2)){
-            return nums[i];
-        }
-    }
+  }
 }
 
-const arr = [3,1,1,2,1,2];
+// sort
+function majorityElement2(nums) {
+  if (nums.length == 1) return nums[0];
+  nums.sort();
+  let maxCount = 1;
+  for (let i = 1, len = nums.length; i < len; i++) {
+    if (nums[i] == nums[i - 1]) {
+      maxCount++;
+    } else {
+      maxCount = 1;
+    }
+    if (maxCount > ~~(len / 2)) {
+      return nums[i];
+    }
+  }
+}
+
+const arr = [3, 1, 1, 2, 1, 2];
 console.log(majorityElement(arr));
 // 分治
-function majorityElement(nums){
-    if(nums.length==1){
-        return nums[0];
-    }
-    let mid = nums.length/2|0;
-    let leftM =  majorityElement(nums.slice(0,mid));
-    let rightM =  majorityElement(nums.slice(mid,nums.length));
-    // let rightM = majorityElement(nums.splice(mid)); splice 要改变原数组
+function majorityElement(nums) {
+  if (nums.length == 1) {
+    return nums[0];
+  }
+  let mid = (nums.length / 2) | 0;
+  let leftM = majorityElement(nums.slice(0, mid));
+  let rightM = majorityElement(nums.slice(mid, nums.length));
+  // let rightM = majorityElement(nums.splice(mid)); splice 要改变原数组
 
-    let leftCount = 0;
-    for(let i=0;i<nums.length;i++){
-        let item = nums[i];
-        if(item==leftM){
-            leftCount++;
-        }
-        if(leftCount>mid){
-            return leftM;
-        }
+  let leftCount = 0;
+  for (let i = 0; i < nums.length; i++) {
+    let item = nums[i];
+    if (item == leftM) {
+      leftCount++;
     }
-    return rightM
+    if (leftCount > mid) {
+      return leftM;
+    }
+  }
+  return rightM;
 }

@@ -13,34 +13,33 @@
     假设每种输入只会对应一个答案。且不能重复利用这个数组中同样的元素
  */
 
-let nums = [3,3], target = 6;
-console.log(twoSum(nums,target));
+let nums = [3, 3],
+  target = 6;
+console.log(twoSum(nums, target));
 // 3\3   返回[1,1] 而不是[0,1]
 function twoSum(nums, target) {
-    let map = new Map();
-    let rev = [];
-    nums.forEach((item,index) => {
-        // map.set(item,index)
-        let partner = target-item;
-        if(map.has(partner)){
-            rev =  [index,map.get(partner)];//这个优先拿后面的
-            return;// forEach 的return并不是return函数的
-        }
-        map.set(item,index)// 换个位置就好了
-    });
-    return rev;
-};
-
-
+  let map = new Map();
+  let rev = [];
+  nums.forEach((item, index) => {
+    // map.set(item,index)
+    let partner = target - item;
+    if (map.has(partner)) {
+      rev = [index, map.get(partner)]; //这个优先拿后面的
+      return; // forEach 的return并不是return函数的
+    }
+    map.set(item, index); // 换个位置就好了
+  });
+  return rev;
+}
 
 //-----暴力解法-------//
-function twoSum3(nums,target){
-    for(let i=0;i<nums.length;i++){
-        for(let j=i+1;j<nums.length;j++){
-            if(nums[j]==target-nums[i]){
-                return [i,j];
-            }
-        }
+function twoSum3(nums, target) {
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[j] == target - nums[i]) {
+        return [i, j];
+      }
     }
-    return [];
+  }
+  return [];
 }

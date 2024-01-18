@@ -2,7 +2,7 @@
  * 队列：先进先出
  * 一般表示：
  *  let queue = []
- *  入队-向数组尾部追加元素：queue.push(); 
+ *  入队-向数组尾部追加元素：queue.push();
  *  出队-弹出数组第一个元素：queue.shift();
  *  返回队首元素head：queue[0]
  * 这里基于数组实现队列这样的功能，即实现push、shift、head这俩api
@@ -30,30 +30,30 @@
  *  当因为新加元素导致q.rear = q.fron 则是队满
  */
 
-class Dequeue{
-    constructor(size){
-        this.maxSize = size||100;
-        this.data = [];
-        this.front = 0;
-        this.rear = 0;
+class Dequeue {
+  constructor(size) {
+    this.maxSize = size || 100;
+    this.data = [];
+    this.front = 0;
+    this.rear = 0;
+  }
+  push(x) {
+    // 牺牲一个队列空间
+    if ((this.rear + 1) % this.maxSize == this.front) {
+      throw new Error('队列满');
     }
-    push(x){
-        // 牺牲一个队列空间
-        if((this.rear+1)%this.maxSize==this.front){
-            throw new Error('队列满')
-        }
-        this.data[this.rear] = x;
-        this.rear = (this.rear+1)%this.maxSize;
+    this.data[this.rear] = x;
+    this.rear = (this.rear + 1) % this.maxSize;
+  }
+  pop() {
+    if (this.rear == this.front) {
+      throw new Error('队列空');
     }
-    pop(){
-        if(this.rear==this.front){
-            throw new Error('队列空')
-        }
-        let e = this.data[this.front];
-        this.front = (this.front+1)%this.maxSize;
-        return e;
-    }
- }
+    let e = this.data[this.front];
+    this.front = (this.front + 1) % this.maxSize;
+    return e;
+  }
+}
 /*
 let queue = new Dequeue();
 queue.push(4)

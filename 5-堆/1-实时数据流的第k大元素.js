@@ -29,29 +29,28 @@
 
 // way1:
 // 取第k大元素就是  维护一个容量为k的数组，升序，代表了最大的前k个元素，arr[0]是第k大，arr末尾元素是最大的元素
-class KthLargest1{
-    constructor(k,nums){
-        this.k = k;
-        // 升序 取得后k个 。最小的元素是this.nums[0]
-        nums.sort((a,b)=>a-b);
-        if(nums.length>k){
-            nums = nums.splice(nums.length-k);
-        }
-        this.nums = nums;
+class KthLargest1 {
+  constructor(k, nums) {
+    this.k = k;
+    // 升序 取得后k个 。最小的元素是this.nums[0]
+    nums.sort((a, b) => a - b);
+    if (nums.length > k) {
+      nums = nums.splice(nums.length - k);
     }
-    add(x){
-        // nums没满 或 第k元素小于x 都需要push新数据并调整
-        if(this.nums.length<this.k){
-            this.nums.push(x);
-            this.nums.sort((a,b)=>a-b);
-        }   
-        else if(this.nums[0]<x){
-            this.nums.shift();
-            this.nums.push(x);
-            this.nums.sort((a,b)=>a-b);
-        }
-        return this.nums[0];
+    this.nums = nums;
+  }
+  add(x) {
+    // nums没满 或 第k元素小于x 都需要push新数据并调整
+    if (this.nums.length < this.k) {
+      this.nums.push(x);
+      this.nums.sort((a, b) => a - b);
+    } else if (this.nums[0] < x) {
+      this.nums.shift();
+      this.nums.push(x);
+      this.nums.sort((a, b) => a - b);
     }
+    return this.nums[0];
+  }
 }
 // 改进
 /***
@@ -60,72 +59,72 @@ class KthLargest1{
  *  if(x > arr[i]) 在i之前插入 x
  *  如果x是最小的 push
  */
-class KthLargest{
-    constructor(k,nums){
-        this.k = k;
-        this.nums = nums.sort((a,b)=>b-a);//降序 每次返回arr[k-1]
+class KthLargest {
+  constructor(k, nums) {
+    this.k = k;
+    this.nums = nums.sort((a, b) => b - a); //降序 每次返回arr[k-1]
+  }
+
+  add(x) {
+    let len = this.nums.length;
+
+    if (len < 1) {
+      this.nums.push(x);
+      return x;
     }
 
-    add(x){
-        let len = this.nums.length;
-
-        if(len<1){
-            this.nums.push(x)
-            return x;
-        }
-
-        for(let i=0;i<len;i++){
-            if(this.nums[i] < x){
-                this.nums.splice(i,0,x);
-                break;
-            }
-            // x 最小 
-            if(i==len-1){// 这样可以保证push的时候也是有序push的
-                this.nums.push(x)
-            }
-        }
-
-        return this.nums[this.k-1];
+    for (let i = 0; i < len; i++) {
+      if (this.nums[i] < x) {
+        this.nums.splice(i, 0, x);
+        break;
+      }
+      // x 最小
+      if (i == len - 1) {
+        // 这样可以保证push的时候也是有序push的
+        this.nums.push(x);
+      }
     }
 
+    return this.nums[this.k - 1];
+  }
 }
-
 
 // way2
-const {Heap} = require('../index');
-class KthLargest2{
-    constructor(k,nums){
-        this.k = k;
-        this.heap = new Heap('min');
-    
-        nums.forEach(item => {
-            this.heap.add(item);
-        });   
-        
-        // 如果堆大小超过k了  弹出堆顶元素 只保留最大的k个元素
-        while(this.heap.size>k){
-            this.heap.poll();
-        }
-    }
+const { Heap } = require('../index');
+class KthLargest2 {
+  constructor(k, nums) {
+    this.k = k;
+    this.heap = new Heap('min');
 
-    add(x){
-        if(this.heap.size<this.k){
-            this.heap.add(x);
-        }
-        // 如果当前堆顶元素第k大的 < 新来元素 剔除旧的新来元素是最大的
-        else if(this.heap.peek<x){ 
-            this.heap.poll();
-            this.heap.add(x);
-        }
-        // 返回堆顶元素
-        return this.heap.peek;
+    nums.forEach(item => {
+      this.heap.add(item);
+    });
+
+    // 如果堆大小超过k了  弹出堆顶元素 只保留最大的k个元素
+    while (this.heap.size > k) {
+      this.heap.poll();
     }
+  }
+
+  add(x) {
+    if (this.heap.size < this.k) {
+      this.heap.add(x);
+    }
+    // 如果当前堆顶元素第k大的 < 新来元素 剔除旧的新来元素是最大的
+    else if (this.heap.peek < x) {
+      this.heap.poll();
+      this.heap.add(x);
+    }
+    // 返回堆顶元素
+    return this.heap.peek;
+  }
 }
 
-let arr = [5,-1],k=3;
-let p = new KthLargest(k,arr);
-p.add(2);   // returns 4
-p.add(1);   // returns 5
-p.add(-1);  // returns 5
-p.add(3);   // returns 8
-p.add(4);   // returns 8
+let arr = [5, -1],
+  k = 3;
+let p = new KthLargest(k, arr);
+p.add(2); // returns 4
+p.add(1); // returns 5
+p.add(-1); // returns 5
+p.add(3); // returns 8
+p.add(4); // returns 8

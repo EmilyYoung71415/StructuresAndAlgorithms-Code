@@ -14,7 +14,6 @@
     ]
  */
 
-
 /***
  * 思路:
  *      层次遍历多个约束
@@ -23,23 +22,23 @@
  */
 
 function zigzagLevelOrder(root) {
-    if(!root) return [];
-    let queue = [root];
-    let result = [];
+  if (!root) return [];
+  let queue = [root];
+  let result = [];
 
-    while (queue.length) {
-        let prevLevelLen = queue.length;
-        let curRes = [];
-        let isReverse = result.length%2 === 1; //奇数行 
-        while (prevLevelLen--) {
-            let node = queue.shift();
-            if (!node) break;
-            isReverse ? curRes.unshift(node.val) : curRes.push(node.val);
-            node.left && queue.push(node.left);
-            node.right && queue.push(node.right);
-        }
-        result.push(curRes);
+  while (queue.length) {
+    let prevLevelLen = queue.length;
+    let curRes = [];
+    let isReverse = result.length % 2 === 1; //奇数行
+    while (prevLevelLen--) {
+      let node = queue.shift();
+      if (!node) break;
+      isReverse ? curRes.unshift(node.val) : curRes.push(node.val);
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
     }
+    result.push(curRes);
+  }
 
-    return result;
+  return result;
 }

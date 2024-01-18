@@ -17,25 +17,24 @@
  *      3、pres不断更新，但是maxres永远是保留最大的值
  *          比如 4,-1,2,1,-5 到了-5的时候按照1，2原则还是会把-5纳入pres，但是maxres还是保持的-5加入之前的6
  */
-let nums = [-2,1,-3,4,-1,2,1,-5,4];
+let nums = [-2, 1, -3, 4, -1, 2, 1, -5, 4];
 console.log(maxSubArray(nums, 6));
 function maxSubArray(nums) {
-    let max = Number.MIN_SAFE_INTEGER;
-    let pres = 0;
+  let max = Number.MIN_SAFE_INTEGER;
+  let pres = 0;
 
-    nums.forEach(item => {
-        // if (item > pres && pres < 0) {
-        // 优化：只要是负数都舍弃，负数+负数只会更小
-        if (pres < 0) {
-            pres = item;
-        }
-        else {
-            pres += item;
-        }
-        max = Math.max(max, pres);
-    })
+  nums.forEach(item => {
+    // if (item > pres && pres < 0) {
+    // 优化：只要是负数都舍弃，负数+负数只会更小
+    if (pres < 0) {
+      pres = item;
+    } else {
+      pres += item;
+    }
+    max = Math.max(max, pres);
+  });
 
-    return max;
+  return max;
 }
 
 /***
