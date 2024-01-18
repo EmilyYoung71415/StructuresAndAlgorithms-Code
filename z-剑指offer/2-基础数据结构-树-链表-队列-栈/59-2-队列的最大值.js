@@ -23,7 +23,6 @@
  *      2、队列的最大元素放在maxqueue的首元素
  *      3、如果queue出队时=最大值，需要刷新
  */
-// ❌ 有点小问题 7 / 34
 function MaxQueue() {
     this.queue = [];
     this.maxqueue = [];
@@ -33,19 +32,17 @@ MaxQueue.prototype = {
     push_back(val) {
         const {queue, maxqueue} = this;
         // 最近最大元素
-        let peekLast = maxqueue[maxqueue.length-1];
         queue.push(val);
-        while (maxqueue.length && peekLast < val) {
+        while (maxqueue.length && maxqueue[maxqueue.length-1] < val) {
             maxqueue.pop();
         }
         maxqueue.push(val);
     },
     pop_front() {
         const {queue, maxqueue} = this;
-        if (!queue.length) return -1;
         let popval = queue.shift();
         popval === maxqueue[0] && maxqueue.shift();
-        return popval;
+        return popval || -1;
     },
     max_value() {
         return this.maxqueue[0] || -1;
