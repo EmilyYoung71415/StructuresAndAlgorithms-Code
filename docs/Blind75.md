@@ -6,7 +6,7 @@ ref: [neecode.blind75](https://neetcode.io/practice)
 
 - [Contains Duplicate](https://leetcode.com/problems/contains-duplicate/) ✅
 - [Two Sum](https://leetcode.com/problems/two-sum/) ✅
-- [Valid Anagram](https://leetcode.com/problems/valid-anagram/)
+- [Valid Anagram](https://leetcode.com/problems/valid-anagram/) ✅
 - [Group Anagrams](https://leetcode.com/problems/group-anagrams/)
 - [Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
 - [Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
