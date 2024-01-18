@@ -3,7 +3,7 @@
 // Sort a linked list in O(n log n) time using constant space complexity.
 // 那就是快排 或者归排咯
 
-import { ListNode } from '../_util/list-node';
+import { ListNode } from '@utils';
 
 // 归排：
 // 1. 找到中间点，将链表分为两半 ===> 快慢指针

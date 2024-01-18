@@ -3,7 +3,7 @@
 // 反转前n个节点：
 //      返回反转之后的新头节点 last
 //      将反转的链表链到原链表上
-import { ListNode } from '../_util';
+import { ListNode } from '@utils';
 
 export function reverseBetween(
   head: ListNode | null,
