@@ -141,6 +141,16 @@ export class TreeUtil {
 
     return dp;
   }
+
+  static findNode(root: TreeNode | null, val: number): TreeNode | null {
+    if (!root) return null;
+    if (root.val === val) return root;
+
+    const l = root.left ? this.findNode(root.left, val) : null;
+    const r = root.right ? this.findNode(root.right, val) : null;
+
+    return l || r || null;
+  }
 }
 
 export class MTreeUtil {
