@@ -1,4 +1,4 @@
-> The Blind 75 is a popular list of algorithm practice problems.
+> The Blind 75 is a popular list of algorithm practice problems.That cover the most common questions and question patterns asked within coding interviews
 
 ref: [neecode.blind75](https://neetcode.io/practice)
 
