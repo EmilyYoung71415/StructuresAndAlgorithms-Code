@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../8-图/0-Graph.js"></script>
+    <script src="../4-并查集/0-UnionFind.js"></script>
+    <script src="../2-Stack&Queue扩展/1-优先队列.js"></script>
+    <script>
+        /**
+         * 以边为考察，边连接点，(将边 从权重最小到大开始选择)
+         * 每次将边纳入选择的评判是：新加入的点是否使图构成了环
+         * 核心思想基于 贪心
+         * 
+         * 并查集的集合判断
+         */
+
+        function kruskalMST(graph){
+            // 一个并查集存放图中的点
+            let unionSet = new unionFind();
+
+            unionSet.makeSets(Object.values(graph.nodes));
+            let priorityQueue =  new PriorityQueue((edge1,edge2)=>edge1.weight-edge2.weight);
+            // 以边权重添加到优先队列
+            for(let item of graph.edges){
+                priorityQueue.add(item);
+            }
+            
+            let result = [];
+            while(!priorityQueue.isEmpty()){
+                // 每次弹出一个边
+                let edge = priorityQueue.poll();
+                // 判断是否组成回路、边的起点和边的终点两个点是否属于同一个集合
+                if(!unionSet.isSameSet(edge.from,edge.to)){//from to 都是node类型
+                    result.push(edge);
+                    // 将from 集合与to集合合并
+                    unionSet.union(edge.from,edge.to);
+                }
+            }
+            console.log(result);
+            return result;            
+        }
+         /***
+         *  期望输出： 
+         *         1 
+         *    1/  2|  \ 3
+         *  2      |   3
+         *     4 \ |  / 5
+         *         4   
+         * ==> 1(1,2) / 2(1,4) /3(1,3)
+         */
+
+        let testarr = [
+            ['1','2',1],
+            ['1','4',2],
+            ['1','3',3],
+            ['2','4',4],
+            ['3','4',5]
+        ];
+        let graph = createGraph(testarr);
+        console.log(graph)
+        kruskalMST(graph);
+    </script>
+</body>
+</html>
