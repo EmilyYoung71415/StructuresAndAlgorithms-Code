@@ -1,4 +1,5 @@
-export function maxDepth(root: TreeNode): number {
+// 后序邻接
+export function maxDepth(root: TreeNode | null): number {
   if (!root) return 0;
 
   return Math.max(maxDepth(root.left), maxDepth(root.right)) + 1;
