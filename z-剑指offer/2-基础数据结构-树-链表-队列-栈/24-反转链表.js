@@ -4,10 +4,10 @@
  */
 
 function reverseList(head) {
-    if (head==null || head.next == null) return haad;
+  if (head == null || head.next == null) return haad;
 
-    let newhead = reverseList(head.next);
-    head.next.next = head;
-    head.next = null;
-    return newhead;
+  let newhead = reverseList(head.next);
+  head.next.next = head;
+  head.next = null;
+  return newhead;
 }

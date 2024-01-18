@@ -2,7 +2,8 @@
  * leetcode:102
  * 层序遍历:
  *  input:
- *  3
+ *  
+    3
    / \
   9  20
     /  \
@@ -20,38 +21,38 @@
  * 怎么区分每一行呢？
  */
 // 怎么区分每一行呢？
-function levelOrder1(root){
-    if(!root) return [];
-    let result = []
-    let queue = [root];
-    while(queue.length){
-        let node = queue.shift();
-        result.push(node.val);
-        node.right&&queue.push(node.right);
-        node.left&&queue.push(node.left);
-    }
-    return result;
+function levelOrder1(root) {
+  if (!root) return [];
+  let result = [];
+  let queue = [root];
+  while (queue.length) {
+    let node = queue.shift();
+    result.push(node.val);
+    node.right && queue.push(node.right);
+    node.left && queue.push(node.left);
+  }
+  return result;
 }
 
 // BFS搜索
-function levelOrder(root){
-    if(!root) return [];
-    let result = []
-    let queue = [root];
-    while(queue.length){
-        // 当前queue里的就是上一层的所有节点 
-        // 现在需要把这些节点都弹出来打印 而下一层的放入新的[]里
-        let prevLevelLen = queue.length;
-        let curRes = [];// 存放上层全部节点
-        while(prevLevelLen--){
-            let node = queue.shift();
-            curRes.push(node.val);
-            node.left&&queue.push(node.left);
-            node.right&&queue.push(node.right);
-        }
-        result.push(curRes);
+function levelOrder(root) {
+  if (!root) return [];
+  let result = [];
+  let queue = [root];
+  while (queue.length) {
+    // 当前queue里的就是上一层的所有节点
+    // 现在需要把这些节点都弹出来打印 而下一层的放入新的[]里
+    let prevLevelLen = queue.length;
+    let curRes = []; // 存放上层全部节点
+    while (prevLevelLen--) {
+      let node = queue.shift();
+      curRes.push(node.val);
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
     }
-    return result;
+    result.push(curRes);
+  }
+  return result;
 }
 
 /****
@@ -71,21 +72,21 @@ function levelOrder(root){
  * 
  */
 
-function levelOrder(root){
-    if(!root) return [];
-    let result = [];
-    DFS(root,0);
-    return result;
-    
-    function DFS(root,level){
-        if(!root) return ;
-        // 每次进入新的层但是 并没有新的层的[] ,新建新层arr
-        if(result.length < level+1){
-            result.push([])
-        }
+function levelOrder(root) {
+  if (!root) return [];
+  let result = [];
+  DFS(root, 0);
+  return result;
 
-        result[level].push(root.val);
-        DFS(root.left,level+1);
-        DFS(root.right,level+1);
+  function DFS(root, level) {
+    if (!root) return;
+    // 每次进入新的层但是 并没有新的层的[] ,新建新层arr
+    if (result.length < level + 1) {
+      result.push([]);
     }
+
+    result[level].push(root.val);
+    DFS(root.left, level + 1);
+    DFS(root.right, level + 1);
+  }
 }

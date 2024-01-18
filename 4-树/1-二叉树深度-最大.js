@@ -14,28 +14,28 @@
  */
 
 // BFS
-function maxDepth(root){
-    if(!root) return 0;
-    let queue = [root];
-    let level = 1;
-    while(queue.length){
-        let len = queue.length;
-        while(len--){
-            let node = queue.shift();
-            node.left&&queue.push(node.left)
-            node.right&&queue.push(node.right);            
-        }
-        if(queue.length) level++;
+function maxDepth(root) {
+  if (!root) return 0;
+  let queue = [root];
+  let level = 1;
+  while (queue.length) {
+    let len = queue.length;
+    while (len--) {
+      let node = queue.shift();
+      node.left && queue.push(node.left);
+      node.right && queue.push(node.right);
     }
-    return level;
+    if (queue.length) level++;
+  }
+  return level;
 }
 
 // DFS 递归解法
-function maxDepth(root){
-    if(root==null) return 0;
-    let lDepth = maxDepth(root.left);// 左子树高度
-    let rDepth = maxDepth(root.right);// 右子树高度
-    // 树的高度 = 子树高度 + 根节点
-    // return lDepth>rDepth?lDepth+1:rDepth+1;
-    return Math.max(lDepth,rDepth)+1;
+function maxDepth(root) {
+  if (root == null) return 0;
+  let lDepth = maxDepth(root.left); // 左子树高度
+  let rDepth = maxDepth(root.right); // 右子树高度
+  // 树的高度 = 子树高度 + 根节点
+  // return lDepth>rDepth?lDepth+1:rDepth+1;
+  return Math.max(lDepth, rDepth) + 1;
 }

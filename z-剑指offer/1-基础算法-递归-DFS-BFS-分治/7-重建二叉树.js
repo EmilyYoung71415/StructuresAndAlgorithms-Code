@@ -22,10 +22,10 @@
  *      右子树的前序: preorder.slice(leftLen+1)
  *      左子树的中序： inorder.slice(0,leftLen+1)
  *      右子树的中序: inorder.slice(leftLen)
- * 
+ *
  *      root.left = 由左子树的 前序、中序构建出的树
  *      root.right = 由右子树的 前序、中序构建出的树
- * 
+ *
  *      递归base： 前序、中序长度总是一样的，当其中一个为0时即可return
  *      递归每层返回最新构建出的树
  */
@@ -37,21 +37,20 @@
 // console.log(preorder.slice(leftLen+1))// 右前 [20,15,7]
 // console.log(inorder.slice(leftLen+1))// 右中 [15,20,7]
 
-
 function TreeNode(val) {
-    this.val = val;
-    this.left = this.right = null;
+  this.val = val;
+  this.left = this.right = null;
 }
 
 function buildTree(preorder, inorder) {
-    if (!preorder.length || !inorder.length) {
-        return null;
-    }
+  if (!preorder.length || !inorder.length) {
+    return null;
+  }
 
-    let rootval = preorder[0];
-    let root = new TreeNode(rootval);
-    let leftLen = inorder.indexOf(rootval);
-    root.left = buildTree(preorder.slice(1,leftLen+1), inorder.slice(0,leftLen));
-    root.right = buildTree(preorder.slice(leftLen+1), inorder.slice(leftLen+1));
-    return root;
+  let rootval = preorder[0];
+  let root = new TreeNode(rootval);
+  let leftLen = inorder.indexOf(rootval);
+  root.left = buildTree(preorder.slice(1, leftLen + 1), inorder.slice(0, leftLen));
+  root.right = buildTree(preorder.slice(leftLen + 1), inorder.slice(leftLen + 1));
+  return root;
 }

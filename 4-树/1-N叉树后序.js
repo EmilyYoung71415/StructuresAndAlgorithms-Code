@@ -14,31 +14,31 @@
 // return []
 // 递归版
 function postorder(root) {
-    if (!root) return [];
-    let result = [];
-    postorderCall(root);
-    result.push(root.val);
-    return result;
+  if (!root) return [];
+  let result = [];
+  postorderCall(root);
+  result.push(root.val);
+  return result;
 
-    function postorderCall(root) {
-        root.children.forEach(node =>{
-            postorderCall(node);
-            result.push(node.val);
-        })
-    }
+  function postorderCall(root) {
+    root.children.forEach(node => {
+      postorderCall(node);
+      result.push(node.val);
+    });
+  }
 }
 
 // 后序：左右根，  前序：根左右=> 根右左
-function postorder(root){
-    let result = [];
-    let stack = [root];
-    
-    while (stack.length) {
-        let node = stack.pop();
-        if (node) {
-            result.unshift(node.val);
-            stack.push(...node.children);
-        }
+function postorder(root) {
+  let result = [];
+  let stack = [root];
+
+  while (stack.length) {
+    let node = stack.pop();
+    if (node) {
+      result.unshift(node.val);
+      stack.push(...node.children);
     }
-    return result;
+  }
+  return result;
 }

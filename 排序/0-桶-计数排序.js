@@ -19,25 +19,24 @@
 // 稳定性 ----------- 稳定
  */
 function countingSort(arr) {
-
-    let maxValue = Math.max.apply(Math, arr);
-    let bucket = new Array(maxValue + 1),
-        sortedIndex = 0,
-        arrLen = arr.length,
-        bucketLen = maxValue + 1;
-    // 遍历数组，初始化桶
-    for (let i = 0; i < arrLen; i++) {
-        if (!bucket[arr[i]]) {
-            bucket[arr[i]] = 0;
-        }
-        bucket[arr[i]]++;
+  let maxValue = Math.max.apply(Math, arr);
+  let bucket = new Array(maxValue + 1),
+    sortedIndex = 0,
+    arrLen = arr.length,
+    bucketLen = maxValue + 1;
+  // 遍历数组，初始化桶
+  for (let i = 0; i < arrLen; i++) {
+    if (!bucket[arr[i]]) {
+      bucket[arr[i]] = 0;
     }
-    // 遍历桶输出数据
-    for (let j = 0; j < bucketLen; j++) {
-        while (bucket[j]-- > 0) {
-            arr[sortedIndex++] = j;
-        }
+    bucket[arr[i]]++;
+  }
+  // 遍历桶输出数据
+  for (let j = 0; j < bucketLen; j++) {
+    while (bucket[j]-- > 0) {
+      arr[sortedIndex++] = j;
     }
+  }
 
-    return arr;
+  return arr;
 }

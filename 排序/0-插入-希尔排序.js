@@ -6,24 +6,24 @@
  * 2.当整个数据集近似有序的时候 再进行整体的插入排序
  */
 
-let arr = [8,9,1,7,2,3,5,4,6,0];
-console.log(shellSort(arr))
-function shellSort(arr){
-    if(arr==null||arr.length<2){
-        return arr;
-    }
-    let len = arr.length;
-    for(let grap=len>>1;grap>0;grap=grap>>1){
-        for(let i=grap;i<len;i++){
-            let index=i;
-            while(index-grap>=0&&arr[index]<arr[index-grap]){
-                swap(arr,index,index-grap)
-                index -= grap;
-            }
-        }
-    }
+let arr = [8, 9, 1, 7, 2, 3, 5, 4, 6, 0];
+console.log(shellSort(arr));
+function shellSort(arr) {
+  if (arr == null || arr.length < 2) {
     return arr;
-    function swap(arr,i,j){
-        [arr[i],arr[j]] = [arr[j],arr[i]]
+  }
+  let len = arr.length;
+  for (let grap = len >> 1; grap > 0; grap = grap >> 1) {
+    for (let i = grap; i < len; i++) {
+      let index = i;
+      while (index - grap >= 0 && arr[index] < arr[index - grap]) {
+        swap(arr, index, index - grap);
+        index -= grap;
+      }
     }
+  }
+  return arr;
+  function swap(arr, i, j) {
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
 }

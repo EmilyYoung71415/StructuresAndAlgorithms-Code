@@ -27,12 +27,12 @@
  * @param {TreeNode} root
  * @return {string}
  */
-var serialize = function(root) {
-    if (!root) return '#,';// 无节点的自带分割,
-    let res = root.val + ',';
-    res += serialize(root.left);
-    res += serialize(root.right);
-    return res;
+var serialize = function (root) {
+  if (!root) return '#,'; // 无节点的自带分割,
+  let res = root.val + ',';
+  res += serialize(root.left);
+  res += serialize(root.right);
+  return res;
 };
 
 /**
@@ -42,24 +42,24 @@ var serialize = function(root) {
  * @return {TreeNode}
  */
 function TreeNode(val) {
-    this.val = val;
-    this.left = this.right = null;
+  this.val = val;
+  this.left = this.right = null;
 }
 // 满二叉数组构建满二叉树
 // const str = '1,2,#,#,3,4,#,#,5,#,#';
-var deserialize = function(str) {
-    let arr = str.split(',');
-    return arrToTree(arr);
+var deserialize = function (str) {
+  let arr = str.split(',');
+  return arrToTree(arr);
 
-    function arrToTree(arr) {
-        let nodeval = arr.shift();
-        if (nodeval === '#' || !nodeval) return null;
-        // 前序构建： 根左右
-        let root = new TreeNode(nodeval);
-        root.left = arrToTree(arr);
-        root.right = arrToTree(arr);
-        return root;
-    }
+  function arrToTree(arr) {
+    let nodeval = arr.shift();
+    if (nodeval === '#' || !nodeval) return null;
+    // 前序构建： 根左右
+    let root = new TreeNode(nodeval);
+    root.left = arrToTree(arr);
+    root.right = arrToTree(arr);
+    return root;
+  }
 };
 /**
  * Your functions will be called as such:

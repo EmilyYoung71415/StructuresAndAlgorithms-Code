@@ -26,130 +26,132 @@
  */
 
 class Heap {
-    constructor(type) {
-        // type === max or min 大顶堆 or 小顶堆
-        this.type = type;
-        this.arr = [];
-    }
-    get size() {
-        return this.arr.length;
-    }
+  constructor(type) {
+    // type === max or min 大顶堆 or 小顶堆
+    this.type = type;
+    this.arr = [];
+  }
+  get size() {
+    return this.arr.length;
+  }
 
-    get peek() {
-        if(this.size == 0) return null;
-        return this.arr[0];
+  get peek() {
+    if (this.size == 0) return null;
+    return this.arr[0];
+  }
+  add(x) {
+    this.arr.push(x);
+    this.heapifyUp();
+  }
+  heapifyUp(childIndex = this.size - 1) {
+    let pIndex = this.getPIndex(childIndex); //父节点index
+    while (pIndex >= 0 && !this.compare(pIndex, childIndex)) {
+      //有父节点
+      this.swap(this.arr, childIndex, pIndex);
+      childIndex = pIndex;
+      pIndex = this.getPIndex(childIndex);
     }
-    add(x) {
-        this.arr.push(x);
-        this.heapifyUp();
+  }
+  heapifyUp_r(childIndex = this.size - 1) {
+    if (childIndex === 0) return;
+    let pIndex = this.getPIndex(childIndex); //父节点index
+    if (pIndex >= 0 && !this.compare(pIndex, childIndex)) {
+      this.swap(this.arr, childIndex, pIndex);
     }
-    heapifyUp(childIndex=this.size-1) {
-        let pIndex = this.getPIndex(childIndex);//父节点index
-        while(pIndex>=0 && !this.compare(pIndex, childIndex)){//有父节点
-            this.swap(this.arr, childIndex, pIndex);
-            childIndex = pIndex;
-            pIndex = this.getPIndex(childIndex);
-        }
-    }
-    heapifyUp_r(childIndex=this.size-1) {
-        if (childIndex ===0 ) return;
-        let pIndex = this.getPIndex(childIndex);//父节点index
-        if (pIndex>=0 && !this.compare(pIndex, childIndex)) {
-            this.swap(this.arr, childIndex, pIndex);
-        }
-        this.heapifyUp_r(pIndex);
-    }
-    poll() {
-        if (this.size === 0 ) return null;
-        if (this.size === 1 ) return this.arr.pop();
-        let peek = this.peek;
-        this.arr[0] = this.arr.pop();
-        this.heapifyDown();
-        return peek;
-    }
-    // 向下跳转堆顶元素 堆顶出现新元素之后的调整堆
-    heapifyDown(pIndex=0) {
-        // 该节点的两个子节点的下标
-        let len = this.size,
-            nextIndex = null,
-            rIndex = pIndex*2 + 2,
-            lIndex = pIndex*2 + 1;
+    this.heapifyUp_r(pIndex);
+  }
+  poll() {
+    if (this.size === 0) return null;
+    if (this.size === 1) return this.arr.pop();
+    let peek = this.peek;
+    this.arr[0] = this.arr.pop();
+    this.heapifyDown();
+    return peek;
+  }
+  // 向下跳转堆顶元素 堆顶出现新元素之后的调整堆
+  heapifyDown(pIndex = 0) {
+    // 该节点的两个子节点的下标
+    let len = this.size,
+      nextIndex = null,
+      rIndex = pIndex * 2 + 2,
+      lIndex = pIndex * 2 + 1;
 
-        while(lIndex < len){
-            // 以大顶堆为例
-            // 左子、右子、自身 三个元素的大小比较，选择了最大的元素 和 自身比较，如果仍是自身大的话 就无需ajust
-            nextIndex = rIndex<len && this.compare(rIndex,lIndex) ? rIndex : lIndex;
-            if(this.compare(pIndex,nextIndex)) break;
+    while (lIndex < len) {
+      // 以大顶堆为例
+      // 左子、右子、自身 三个元素的大小比较，选择了最大的元素 和 自身比较，如果仍是自身大的话 就无需ajust
+      nextIndex = rIndex < len && this.compare(rIndex, lIndex) ? rIndex : lIndex;
+      if (this.compare(pIndex, nextIndex)) break;
 
-            // 其余情况都要交换
-            this.swap(this.arr,pIndex,nextIndex);
-            pIndex = nextIndex;
-            rIndex = pIndex*2 + 2;
-            lIndex = pIndex*2 + 1;
-        }
+      // 其余情况都要交换
+      this.swap(this.arr, pIndex, nextIndex);
+      pIndex = nextIndex;
+      rIndex = pIndex * 2 + 2;
+      lIndex = pIndex * 2 + 1;
     }
-    heapifyDown_r(pIndex=0) {
-        if (pIndex >= this.size) return;
-        let rIndex = pIndex*2 + 2;
-        let lIndex = pIndex*2 + 1;
-        let swapChildIndex = rIndex<len && this.compare(rIndex,lIndex) ? rIndex : lIndex;
-        if(lIndex >= len || this.compare(pIndex,swapChildIndex)) return;
-        this.swap(this.arr,pIndex,swapChildIndex);
-        this.heapifyDown_r(swapChildIndex);
+  }
+  heapifyDown_r(pIndex = 0) {
+    if (pIndex >= this.size) return;
+    let rIndex = pIndex * 2 + 2;
+    let lIndex = pIndex * 2 + 1;
+    let swapChildIndex = rIndex < len && this.compare(rIndex, lIndex) ? rIndex : lIndex;
+    if (lIndex >= len || this.compare(pIndex, swapChildIndex)) return;
+    this.swap(this.arr, pIndex, swapChildIndex);
+    this.heapifyDown_r(swapChildIndex);
+  }
+  getPIndex(index) {
+    return (index / 2) >> 0;
+  }
+  compare(properIndex, index) {
+    // 更适合的元素
+    if (this.type === 'max') {
+      return this.arr[properIndex] >= this.arr[index];
     }
-    getPIndex(index) {
-        return (index/2>>0);
-    }
-    compare(properIndex,index) {// 更适合的元素
-        if (this.type === 'max') {
-            return this.arr[properIndex] >= this.arr[index];
-        }
-        return this.arr[properIndex] <= this.arr[index];
-    }
-    swap(arr,index1,index2) {
-        [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
-    }
-    // isEmpty(){
-    //     return !this.arr.length;
-    // }
-    // find(x){
-    //     let result = [];
-    //     this.arr.forEach((item,index)=>{
-    //         if(item == x){
-    //             result.push(index);
-    //         }
-    //     })
-    //     return result;
-    // }
-    // remove(x){
-    //     // 遍历数组找到 值等于x的所有元素，存放元素下标
-    //     const removeIndexArr = this.find(x);
-    //     for(let i=0;i<removeIndexArr.length;i++){
-    //         // 预删除元素的最新下标 (每次遍历的时候 需要新find一下 因为堆调整要改变数组元素的位置)
-    //         let itemIndex = this.find(x).pop();
+    return this.arr[properIndex] <= this.arr[index];
+  }
+  swap(arr, index1, index2) {
+    [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
+  }
+  // isEmpty(){
+  //     return !this.arr.length;
+  // }
+  // find(x){
+  //     let result = [];
+  //     this.arr.forEach((item,index)=>{
+  //         if(item == x){
+  //             result.push(index);
+  //         }
+  //     })
+  //     return result;
+  // }
+  // remove(x){
+  //     // 遍历数组找到 值等于x的所有元素，存放元素下标
+  //     const removeIndexArr = this.find(x);
+  //     for(let i=0;i<removeIndexArr.length;i++){
+  //         // 预删除元素的最新下标 (每次遍历的时候 需要新find一下 因为堆调整要改变数组元素的位置)
+  //         let itemIndex = this.find(x).pop();
 
-    //         // 最后一个元素 直接Pop 无需堆调整
-    //         if(itemIndex ==  this.arr.length-1){
-    //             this.arr.pop()
-    //         }
-    //         else{
-    //             // 将堆末尾的元素 移至预删除元素位置
-    //             // 转换为删除末尾元素
-    //             this.arr[itemIndex] = this.arr.pop();
+  //         // 最后一个元素 直接Pop 无需堆调整
+  //         if(itemIndex ==  this.arr.length-1){
+  //             this.arr.pop()
+  //         }
+  //         else{
+  //             // 将堆末尾的元素 移至预删除元素位置
+  //             // 转换为删除末尾元素
+  //             this.arr[itemIndex] = this.arr.pop();
 
-    //             // 找当前删除元素的父元素 
-    //             // 如果父元素是合适的 or 没有父元素 就向下调整 (并且孩子节点存在)
-    //             // 父元素不合适 向上调整
-    //             let pIndex = this.getPIndex(itemIndex),
-    //                 lIndex = itemIndex*2 + 1;
-    //             if(lIndex < this.arr.length-1 && (!this.arr[pIndex] || this.compare(pIndex,itemIndex))) {
-    //                 this.heapifyDown(itemIndex);
-    //             }
-    //             else {
-    //                 this.heapifyUp(itemIndex);
-    //             }
-    //         }
-    //     }
-    // }
+  //             // 找当前删除元素的父元素
+  //             // 如果父元素是合适的 or 没有父元素 就向下调整 (并且孩子节点存在)
+  //             // 父元素不合适 向上调整
+  //             let pIndex = this.getPIndex(itemIndex),
+  //                 lIndex = itemIndex*2 + 1;
+  //             if(lIndex < this.arr.length-1 && (!this.arr[pIndex] || this.compare(pIndex,itemIndex))) {
+  //                 this.heapifyDown(itemIndex);
+  //             }
+  //             else {
+  //                 this.heapifyUp(itemIndex);
+  //             }
+  //         }
+  //     }
+  // }
 }
 module.exports = Heap;

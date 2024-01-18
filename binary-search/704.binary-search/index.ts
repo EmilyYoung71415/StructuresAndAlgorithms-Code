@@ -1,6 +1,7 @@
 // a target value, return the index
 
 // 二分查找是基于有序数组的, 相对于顺序查找的O(N)复杂度，二分LogN
+// 是一道常规的 朴素二分法
 // binarySearch is based on sorted arr, it's complexity is logN compared to On
 
 export function binarySearch(arr: number[], target: number): number {

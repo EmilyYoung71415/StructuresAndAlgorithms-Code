@@ -21,37 +21,35 @@
  */
 console.log(shipWithinDays([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 5));
 function shipWithinDays(weight, days) {
-    let min = Math.min.apply(null, weight);
-    let max = weight.reduce((acc, cur) => acc + cur);
+  let min = Math.min.apply(null, weight);
+  let max = weight.reduce((acc, cur) => acc + cur);
 
-    let start = min;
-    let end = max;
+  let start = min;
+  let end = max;
 
-    while (start < end) {
-        let mid = start + ((end - start) >> 1);
+  while (start < end) {
+    let mid = start + ((end - start) >> 1);
 
-        if (canFinish(weight, mid, days)) {
-            end = mid;
-        }
-        else {
-            start = mid + 1;
-        }
+    if (canFinish(weight, mid, days)) {
+      end = mid;
+    } else {
+      start = mid + 1;
+    }
+  }
+
+  return start;
+
+  function canFinish(weight, cap, days) {
+    let cur = cap; // 当前船还可以承受的重量
+    for (let wItem of weight) {
+      if (wItem > cap) return false; // 当前物件 > 船的总承重
+      if (wItem > cur) {
+        cur = cap;
+        days--;
+      }
+      cur -= wItem;
     }
 
-    return start;
-
-    function canFinish(weight, cap, days) {
-        let cur = cap; // 当前船还可以承受的重量
-        for (let wItem of weight) {
-            if (wItem > cap) return false; // 当前物件 > 船的总承重
-            if (wItem > cur) {
-                cur = cap;
-                days--;
-            }
-            cur -= wItem;
-        }
-
-        return days > 0;
-    }
-    
+    return days > 0;
+  }
 }

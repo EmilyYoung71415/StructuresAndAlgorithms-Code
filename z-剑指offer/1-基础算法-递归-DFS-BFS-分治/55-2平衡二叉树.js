@@ -16,48 +16,48 @@
  *    核心 判断左右子树的高度
  */
 
- //     只是求了 从根节点开始算整棵树的 平衡状态
+//     只是求了 从根节点开始算整棵树的 平衡状态
 function isBalanced(root) {
-    if (!root) return true;
-    return Math.abs(treeHeight(root.left) - treeHeight(root.right)) <= 1;
+  if (!root) return true;
+  return Math.abs(treeHeight(root.left) - treeHeight(root.right)) <= 1;
 
-    function treeHeight(root) {
-        if (!root) return 0;
-        return Math.max(treeHeight(root.left), treeHeight(root.right)) + 1;
-    }
+  function treeHeight(root) {
+    if (!root) return 0;
+    return Math.max(treeHeight(root.left), treeHeight(root.right)) + 1;
+  }
 }
 
 //        1
 //       / \
 //      2   2
 //     /     \
-//    3       3  
+//    3       3
 //   /         \
 //  4           4  判断错误的case
 
 // 可以得到递归每层的左右子树高度 同时将 结果返回为boolean吗
 function isBalanced(root) {
-    if (!root) return true;
-    let flag = true;
-    treeHeight(root);
-    return flag;
+  if (!root) return true;
+  let flag = true;
+  treeHeight(root);
+  return flag;
 
-    function treeHeight(root) {
-        if (!root) return 0;
-        let lDepth = treeHeight(root.left);
-        let rDepth = treeHeight(root.right);
-        if (Math.abs(lDepth - rDepth) > 1) flag = false;
-        return Math.max(lDepth, rDepth) + 1;
-    }
+  function treeHeight(root) {
+    if (!root) return 0;
+    let lDepth = treeHeight(root.left);
+    let rDepth = treeHeight(root.right);
+    if (Math.abs(lDepth - rDepth) > 1) flag = false;
+    return Math.max(lDepth, rDepth) + 1;
+  }
 }
 
 // 代码优化
 function isBalanced(root) {
-    if (!root) return true;
-    if (Math.abs(treeHeight(root.left) - treeHeight(root.right)) > 1) return false;
-    return isBalanced(root.left) && isBalanced(root.right);
+  if (!root) return true;
+  if (Math.abs(treeHeight(root.left) - treeHeight(root.right)) > 1) return false;
+  return isBalanced(root.left) && isBalanced(root.right);
 
-    function treeHeight(root) {
-        // ..
-    }
+  function treeHeight(root) {
+    // ..
+  }
 }

@@ -2,7 +2,7 @@
  * 队列：先进先出
  * 一般表示：
  *  let queue = []
- *  入队-向数组尾部追加元素：queue.push(); 
+ *  入队-向数组尾部追加元素：queue.push();
  *  出队-弹出数组第一个元素：queue.shift();
  *  返回队首元素head：queue[0]
  * 这里基于数组实现队列这样的功能，即实现push、shift、head这俩api
@@ -17,30 +17,30 @@
  *      和arr=[1,2,3,4] 然后delete arr[2]==>arr=[1,2,empty,4];arr[2]=undefined是一样的道理
  */
 
-class Queue{
-    constructor(initsize){
-        this.data = new Array(initsize||100);
-        this.front = 0;//队首指针
-        this.rear = 0;
-        this.size = 0;
+class Queue {
+  constructor(initsize) {
+    this.data = new Array(initsize || 100);
+    this.front = 0; //队首指针
+    this.rear = 0;
+    this.size = 0;
+  }
+  push(x) {
+    if (this.size === this.data.length) {
+      throw new Error('栈已经满了');
     }
-    push(x){
-        if(this.size===this.data.length){
-            throw new Error('栈已经满了');
-        }
-        this.data[this.rear] = x;
-        this.size++; 
-        this.rear = this.rear==this.data.length-1?0:this.rear+1;
+    this.data[this.rear] = x;
+    this.size++;
+    this.rear = this.rear == this.data.length - 1 ? 0 : this.rear + 1;
+  }
+  pop() {
+    if (this.size === 0) {
+      throw new Error('队列已经是空的了！');
     }
-    pop(){
-        if(this.size===0){
-            throw new Error('队列已经是空的了！')
-        }
-        let res = this.data[this.front];
-        this.front = this.front==this.data.length-1?0:this.front+1;
-        this.size--;
-        return res;
-    }
+    let res = this.data[this.front];
+    this.front = this.front == this.data.length - 1 ? 0 : this.front + 1;
+    this.size--;
+    return res;
+  }
 }
 /*
 let queue = new Queue();

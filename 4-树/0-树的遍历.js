@@ -6,20 +6,20 @@
 
 /* 基本的二叉树结点 */
 function treeNode(data) {
-    this.data = data;
-    this.left = this.right = null;
+  this.data = data;
+  this.left = this.right = null;
 }
 
 function traverse(root) {
-    if (root==null) return;
-    // 访问root.data
-    traverse(root.left);
-    traverse(root.right);
+  if (root == null) return;
+  // 访问root.data
+  traverse(root.left);
+  traverse(root.right);
 }
 
 // 多叉树遍历
 function traverse(root) {
-    for(let child of root.children) {
-        traverse(child);
-    }
+  for (let child of root.children) {
+    traverse(child);
+  }
 }

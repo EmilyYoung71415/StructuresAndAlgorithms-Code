@@ -22,71 +22,70 @@
  *          增加伴随变量：curTarget、 curRes
  */
 function pathSum1(root, target) {
-    let result = [],
-        stack = [],
-        prev = null,
-        p = root;
-    while(p||stack.length>0){
-        if (p) {// 一直走到最左边
-            stack.push(p);
-            p = p.left
+  let result = [],
+    stack = [],
+    prev = null,
+    p = root;
+  while (p || stack.length > 0) {
+    if (p) {
+      // 一直走到最左边
+      stack.push(p);
+      p = p.left;
+    } else {
+      let topNode = stack[stack.length - 1];
+      if (topNode.right && topNode.right != prev) {
+        p = topNode.right;
+        stack.push(p);
+        p = p.left;
+      } else {
+        let node = stack.pop();
+        /* process code */
+        if (!node.left && !node.right) {
+          let curRes = stack.map(item => item.val);
+          let curSum = curRes.reduce((acc, cur) => acc + cur, node.val);
+          curSum === target && result.push([...curRes, node.val]);
         }
-        else {
-            let topNode = stack[stack.length-1];
-            if (topNode.right&&topNode.right!=prev) {
-                p = topNode.right;
-                stack.push(p)
-                p = p.left;
-            }
-            else {
-                let node = stack.pop();
-                /* process code */
-                if (!node.left && !node.right) {
-                    let curRes = stack.map(item => item.val);
-                    let curSum = curRes.reduce((acc, cur) => acc + cur, node.val);
-                    curSum === target && result.push([...curRes, node.val]);
-                }
-                /* process code */
-                prev = node;
-                p = null;
-            }
-        }
+        /* process code */
+        prev = node;
+        p = null;
+      }
     }
-    return result
-};
+  }
+  return result;
+}
 
 // 递归
 // 递归伴随变量： curTarget、 curRes
 function pathSum(root, target) {
-    let result = [];
-    pathSumCall(root, target, []);
-    return result;
+  let result = [];
+  pathSumCall(root, target, []);
+  return result;
 
-    function pathSumCall(root, curtar, curres) {
-        if (!root) return;
-        if (!root.left && !root.right) {
-            curtar == root.val && result.push([...curres, root.val]);
-        }
-        root.left && pathSumCall(root.left, curtar-root.val, [...curres, root.val]);
-        root.right && pathSumCall(root.right, curtar-root.val, [...curres, root.val]);
+  function pathSumCall(root, curtar, curres) {
+    if (!root) return;
+    if (!root.left && !root.right) {
+      curtar == root.val && result.push([...curres, root.val]);
     }
+    root.left && pathSumCall(root.left, curtar - root.val, [...curres, root.val]);
+    root.right && pathSumCall(root.right, curtar - root.val, [...curres, root.val]);
+  }
 }
 
 // 递归代码优化
 function pathSum(root, target) {
-    let result = [];
-    pathSumCall(root, target, []);
-    return result;
+  let result = [];
+  pathSumCall(root, target, []);
+  return result;
 
-    function pathSumCall(root, curtar, curres) {
-        if (!root) return;
-        curres.push(root.val); // 递归进入当层时先push进curres 假定当前数是可行的
-        curtar = curtar - root.val;
-        if (!root.left && !root.right && curtar==0) {
-            result.push([...curres]);// 必须进行浅拷贝
-        }
-        root.left && pathSumCall(root.left, curtar, curres);
-        root.right && pathSumCall(root.right, curtar, curres);
-        curres.pop();// 回溯的时候 将假定的数取出
+  function pathSumCall(root, curtar, curres) {
+    if (!root) return;
+    curres.push(root.val); // 递归进入当层时先push进curres 假定当前数是可行的
+    curtar = curtar - root.val;
+    if (!root.left && !root.right && curtar == 0) {
+      result.push([...curres]); // 必须进行浅拷贝
     }
+    root.left && pathSumCall(root.left, curtar, curres);
+    root.right && pathSumCall(root.right, curtar, curres);
+    curres.pop(); // 回溯的时候 将假定的数取出
+  }
 }

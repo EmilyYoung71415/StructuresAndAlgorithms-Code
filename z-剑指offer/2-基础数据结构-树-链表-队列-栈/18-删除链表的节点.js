@@ -13,40 +13,40 @@
 /***
  * 思路：
  *      找到待删除节点的前一个结点，prev.next = prev.next.next
-*/
+ */
 // O(n) 常规思路
 function deleteNode(head, val) {
-    let prev = null;
-    let p = head;
+  let prev = null;
+  let p = head;
 
-    while (p) {
-        if (p.val === val) {
-            // 删除头结点
-            if (prev === null) return head.next;
-            prev.next = prev.next.next;
-            break;
-        }
-        prev = p;
-        p = p.next;
+  while (p) {
+    if (p.val === val) {
+      // 删除头结点
+      if (prev === null) return head.next;
+      prev.next = prev.next.next;
+      break;
     }
-    return head;
+    prev = p;
+    p = p.next;
+  }
+  return head;
 }
 // 代码改进： 借助dummy结点 简化链表操作
 function deleteNode(head, val) {
-    if (head==null) return head;
-    let dummy = new ListNode();
-    dummy.next = head;
+  if (head == null) return head;
+  let dummy = new ListNode();
+  dummy.next = head;
 
-    let p = dummy;
-    while (p.next) {
-        if (p.next.val === val) {
-            p.next = p.next.next;
-            break;
-        }
-        p = p.next;
+  let p = dummy;
+  while (p.next) {
+    if (p.next.val === val) {
+      p.next = p.next.next;
+      break;
     }
+    p = p.next;
+  }
 
-    return dummy.next;
+  return dummy.next;
 }
 
 // way2:O(1) 信息交换法
@@ -56,24 +56,24 @@ function deleteNode(head, val) {
 // 边界情况是删除最后一个节点时，此时 toDelete.next 为 null。那么回退到普通解法。
 // 综合时间复杂度为O(1)
 function deleteNode(head, toDelete) {
-    if (!toDelete || !head) return null;
+  if (!toDelete || !head) return null;
 
-    if (toDelete.next === null) {
-        // toDelete是尾节点
-        let dummy = new ListNode(-1);
-        dummy.next = head;
+  if (toDelete.next === null) {
+    // toDelete是尾节点
+    let dummy = new ListNode(-1);
+    dummy.next = head;
 
-        let p = dummy;
-        while (p.next !== toDelete) {
-            p = p.next;
-        }
-        p.next = null;
-        return dummy.next;
+    let p = dummy;
+    while (p.next !== toDelete) {
+      p = p.next;
     }
-    // 将toDelete.next的值转移给toDelete，所以巧妙地将问题转换为删除toDelete.next
-    else {
-        toDelete.val = toDelete.next.val;
-        toDelete.next = toDelete.next.next;
-        return head;
-    }
+    p.next = null;
+    return dummy.next;
+  }
+  // 将toDelete.next的值转移给toDelete，所以巧妙地将问题转换为删除toDelete.next
+  else {
+    toDelete.val = toDelete.next.val;
+    toDelete.next = toDelete.next.next;
+    return head;
+  }
 }

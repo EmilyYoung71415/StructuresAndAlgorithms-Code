@@ -15,28 +15,28 @@
  */
 
 function levelOrder(root) {
-    let result = [];
-    let queue = [root];
+  let result = [];
+  let queue = [root];
 
-    while (queue.length) {
-        let node = queue.shift();
-        result.push(node.val);
-        node.left && queue.push(node.left);
-        node.right && queue.push(node.right);
-    }
-    return result;
+  while (queue.length) {
+    let node = queue.shift();
+    result.push(node.val);
+    node.left && queue.push(node.left);
+    node.right && queue.push(node.right);
+  }
+  return result;
 }
 
-// 代码鲁棒性 
+// 代码鲁棒性
 function levelOrder(root) {
-    let result = [];
-    let queue = [root];
-    if (!root) return result;
-    while (queue.length) {
-        let node = queue.shift();
-        result.push(node.val);
-        node.left && queue.push(node.left);
-        node.right && queue.push(node.right);
-    }
-    return result;
+  let result = [];
+  let queue = [root];
+  if (!root) return result;
+  while (queue.length) {
+    let node = queue.shift();
+    result.push(node.val);
+    node.left && queue.push(node.left);
+    node.right && queue.push(node.right);
+  }
+  return result;
 }

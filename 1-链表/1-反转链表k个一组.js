@@ -16,31 +16,33 @@
     3、将上述两个过程的结果连接起来。
  */
 function reverseKGroup(head, k) {
-    if (head == null) return null;
-    // 反转区间[a, b) 包含 k 个待反转元素
-    let a, b;
-    a = b = head;
-    for (let i = 0; i < k; i++) {
-        // 不足 k 个，不需要反转，base case
-        if (b == null) return head;
-        b = b.next;
-    }
-    // 反转前 k 个元素
-    let newHead = reverse(a, b);
-    // 递归反转后续链表并连接起来
-    a.next = reverseKGroup(b, k);
-    return newHead;
+  if (head == null) return null;
+  // 反转区间[a, b) 包含 k 个待反转元素
+  let a, b;
+  a = b = head;
+  for (let i = 0; i < k; i++) {
+    // 不足 k 个，不需要反转，base case
+    if (b == null) return head;
+    b = b.next;
+  }
+  // 反转前 k 个元素
+  let newHead = reverse(a, b);
+  // 递归反转后续链表并连接起来
+  a.next = reverseKGroup(b, k);
+  return newHead;
 
-    // [start, end)
-    function reverse(start, end) {
-        let pre = null, cur = start, next = start;
-        while (cur !== end) {
-            next = cur.next;
-            cur.next = pre;
-            pre = cur;
-            cur = next;
-        }
-        // 返回反转后的头结点
-        return pre;
+  // [start, end)
+  function reverse(start, end) {
+    let pre = null,
+      cur = start,
+      next = start;
+    while (cur !== end) {
+      next = cur.next;
+      cur.next = pre;
+      pre = cur;
+      cur = next;
     }
+    // 返回反转后的头结点
+    return pre;
+  }
 }

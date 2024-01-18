@@ -13,7 +13,7 @@
 
 // 输入: piles = [30,11,23,4,20], H = 5
 // 输出: 30
- 
+
 /****
  * 思路：
  *      暴力：每小时最少吃1个，最多吃max(piles)
@@ -21,63 +21,61 @@
  *          n*w
  *      二分： nlogw （w为最大的香蕉堆的大小 二分查找-左边界
  */
-console.log(minEatingSpeed([3,6,7,11], 8));
+console.log(minEatingSpeed([3, 6, 7, 11], 8));
 function minEatingSpeed(piles, h) {
-    let max = Math.max.apply(null, piles);
+  let max = Math.max.apply(null, piles);
 
-    for (let i = 1; i < max; i++) {
-        if (canFinish(piles, i, h)) {
-            return i;
-        }
+  for (let i = 1; i < max; i++) {
+    if (canFinish(piles, i, h)) {
+      return i;
     }
+  }
 
-    return max;
+  return max;
 
-    function canFinish(piles, speed, h) {
-        let needH = piles.reduce((accum, curr) => {
-            accum += Math.ceil(curr / speed);
-            return accum;
-        }, 0);
+  function canFinish(piles, speed, h) {
+    let needH = piles.reduce((accum, curr) => {
+      accum += Math.ceil(curr / speed);
+      return accum;
+    }, 0);
 
-        return needH <= h;
-    }
+    return needH <= h;
+  }
 }
-
 
 // way2： 二分法
 function minEatingSpeed(piles, h) {
-    let max = Math.max.apply(null, piles);
+  let max = Math.max.apply(null, piles);
 
-    // for (let i = 1; i < max; i++) {
-    //     if (canFinish(piles, i, h)) {
-    //         return i;
-    //     }
-    // }
+  // for (let i = 1; i < max; i++) {
+  //     if (canFinish(piles, i, h)) {
+  //         return i;
+  //     }
+  // }
 
-    // return max;
+  // return max;
 
-    let start = 1;
-    let end = max;
+  let start = 1;
+  let end = max;
 
-    while (start < end) {
-        let mid = start + ((end - start) >> 1);
+  while (start < end) {
+    let mid = start + ((end - start) >> 1);
 
-        if (canFinish(piles, mid, h)) {
-            end = mid;
-        }
-        else {
-            start = mid + 1;
-        }
+    if (canFinish(piles, mid, h)) {
+      end = mid;
+    } else {
+      start = mid + 1;
     }
+  }
 
-    return start;
+  return start;
 
-    function canFinish(piles, speed, h) {
-        let needH = piles.reduce((accum, curr) => {
-            accum += Math.ceil(curr / speed);
-            return accum;
-        }, 0);
+  function canFinish(piles, speed, h) {
+    let needH = piles.reduce((accum, curr) => {
+      accum += Math.ceil(curr / speed);
+      return accum;
+    }, 0);
 
-        return needH <= h;
-    }
+    return needH <= h;
+  }
 }
