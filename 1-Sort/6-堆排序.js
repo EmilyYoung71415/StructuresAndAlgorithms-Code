@@ -37,8 +37,8 @@
  * 稳定  实现不可以做到稳定性
  * 建堆操作o(N)
  */
-
-
+let res = heapSort([1,3,4,5,2,6,9,7,8,0])
+//console.log(res)
  function heapSort(arr){
     if(arr===null ||arr.length<2){
         return;
@@ -47,9 +47,9 @@
     for(let i=0;i<arr.length;i++){
         heapInsert(arr,i)
     }
-    
+    console.log(arr)
     let size = arr.length;
-    // 交换根与末尾的数 并缩小堆范围
+    // 交换根与末尾的数 
     swap(arr,0,--size);
     // 开启每轮向下调整，
     //即每轮找到该范围堆的最大值，推至堆顶，再交换堆顶(最大元素至堆末)
@@ -58,35 +58,62 @@
         // 得到该轮比较的大值
         happify(arr,0,size);
         swap(arr,0,--size);
+        console.log('-----交换堆顶------')
+        console.log(arr)
+        console.log('-----------')
     }
-    
+    return arr;
  }
 
+/****
+ * 建立的初始堆：
+ *      过程：　遍历数组元素，每遇到当前节点就找他的父节点　~~((i-1)/2)
+ *             如果当前节点　＞　父节点　，那么就交换
+ *          　　同时　更替当前节点的索引，一直追溯，保证该链路上的　所有父节点都比当前节点大
+ *                  （小的早被交换了）
+ * 
+ *      结果：
+ *              由于每条链路都保卫了　最终端的父比子大，那么建堆会确定一个最大元素
+ *              生成的堆是　堆顶为最大元素的　　无序堆
+ *              同时还有个特征：        
+ *                  每条链路　都能保证，父　＞　子
+ */
 function heapInsert(arr,index){
     // 如果当前节点 > 父节点 交换 向上溯 index = pIndex
-    while(arr[index]>arr[Math.floor((index-1)/2)]){
-        swap(arr,index,Math.floor((index-1)/2));
-        index = Math.floor((index-1)/2);
+    while(arr[index]>arr[~~((index-1)/2)]){
+        swap(arr,index,~~((index-1)/2));
+        index = ~~((index-1)/2);
     }
 }
-
+/****
+ * 调整堆，swap，调整、swap，知道确定的元素满arr
+ * 怎么灾后重建的?
+ *      由于目前的灾是： 每一条路线下 都能保证当前元素大于子元素（除了顶元素）
+ *              所以将 顶部元素 依次往下交换（与子节点最大元素）
+ *              调整完之后，顶部元素来到了 数组末尾，
+ *              而此时的顶元素亦然是最大的。
+ *              所以又开始 交换顶部元素 与 末尾元素
+ * 
+ */
 function happify(arr,index,size){
-    let left = index * 2 + 1;
+    let left = index * 2 + 1;// 对当前节点找子节点 
     while(left<size){
         // 子节点取最大值节点
         let largest = left+1<size&&arr[left+1]>arr[left]?left+1:left;
         // 最大子节点与当前节点比较
         largest = arr[largest]>arr[index]?largest:index;
-
+        // 出现三种情况:最大的是 左子、右子、本身，只要本身不需要交换
         if(largest === index){
             break;
         }
         // 以下均是要交换的情景
         swap(arr,index,largest);
+        console.log(arr)
         // 继续向下排查 当前节点  = 子节点
         index = largest;
         left = index * 2 + 1;
     }
+    console.log('-----happify过程------')
 }
 
 
