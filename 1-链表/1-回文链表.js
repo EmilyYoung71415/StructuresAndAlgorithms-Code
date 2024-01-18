@@ -40,9 +40,26 @@ function isPalindrome(head) {
         if (head.val === temp.val) {
             head = head.next
             temp = temp.prev
-        } else {
+        } 
+        else {
             return false
         }
     }
     return true
+}
+
+
+// 递归版本
+function isPalindrome(head) {
+    let left = head;
+    return traverse(head);
+
+    function traverse(node) {
+        if (node==null) return true;
+        let prevIsSame = traverse(node.next);
+        // 逆序输出code
+        let currIsSame = left.val === node.val;
+        left = left.next;// left通过这种方式向右，node通过弹栈的方式向左
+        return prevIsSame && currIsSame;
+    }
 }
