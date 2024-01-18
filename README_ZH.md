@@ -1,6 +1,6 @@
 [English](./README.md) | [简体中文](.)
 
-多个outline搭配使用:
+多个outline搭配使用: 使用Notion的database更方便： [leetcode 刷题记录](https://rust-wood-d05.notion.site/7fbe8b6a72294767a22ab7a11d0e7216?v=affd922f1c594366a63cfeea7f2a152e&pvs=4)
 
 ## Study RoadMap
 
