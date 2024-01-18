@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script src="../2-Stack&Queue/2-队列实现by数组.js"></script>
+    <script src="../8-图/0-Graph.js"></script>
+    <script>
+        /**
+         * 如：
+         *      每个代码模块依赖于不同的代码。而编译工程时需要加载完所有的依赖项
+         *      此时这涉及到 顺序问题，即需要将问题抽象化，抽象为一个图，即可看到各部分之间的依赖关系
+         *      P.S：不能出现循环依赖如 A <——> B
+         *      拓扑排序用于 在一系列相互依赖的模块中排序得到最佳顺序
+         *      ===》 任何节点之前所有节点在此节点之前都被做完了，即不重复、
+         * 
+         * 实现：
+         *      从入度为0的节点开始（最不依赖的节点开始）
+         *              A
+         *          /   | \
+         *         b —— c   d  // bcd 都指向（依赖于）a； c指向b
+         *           \     /   
+         *              k       // k指向b、c
+         *      将kc输出后，又产生新入度为0点，继续输出
+         * 
+         *      KCDBA
+         * 
+         * 能够满足拓扑排序的图一定:
+         *      无向 & 无环
+         */
+
+        function TopologySort(graph,cb){
+            let inMap = {};
+            let zeroInQueue = new Queue(1000);
+            
+            //  初始化入度节点
+            for(let item of Object.values(graph.nodes)){
+                inMap[item.value] = item.in;
+
+                if(item.in===0){
+                    zeroInQueue.push(item);
+                }
+            }
+            let result = [];
+            while(!zeroInQueue.isEmpty()){
+                let cur =  zeroInQueue.poll();
+                result.push(cur);
+
+                // 修正节点依赖项
+                for(let item of cur.nexts){
+                    // 将当前节点的邻接下一个节点 入度都减1
+                    inMap[item.value] --;
+                    if(inMap[item.value]===0){
+                        zeroInQueue.push(item);
+                    }
+                }
+            }
+            cb(result);
+            return result;
+        }
+        /***
+         *  期望输出： 
+         *         1 
+         *      /  |  \
+         *    2 —— 3   4
+         *       \   /
+         *         5   
+         * ==>35241
+         */
+
+        let testarr = [
+            ['2','1',null],
+            ['3','1',null],
+            ['4','1',null],
+            ['3','2',null],
+            ['5','2',null],
+            ['5','4',null],
+        ];
+        let graph = createGraph(testarr);
+        TopologySort(graph,print);
+
+        function print(result){
+           // for(let item of result){
+                console.log(result)
+            //}
+        }
+
+    </script>
+</body>
+</html>

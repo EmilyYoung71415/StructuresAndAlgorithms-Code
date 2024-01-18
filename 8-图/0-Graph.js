@@ -61,7 +61,7 @@ function createGraph(matrix){
         toNode.in++;
         graph.edges.push(newEdge);
     }
-    console.log(graph)
+    //console.log(graph)
     return graph;
 }
 
@@ -71,4 +71,5 @@ let arr = [
     ['A','C',3],
 ];
 
-createGraph(arr);
+
+//createGraph(arr);
