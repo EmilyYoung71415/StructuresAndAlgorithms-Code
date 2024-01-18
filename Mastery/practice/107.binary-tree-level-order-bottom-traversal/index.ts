@@ -12,10 +12,6 @@ export function levelOrderBottom(root: TreeNode | null): number[][] {
       const node = queue.shift();
 
       node.val !== null && levelQueue.push(node.val);
-      if (node.val === 3) {
-        debugger;
-      }
-
       node.left && queue.push(node.left);
       node.right && queue.push(node.right);
     }
