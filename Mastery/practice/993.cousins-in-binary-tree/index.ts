@@ -5,7 +5,7 @@ export function isCousins(root: TreeNode | null, x: number, y: number): boolean 
   let pNodeX: TreeNode | null = null;
   let pNodeY: TreeNode | null = null;
 
-  let targetCount = 0;
+  // let targetCount = 0;
   while (queue.length) {
     let levelSize = queue.length;
 
@@ -21,22 +21,25 @@ export function isCousins(root: TreeNode | null, x: number, y: number): boolean 
         pNodeY = node;
       }
 
-      if ([x, y].includes(node.val)) {
-        targetCount++;
-      }
+      // if ([x, y].includes(node.val)) {
+      //   targetCount++;
+      // }
 
       node.left && queue.push(node.left);
       node.right && queue.push(node.right);
     }
 
     // 一层循环结束后:
-    if (targetCount === 2) {
-      return pNodeX !== pNodeY;
-    } else if (targetCount === 1) {
-      // 深度不一
-      return false;
-    }
+    // if (targetCount === 2) {
+    //   return pNodeX !== pNodeY;
+    // } else if (targetCount === 1) {
+    //   // 深度不一
+    //   return false;
+    // }
     // targetCount === 0继续循环
+    if (pNodeX && pNodeY) return pNodeX !== pNodeY;
+    if (pNodeY || pNodeX) return false; // 深度不一
+    // 一个都没遇见, 继续向下bfs
   }
 
   return false;
