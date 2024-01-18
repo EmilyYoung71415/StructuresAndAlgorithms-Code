@@ -10,20 +10,37 @@
  */
 
 //模板
-function BFS(graph,start,end){
-    let queue = [],visited = new Map();
-    queue.add(start);
-    visited.set(start,1);
+function BFS(startNode, endNode){
+    let queue = [];
+    let visited = new Map();
+
+    queue.add(startNode);
+    visited.set(startNode,1);
+
+    let step = 0; // 扩散的步数
 
     while(queue.length){
         let node = queue.shift();
         visited.set(node,1);
 
         // 处理当前访问的节点
-        process(node);
-        // 1. 找node的邻近节点  2.在邻近节点筛选出没被访问过的
-        nodes = generate_ralated_nodes(node);
+        // process(node);
+        // 是否到达了终点
+        if (node === endNode) {
+            return step;
+        }
 
-        queue.add(...nodes)// 象征性写法..
+        /* 将 cur 的相邻节点加入队列 */
+        // nodes = generate_ralated_nodes(node);
+        for(let nextnode in node.siblings) {
+            // 在邻近节点筛选出没被访问过的
+            if (!visited.get(nextnode)) {
+                queue.push(nextnode);
+                visited.set(nextnode, 1);
+            }
+        }
+
+        // 更新步骤
+        step++;
     }
 }
