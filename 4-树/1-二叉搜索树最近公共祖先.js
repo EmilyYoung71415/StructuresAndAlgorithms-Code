@@ -1,6 +1,5 @@
 /*****
  * leetcode:235
- * 
  */
 
 function lowestCommonAncestor(root,p,q){
@@ -11,4 +10,22 @@ function lowestCommonAncestor(root,p,q){
         return lowestCommonAncestor(root.right,p,q)
     }
     return root
+}
+
+function lowestCommonAncestor(root, p, q) {
+    let res = null;
+
+    while (root) {
+        if (root.val > p.val && root.val > q.val) {
+            root = root.left;
+        }
+        else if (root.val < p.val && root.val < q.val) {
+            root = root.right;
+        }
+        else {
+            res = root;
+            break;
+        }
+    }
+    return res;
 }
