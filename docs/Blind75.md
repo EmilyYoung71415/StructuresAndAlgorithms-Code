@@ -38,7 +38,7 @@ ref: [neecode.blind75](https://neetcode.io/practice)
 
 ## Stack
 
-- [20.Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) 🟢有效括号对
+- [20.Valid Parentheses](https://leetcode.com/problems/valid-parentheses/) 🟢有效括号对 ✅
 
 ## Binary Search
 
@@ -49,9 +49,9 @@ ref: [neecode.blind75](https://neetcode.io/practice)
 
 - [206.Reverse a Linked List](https://leetcode.com/problems/reverse-linked-list/)🟢
 - [21.Merge Two Sorted Lists](https://leetcode.com/problems/merge-two-sorted-lists/)🟢
+- [141.Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)🟢
 - [Reorder List](https://leetcode.com/problems/reorder-list/)🟡
 - [Remove Nth Node From End Of List](https://leetcode.com/problems/remove-nth-node-from-end-of-list/)🟡
-- [141.Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)🟢
 - [Merge K Sorted Lists](https://leetcode.com/problems/merge-k-sorted-lists/)🔴
 
 ## Trees
