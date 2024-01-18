@@ -1,29 +1,28 @@
 // 三色优化： 用于大量重复数字
 import { swap } from '@utils';
+// reference: 75.sort-colors
 
 export function findKthLargest(nums: number[], k: number) {
   //将[L,R]按照枢轴分为三份  三色问题 → > pivot | = pivot | > pivot
-  const partition = (L: number, R: number): number[] => {
+  const partition = (left: number, right: number): [number, number] => {
     //1、根据枢轴将数组中的数按照大小分成左右两半，并且中间为pivot
-    const pivotIndex = L + Math.floor(Math.random() * (R - L + 1));
+    const pivotIndex = left + Math.floor(Math.random() * (right - left + 1));
     const pivot = nums[pivotIndex];
-    let p0 = L; //左边 = ~0
-    let p1 = L; //左边 = ~0~1
-    for (let i = L; i <= R; ++i) {
-      //012[1]
-      if (nums[i] == pivot) {
-        swap(nums, i, p1);
-        p1++;
-      } else if (nums[i] < pivot) {
-        //case1:012[0]
-        swap(nums, i, p0);
-        //case2:002[0]
-        if (p0 < p1) swap(nums, i, p1);
-        p0++;
-        p1++;
+    let l = left; // < p的边界指针
+    let r = right; // > p 的边界指针
+    let i = l;
+
+    while (i <= r) {
+      if (nums[i] < pivot) {
+        swap(nums, i++, l++);
+      } else if (nums[i] > pivot) {
+        swap(nums, i, r--);
+      } else {
+        i++;
       }
     }
-    return [p0, p1 - 1];
+
+    return [l, r];
   };
 
   const dfs = (L: number, R: number) => {

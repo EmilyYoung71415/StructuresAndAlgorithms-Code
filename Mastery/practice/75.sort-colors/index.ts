@@ -5,27 +5,22 @@ export type Color = 1 | 2 | 0;
 
 export function sortColors(nums: Color[]) {
   const n = nums.length;
+  const pivot = 1;
 
-  // [0, 0, p0, 1, 1,1,p1, 2,2,2]
-  let p0 = 0; //左边 = ~0  // p0之前全0
-  let p1 = 0; //左边 = ~0~1 // p1之前到p0全为1
+  let ll = 0; // < p的边界指针
+  let i = 0;
+  let rr = n - 1; // > p 的边界指针
 
-  for (let i = 0; i < n; i++) {
-    // 012[1]
-    // 1直接放到p1位置
-    if (nums[i] === 1) {
-      swap(nums, i, p1);
-      p1++;
-    } else if (nums[i] === 0) {
-      // 0需要放到p0的位置并且 如果被占据的位置是1还得把1放到p1
-      //case1:012[0]
-      swap(nums, i, p0);
-      //case2:002[0]
-      if (p0 < p1) {
-        swap(nums, i, p1);
-      }
-      p0++;
-      p1++;
+  while (i <= rr) {
+    if (nums[i] < pivot) {
+      swap(nums, i, ll);
+      i++;
+      ll++;
+    } else if (nums[i] > pivot) {
+      swap(nums, i, rr);
+      rr--;
+    } else {
+      i++;
     }
   }
 }
