@@ -2,15 +2,7 @@
  *  @desc 快速排序
  *  基本思想：6 1 2 3 9 4 7 
  *      以第一个数如6为基准，将上数调整为 比6小的在左边，比6大的在右边
- *      ===>    申请两个数组,遍历剩下的数，如果比基准大则将数push到right数组里，否则push到left数组
- *      ===>    没有额外空间：
- *              两个哨兵i、j，分别从剩下列队的两头出发，一个从1出发，一个从7出发
- *              右边的哨兵先出发，直至遇到比6小的数字(找寻不属于右边大部落的走丢了的数)，停下。
- *              左边的再出发，直至遇到比6大的数字(不属于左边小部落的走丢了的数)，停下
- *              然后左边哨兵和右边哨兵互相交换人质[可以这样理解]
- *              交换之后，两个哨兵继续向中间靠拢(记住不是同时出发哦)，直至遇见。
- *              即交换遇见的那个中间值和基准值
- *              如此实现以基准为分界线的划分
+ *      
  *      快排为什么快？
  *              相比冒泡，每次都是交换都是跳跃式。比较和交换的次数变少
  *              设定基准值，每次比较之后只需再次迭代比较以基准为划分的剩下的两半。即基于二分思想
@@ -20,34 +12,43 @@
  *              划分之后,quickSort(左边的第一个数，中间值)
  */
 
-
-function quickSort(array, left, right) {　　
-    if (left > right) return;　　
-    var i = left,
-        j = right,
-        pivot = array[left]; //基准值
-    while (i != j) {
-        while (array[j] >= pivot && i < j) {
-            j--;
-        }
-        while (array[i] <= pivot && i < j) {
-            i++;
-        }
-        if (i < j) {
-            var temp = array[i];
-            array[i] = array[j];
-            array[j] = temp;
-        }
+function quickSort(arr){
+    if(arr===null||arr.length<2){
+        return;
     }
-    //重置基准值        
-    array[left] = array[i];
-    array[i] = pivot;
-    quickSort(array, left, i - 1);　　　　
-    quickSort(array, i + 1, right);　　
-    return array;
+    quickSortCal(arr,0,arr.length-1);
 }
-var arr = [6, 2, 1, 8, 4, 5, 1, 7]
-console.log(quickSort(arr, 0, arr.length - 1));
+
+function quickSortCal(arr,left,right){
+    if(left<right){
+        let p = partition(arr,left,right);// 第一次分割，并将基准值返回
+        quickSortCal(arr,left,p-1);
+        quickSortCal(arr,p+1,right);
+    }
+}
+
+function partition(arr, left, right) {
+    if (left < right) {
+        let
+            p = arr[right],
+            bounder = left - 1;// <= 区域的右边界
+        for (let i = left; i <= right; i++) {
+            if (arr[i] <= p) {// 以基准值为划分 小于等于的在一边，大于的在另一边
+                swap(arr, ++bounder, i)
+            }
+        }
+        return bounder;
+    }
+
+}
+
+
+function swap(arr,i,j){
+    let temp = arr[i];
+    arr[i] = arr[j];
+    arr[j] = temp;
+}
+
 
 
 /**
@@ -59,7 +60,7 @@ console.log(quickSort(arr, 0, arr.length - 1));
  */
 
 
-function quickSort(arr) {
+function quickSort_js(arr) {
     if (arr.length <= 1) return arr;
 
     var
@@ -76,10 +77,9 @@ function quickSort(arr) {
         }
     });
 
-    //递归调用
     var
-        _left = quickSort(left),
-        _right = quickSort(right);
+        _left = quickSort_js(left),
+        _right = quickSort_js(right);
 
     //合并
     return _left.concat(midItem, _right);
@@ -93,7 +93,7 @@ function quickSort(arr) {
  *          arr.slice(1) //未定义start即从下标1到数组结尾的所有数
  */
 
-function quickSort(a) {
+function quickSort_oneLine(a) {
     return a.length <= 1 ? a :
-        quickSort(a.slice(1).filter(item => item <= a[0])).concat(a[0], quickSort(a.slice(1).filter(item => item > a[0])));
+    quickSort_oneLine(a.slice(1).filter(item => item <= a[0])).concat(a[0], quickSort_oneLine(a.slice(1).filter(item => item > a[0])));
 }
