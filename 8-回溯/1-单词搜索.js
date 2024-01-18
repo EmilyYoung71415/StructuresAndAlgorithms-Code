@@ -37,30 +37,52 @@ const board =
   ['A','D','E','E']
 ]
 
-console.log(exist(board,'ABCCED'))
-function exist(board,word){
-    const dx = [-1,1,0,0],// 控制上下左右联动
-          dy = [0,0,-1,1],
-          rowLen = board.length,
-          colLen = board[0].length;
-    return existCall(board,0,0,'');
-
-    function existCall(board,i,j,n){
-        if(n==word.length-1){
-            return true;
-        }
-        if(i>=rowLen||j>=colLen){
-            return false;
-        }
-        // 从当前格子发散 考虑四个方向 
-        for(let k=0;k<4;k++){
-            let x = i + dx[k],
-                y = j + dy[k];
-            // 当前棋盘的字符是匹配的
-            if((x>=0&&x<colLen&&y>=0&&y<rowLen)&&board[x][y]==word[n]){
-                return existCall(board,x,y,n+1);
+console.log(exist([['a']],'b'))
+/****
+ * 错误过的例子:
+ * [["a"]]
+"   ab" ==> board[0].length==0
+ * 
+   [['a']] b  
+ * 
+ */
+// 换了个记录方式  不是传递str的n 而是裁剪word
+function exist2(board,word){
+    const dx = [-1,1,0,0],dy = [0,0,-1,1];// 控制上下左右联动
+    if(board.length==0||board[0].length==0) return true;
+    for(let i=0; i<board.length; i++){
+        for(let j=0; j<board[0].length; j++){
+            if(check(board, word, i, j)){
+                return true;
             }
         }
-        // 当前格子的4个方向都遍历完了都没找到一样的
+    }
+    return false;
+
+
+    function check(board,word,i,j){
+        if(word.length==0) return true;
+        if(i<0 || j<0 ||i>=board.length ||j>=board[0].length){
+            return false;
+        }
+        if(word[0]==board[i][j]){
+            let temp = word[0];
+            board[i][j]='#';// # 记录节点已被访问
+            // if( check(board,word.substr(1), i+1, j)||
+            //     check(board,word.substr(1), i-1, j)||
+            //     check(board,word.substr(1), i, j+1)||
+            //     check(board,word.substr(1), i, j-1)
+            // ){
+            //     return true;
+            // }
+            for(let k=0;k<4;k++){
+                let x = i + dx[k],y = j + dy[k];
+                if(check(board,word.substr(1),x,y)){
+                    return true;
+                }
+            }
+            board[i][j]=temp;// 回溯到当前字符
+        }
+        return false;
     }
 }
