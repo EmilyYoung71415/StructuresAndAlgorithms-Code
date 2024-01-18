@@ -30,7 +30,6 @@ function mergeSort(arr) {
         }
         len *= 2;
     }
-
 }
 
 

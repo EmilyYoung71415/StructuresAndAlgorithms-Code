@@ -7,7 +7,6 @@
  *      选择排序相当于在两个空间进行，每次从未排序的旧空间选择最新的值放到新的空间
  * 时间复杂度   最优O(n^2)  最差O(n^2)  平均O(n^2) 
  */
-
  function selectSort(arr){
     if(arr===null||arr.length<2){
         return;

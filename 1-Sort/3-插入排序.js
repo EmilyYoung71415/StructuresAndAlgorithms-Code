@@ -15,7 +15,10 @@ function insertSort(arr){
     if(arr===null||arr.length<2){
         return;
     }
+    //未排序元素 从1开始 假设0是已排序的
     for(let i =1;i<arr.length;i++){
+        // 已排序元素中，从右到左遍历 arr[j+1]始终指向本轮遍历的新来元素
+        // 只有arr[j]>arr[j+1] 调整位置即"插入"过程
         for(let j=i-1;j>=0&&arr[j]>arr[j+1];j--){
             swap(arr,j,j+1)
         }

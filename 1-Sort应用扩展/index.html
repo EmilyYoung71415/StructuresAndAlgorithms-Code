@@ -7,9 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <script src="./1-归并排序之求小和.js"></script>
-    <script src="./1-归并排序非递归解法.js"></script>
-    <script src="./2-快速排序之三等分.js"></script>
+    <script src="./3-插入改进之希尔排序.js"></script>
     <script>
         // 比较器
         // 随机发射器 输入len 数组长度，size数字的大小范围 --帮助我们产生随机数据
@@ -59,7 +57,7 @@
 
         window.onload = function(){
             let 
-                testTime = 5,
+                testTime = 500,
                 maxLen = 10,
                 maxSize  = 12,
                 success = true;
@@ -69,7 +67,8 @@
                 let arr2 = copyArr(arr1);
                 /************排序算法**********************/
                //  mergeSort(arr1)
-                quickSort(arr1);
+               ///insertionSortDichotomy(arr1)
+               shellSort(arr1)
                 console.dir('测试后'+ arr1)
                 // 调用原生sort方法 通过和原生sort比较判断结果是否正确
                 compareWithRight(arr2);
