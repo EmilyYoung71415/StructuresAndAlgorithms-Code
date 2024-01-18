@@ -5,6 +5,7 @@ export function canJump(nums: number[]): boolean {
     if (curPos > maxPos) return false;
     const curMaxPos = curPos + nums[curPos]; // 从当前点出发能达到的最远距离
     maxPos = Math.max(maxPos, curMaxPos);
+    if (maxPos > nums.length - 1) return true; // 已经能到达终点了(不需要再跳了
   }
 
   return true;
