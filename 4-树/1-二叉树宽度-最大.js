@@ -67,6 +67,27 @@ function widthOfBinaryTree1(root){
         return j-i+1;
     }
 }
+// BFS 改进版 计算宽度 同样是利用 结点当前索引-当前层的第一个结点的索引
+// 针对同层里  # 1 # # 3 这样的情况，将push空节点之后再从两头扫描算宽度，这里改进为记录结点索引值 和 开头和结尾的索引
+function widthOfBinaryTree(root){
+    // 因为需要当前结点的索引值（伴随变量） 所以将队列扩建为二维队列
+    let queue = [[root,1]];// [root]
+    let max = 0;
+    while(queue.length){
+        let len = queue.length;// 上一层节点个数
+        let left =  queue[0][1];
+        while(len--){
+            const [node, posi] = queue.shift();
+            node.left && queue.push([node.left,posi * 2]);
+            node.right && queue.push([node.right, posi * 2 + 1]);
+            let curWidth = posi - left + 1;
+            if (curWidth > max) {
+                max = curWidth;
+            }
+        }
+    }
+    return max;
+}
 
 /*****
  * 换个思路
