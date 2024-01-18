@@ -6,6 +6,9 @@
  * 重点：
  *      递归的base case 出口
  *      master公式估约递归的复杂度
+ * 时间复杂度   最优O(N*logN)  最差O(N*logN)  平均O(N*logN) 
+ * 空间  O(N)
+ * 稳定  实现可以做到稳定性
  */
 
 function mergeSort(arr) {
