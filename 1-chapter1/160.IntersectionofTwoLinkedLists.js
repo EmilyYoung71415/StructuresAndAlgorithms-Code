@@ -23,7 +23,8 @@ B:     b1 → b2 → b3
  * 
  *  两个指针，同时标记两个链表。
  *  如果他们的节点一致了(初次) 则相交节点
- * 
+ *  问题在于：
+ *      找到他们可以一起出发的点，此点能保证他们的长度一致
  * 优化：两个链表较长的那个先走 n步
  * 48%
  */
@@ -45,7 +46,8 @@ function getIntersectionNode(headA, headB) {
         headB = headB.next;
         p2 = p2.next;
     }
-
+    // headA、headB分别是两个链表的同一长度起始点
+    // 从两head开始遍历至结尾走同样的步数
     while (headA!=null&&headB!=null){
         if(headA==headB){
             return headA;
