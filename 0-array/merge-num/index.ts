@@ -5,6 +5,7 @@
 
 // 思路：直接遍历可以从前往后遍历，
 // 再用一个指针从当前要求和的数地方往后遍历，用bool记录使用过的数
+
 export function mergeNumAndPrintf(str: string): number[] {
   const result: number[] = [];
   const boolSet: Set<number> = new Set();
@@ -30,6 +31,12 @@ export function mergeNumAndPrintf(str: string): number[] {
 
   return result;
 }
+
+// 思路2
+// Map<num, count> 遍历记录各个数字出现的次数
+// dataQueue: []; 按照出现次序push num
+// 顺序输出dataQueue, 每遇到data时 dataQ[index] = num*count
+// 假设n个数, 空间复杂度： 2*n， 时间复杂度：m个数，m+n
 
 // 改编：合并连续相等的数
 // s=“12223333752“，请你输出[1, 6, 12, 7, 5, 2]
