@@ -98,6 +98,13 @@ function connect(root: Node | null): Node | null {
     边界点: 当遇到第一个叶子节点确定
 ```
 
+- [x] [面试题 04.03. 特定深度节点链表](https://leetcode.cn/problems/list-of-depth-lcci/)
+
+```
+  每次层循环时, head头结点为linkList.head
+  prevNode.next = nextNode;
+```
+
 # 图传值
 
 ## 拓扑排序DAG
