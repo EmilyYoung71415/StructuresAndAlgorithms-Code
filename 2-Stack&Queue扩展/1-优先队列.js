@@ -18,28 +18,43 @@
 
 
 
- function Queue(elem,prio){
-    this.elem = elem;
-    this.prio = prio;
- }
- function PriorityQueue(){
+//  function Queue(elem,prio){
+//     this.elem = elem;
+//     this.prio = prio;
+//  }
+ function PriorityQueue(cb){
     this.arr = [];
     this.insertFlag = false;
+    this.cb = cb;
  }
 
 
  PriorityQueue.prototype = {
-    add:function(elem,prio){
-        let newNode = new Queue(elem,prio);
+    // add:function(elem,prio){
+    //     let newNode = new Queue(elem,prio);
+    //     for(let i in this.arr){
+    //         if(newNode.prio<this.arr[i].prio){
+    //             this.arr.splice(i,0,newNode);
+    //             this.insertFlag = true;
+    //             break;
+    //         }
+    //     }
+
+    //     // 未插入情况
+    //     if(!this.insertFlag){
+    //         this.arr.push(newNode);
+    //     }
+    // },
+    add:function(newNode){
         for(let i in this.arr){
-            if(newNode.prio<this.arr[i].prio){
+           // if(newNode.weight<this.arr[i].weight){
+            if(this.cb(this.arr[i],newNode)>0){
                 this.arr.splice(i,0,newNode);
                 this.insertFlag = true;
                 break;
             }
+           // }
         }
-
-        // 未插入情况
         if(!this.insertFlag){
             this.arr.push(newNode);
         }
@@ -54,11 +69,14 @@
         for(let i in this.arr){
             console.log(this.arr[i]);
         }
+    },
+    isEmpty:function(){
+        return this.arr.length===0;
     }
  }
 
- let arr2 = new PriorityQueue();
- arr2.add('xiaohong',9);
- arr2.add('xiaohong1',38);
- arr2.add('xiaohong3',2);
-arr2.print();
+//  let arr2 = new PriorityQueue();
+//  arr2.add('xiaohong',9);
+//  arr2.add('xiaohong1',38);
+//  arr2.add('xiaohong3',2);
+// arr2.print();
