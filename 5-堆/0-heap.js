@@ -128,6 +128,9 @@ class Heap {
     isEmpty(){
         return !this.arr.length;
     }
+    size() {
+        return this.arr.length;
+    }
 }
 
 module.exports = Heap;
