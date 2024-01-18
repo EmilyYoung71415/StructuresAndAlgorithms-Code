@@ -27,3 +27,18 @@ function postorder(root) {
         })
     }
 }
+
+// 后序：左右根，  前序：根左右=> 根右左
+function postorder(root){
+    let result = [];
+    let stack = [root];
+    
+    while (stack.length) {
+        let node = stack.pop();
+        if (node) {
+            result.unshift(node.val);
+            stack.push(...node.children);
+        }
+    }
+    return result;
+}
