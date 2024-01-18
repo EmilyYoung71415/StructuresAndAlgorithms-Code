@@ -12,7 +12,9 @@ export function fib_pre_dfs(n: number) {
 
   // 更新dp
   const dfs = (x: number) => {
-    if (x === n) return dp[n];
+    if (x === n) {
+      return dp[n];
+    }
 
     const nexts = x === 0 ? [2] : [x + 1, x + 2];
 
