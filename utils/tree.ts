@@ -99,7 +99,8 @@ export class TreeUtil {
         return null;
       }
 
-      const node = new TreeNode(levelOrder[index] as number);
+      const val = levelOrder[index];
+      const node = new TreeNode(val);
       node.left = buildTree(2 * index + 1);
       node.right = buildTree(2 * index + 2);
       return node;
