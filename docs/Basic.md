@@ -15,7 +15,7 @@
 - Design Disjoint Set (Union-Find)(Medium)
 - Design Segment Tree(Hard)
 
-## Sorting
+## Sorting ✅
 
 - Insertion Sort
 - Merge Sort
