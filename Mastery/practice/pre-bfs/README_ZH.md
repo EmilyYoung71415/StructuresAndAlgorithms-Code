@@ -120,12 +120,17 @@ function connect(root: Node | null): Node | null {
     if ((node.left || node.right) === x || y) ==> xpNode
 ```
 
-- [x] [310.最小高度树](https://leetcode.cn/problems/minimum-height-trees/)
+- [x] [310.最小高度树](../310.minimum-height-trees/index.ts)
 
   - way1:
     - 最直接的解法是，枚举以每个节点为根构成的树，然后求出该树的高度，所有树的最小高度即为答案，需要的时间复杂度为 O(n^2)
     - **复杂度是O(N^2)**
-  - way2: "反向"DFS，找到出度为1的节点，push队列，最后队列的最底层level的节点就是最小高度树节点，拓扑排序的思路.时空复杂度:O(N)
+  - way2: 越靠近里面的节点(有尽可能多连接的点)越有可能是最小高度树节点
+
+    - 从边缘开始，先找到所有出度为1的节点，然后把所有出度为1的节点进队列，然后不断地bfs，最后找到的就是两边同时向中间靠近的节点，那么这个中间节点就相当于把整个距离二分了，即到两边距离最小的点，也是到其他叶子节点最近的节点
+    - 也就是需要得到bfs时最后一层的叶子结点集合，即拓扑排序的思路.
+      - 每层内while(levelSize--)的时候需要 维护levelList
+    - 时空复杂度:O(N)
 
 <del>
   
