@@ -1,4 +1,4 @@
-function restoreIpAddresses(s: string): string[] {
+export function restoreIpAddresses(s: string): string[] {
   const n = s.length;
   const res: string[] = [];
   const path: number[] = []; // 255.255.11.23
