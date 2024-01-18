@@ -38,7 +38,8 @@ function permuteUnique(nums){
         // 怎么在这里去重呢
         // if(i>0&&pathArr[i]==pathArr[i-1]) continue;
         //1.当前元素已经用过了 比如第一个1
-        //2、排序之后 连着的第二个元素相同，且第一个元素被用过
+        //2.当出现了连续两个相同的value时，第二个value只能当第一个value被用过的情况下才能被用
+        //  补充成[1,1,x] 如果第一个没有被用会抛至上层 交给第一个用
         if(usedArr[i] || i>0&&nums[i]==nums[i-1]&&!usedArr[i-1]) continue;
         let tempArr = pathArr.slice()
         tempArr.push(nums[i]);
@@ -49,3 +50,23 @@ function permuteUnique(nums){
     }
   }
 }
+
+
+/*****
+ *  if(usedArr[i] || i>0&&nums[i]==nums[i-1]&&!usedArr[i-1]) continue;
+ * 辨析：
+ * if(usedArr[i]) 是竖向下去的时候如果当前元素已经选择了 则不再选
+ *   比如[1,1,2] 从[1,x,x]=>[1,1,x] 第一个1已经被选了 so 直接跳过
+ * 
+ * if(i>0&&nums[i]==nums[i-1]&&!usedArr[i-1])
+ * 当出现了连续两个相同的value时，第二个value只能当第一个value被用过的情况下才能被用
+ * 补充成[1,1,x] 如果第一个没有被用会抛至上层 交给第一个用
+ * 这个判断句辨析的是 从[1]=>[1,1]第二个1 与 [1]竖向完了之后回溯横向遍历遇到[1]
+ *                  这两个同样循环里 nums[i-1] = nums[i]之间的差别
+ *                  竖向的可以添加  横向的不能添加需要抛弃 
+ *          [1] [1] [2]
+ *           /   |   \
+ *         [1]  [1]
+ *         /
+ *      [1 1]
+ */
