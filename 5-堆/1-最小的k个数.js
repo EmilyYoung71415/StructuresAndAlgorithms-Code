@@ -31,13 +31,13 @@ function getLeastNumbers(arr, k) {
     let heap = new Heap('max');
     
     arr.forEach(item => {
-        if (heap.size() < k) {
+        if (heap.size < k) {
             head.add(item);
         }
         else {
-            let curMax = heap.peek();
+            let curMax = heap.peek;
             if (curMax > item) {
-                heap.pop();
+                heap.poll();
                 heap.add(item);
             }
         }
