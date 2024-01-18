@@ -8,11 +8,36 @@ test('buildTreeFromPreOrder should work', () => {
   expect(output).toStrictEqual(inOrder);
 });
 
-test.skip('buildTreeFromLevelOrder should work', () => {
-  // const levelOrder = [0, 2, 4, 1, null, 3, -1, 5, 1, null, null, null, 6, null, 8];
-  // const root = TreeUtil.buildByLevel(levelOrder);
-  // const output = TreeUtil.traversalLevelOrder(root);
-  // expect(levelOrder).toStrictEqual(output);
+describe('buildTreeFromLevelOrder should work', () => {
+  test('buildTreeFromLevelOrder 1', () => {
+    const levelOrder = [1, 2, 5, 3, 4, null, 6];
+    const root = TreeUtil.buildByLevel(levelOrder);
+    const output = TreeUtil.traversalLevelOrder(root);
+    expect(output).toStrictEqual(levelOrder);
+  });
+
+  test('buildTreeFromLevelOrder when tree degenerate to link list', () => {
+    const levelOrder = [
+      1,
+      null,
+      2,
+      null,
+      null,
+      null,
+      3,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      4,
+    ];
+    const root = TreeUtil.buildByLevel(levelOrder);
+    const output = TreeUtil.traversalLevelOrder(root);
+    expect(output).toStrictEqual(levelOrder);
+  });
 });
 
 test('find target node in MTree should work', () => {
