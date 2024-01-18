@@ -1,7 +1,7 @@
-import { buildLinkedList, expectListAs } from '../_util';
-import { reverseBetween } from './index';
+import { buildLinkedList, expectListAs } from '@utils';
+import { reverseBetween } from './dfs';
 
-test.skip('reverseBetween should work', () => {
+test('reverseBetween should work', () => {
   const input = [1, 2, 3, 4, 5];
   const expected = [1, 4, 3, 2, 5];
   const head = buildLinkedList(input);
