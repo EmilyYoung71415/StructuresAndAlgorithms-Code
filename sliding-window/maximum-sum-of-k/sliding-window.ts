@@ -4,8 +4,8 @@ export function maxSum(arr: number[], k: number) {
   // initial current_sum of first k elements
   for (let i = 0; i < k; i++) {
     current_sum += arr[i];
-    max = current_sum;
   }
+  max = current_sum;
 
   // iterate the array once
   // and increment the current_sum by arr[i] and decrement by arr[i-k]
