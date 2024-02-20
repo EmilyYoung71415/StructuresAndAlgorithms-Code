@@ -98,7 +98,7 @@ ref: [neecode.blind75](https://neetcode.io/practice)
 
 ## 1 DP
 
-- [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)🟢
+- [70.Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)🟢
 - [House Robber](https://leetcode.com/problems/house-robber/)🟡
 - [House Robber II](https://leetcode.com/problems/house-robber-ii/)🟡
 - [Longest Palindromic Substring]🟡
@@ -136,7 +136,7 @@ ref: [neecode.blind75](https://neetcode.io/practice)
 
 ## Bit Manipulation
 
-- [Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) 🟢
+- [191.Number of 1 Bits](https://leetcode.com/problems/number-of-1-bits/) 🟢✅
 - [Counting Bits](https://leetcode.com/problems/counting-bits/)🟢
 - [Reverse Bits](https://leetcode.com/problems/reverse-bits/)🟢
 - [Missing Number](https://leetcode.com/problems/missing-number/)🟢
